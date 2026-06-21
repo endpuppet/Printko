@@ -1,3 +1,9 @@
+<!-- ════════════════════════════════════════════════════════════════
+     ⚠️  DEPRECATED — DO NOT USE
+     This file is from v10 of the Printko project.
+     The current version lives in /printko/index.html (v11+).
+     Kept in /archive/ for historical reference only.
+     ════════════════════════════════════════════════════════════════ -->
 <!DOCTYPE html>
 <html lang="sl" data-theme="trta" data-lang="sl">
 <head>
@@ -394,10 +400,6 @@ body{
   display:flex;flex-direction:column;align-items:center;
   margin-bottom:1rem;
   user-select:none;
-  /* Wider than the avatar so the popped-out pills have room */
-  width:100%;
-  max-width:520px;
-  padding:0 1rem;
 }
 .avatar{
   width:200px;height:230px;
@@ -562,49 +564,6 @@ body{
 .avatar.emotion-embarrassed .piko .eyebrows-worried,
 .avatar.emotion-embarrassed .piko .mouth-smirk{display:block}
 
-/* New v11 attitude emotions */
-.avatar.emotion-annoyed .piko .eyes-squint,
-.avatar.emotion-annoyed .piko .eyebrows-furrowed,
-.avatar.emotion-annoyed .piko .mouth-smirk{display:block}
-
-.avatar.emotion-exasperated .piko .eyes-closed,
-.avatar.emotion-exasperated .piko .eyebrows-furrowed,
-.avatar.emotion-exasperated .piko .mouth-flat{display:block}
-
-.avatar.emotion-unimpressed .piko .eyes-half,
-.avatar.emotion-unimpressed .piko .eyebrows-smug,
-.avatar.emotion-unimpressed .piko .mouth-flat{display:block}
-
-.avatar.emotion-fedup .piko .eyes-closed,
-.avatar.emotion-fedup .piko .eyebrows-furrowed,
-.avatar.emotion-fedup .piko .mouth-grumpy{display:block}
-
-.avatar.emotion-sarcastic .piko .eyes-half,
-.avatar.emotion-sarcastic .piko .eyebrows-raised,
-.avatar.emotion-sarcastic .piko .mouth-smirk{display:block}
-
-.avatar.emotion-mischievous .piko .eyes-wink,
-.avatar.emotion-mischievous .piko .eyebrows-smug,
-.avatar.emotion-mischievous .piko .mouth-grin{display:block}
-
-.avatar.emotion-dramatic .piko .eyes-wide,
-.avatar.emotion-dramatic .piko .eyebrows-surprised,
-.avatar.emotion-dramatic .piko .mouth-big-o{display:block}
-
-.avatar.emotion-sideeye .piko .eyes-slanted-down,
-.avatar.emotion-sideeye .piko .eyebrows-smug,
-.avatar.emotion-sideeye .piko .mouth-flat{display:block}
-
-/* Antenna-glow variants for annoyed family (fast, irritated pulse) */
-.avatar.emotion-annoyed .piko .antenna-glow,
-.avatar.emotion-exasperated .piko .antenna-glow,
-.avatar.emotion-fedup .piko .antenna-glow,
-.avatar.emotion-sarcastic .piko .antenna-glow,
-.avatar.emotion-sideeye .piko .antenna-glow,
-.avatar.emotion-unimpressed .piko .antenna-glow{animation-duration:1.2s;opacity:.6}
-.avatar.emotion-dramatic .piko .antenna-glow{animation-duration:.3s;opacity:.85}
-.avatar.emotion-mischievous .piko .antenna-glow{animation-duration:.8s;opacity:.7}
-
 /* Fallback: if no emotion class is set yet, show neutral */
 .avatar:not([class*="emotion-"]) .piko .eyes-normal,
 .avatar:not([class*="emotion-"]) .piko .eyebrows-neutral,
@@ -768,73 +727,43 @@ body{
 .send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 .send-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 
-/* ════ SUGGESTIONS — pop out around Printko's head (v11) ════ */
-/* Container: absolutely positioned pills around the avatar.
-   .avatar-wrap is the positioning context (position:relative). */
-.suggestions-pop{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:5;
+/* ════ SUGGESTIONS ════ */
+.suggestions{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:680px;
+  margin-bottom:1.2rem;
+  min-height:36px;
+  padding:0 .5rem;
 }
 .sugg{
-  position:absolute;
-  pointer-events:auto;
-  font-size:.78rem;
-  padding:.42rem .85rem;
+  font-size:.85rem;
+  padding:.5rem .95rem;
   background:var(--card);
   border:1.5px solid var(--line);
   border-radius:99px;
   color:var(--tlo);
-  transition:transform var(--t-base) var(--spring),opacity var(--t-base),color var(--t-fast),border-color var(--t-fast);
+  transition:all var(--t-base) var(--ease);
   font-weight:600;
   box-shadow:var(--shadow-soft);
-  white-space:nowrap;
-  cursor:pointer;
-  /* Remove blue tap highlight on mobile */
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-  animation:suggPopIn .5s var(--spring) backwards;
+  display:inline-flex;
+  align-items:center;
 }
-/* 6 pills positioned around Printko's head (top-left, top-right, left, right, bottom-left, bottom-right) */
-.sugg:nth-child(1){top:8%;   left:-12%; animation-delay:.1s}
-.sugg:nth-child(2){top:4%;   right:-8%; animation-delay:.2s}
-.sugg:nth-child(3){top:38%;  left:-22%; animation-delay:.3s}
-.sugg:nth-child(4){top:38%;  right:-22%; animation-delay:.4s}
-.sugg:nth-child(5){top:70%;  left:-10%; animation-delay:.5s}
-.sugg:nth-child(6){top:74%;  right:-6%; animation-delay:.6s}
-@keyframes suggPopIn{
-  from{opacity:0;transform:scale(.4) translateY(8px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
-}
-/* Hover/active reaction — NO blue highlight, just lift + accent color */
-.sugg:hover,.sugg:active,.sugg:focus{
+.sugg:hover,.sugg:active{
   color:var(--acc);
   border-color:var(--acc);
-  transform:translateY(-3px) scale(1.04);
+  transform:translateY(-2px);
   box-shadow:var(--shadow);
   background:var(--card);
-  outline:none;
 }
-/* Subtle floating idle animation per pill (staggered) */
-.sugg:nth-child(1){animation:suggPopIn .5s var(--spring) .1s backwards,suggFloat 4s ease-in-out .6s infinite}
-.sugg:nth-child(2){animation:suggPopIn .5s var(--spring) .2s backwards,suggFloat 4.5s ease-in-out .8s infinite}
-.sugg:nth-child(3){animation:suggPopIn .5s var(--spring) .3s backwards,suggFloat 5s ease-in-out 1s infinite}
-.sugg:nth-child(4){animation:suggPopIn .5s var(--spring) .4s backwards,suggFloat 4.2s ease-in-out 1.2s infinite}
-.sugg:nth-child(5){animation:suggPopIn .5s var(--spring) .5s backwards,suggFloat 4.8s ease-in-out 1.4s infinite}
-.sugg:nth-child(6){animation:suggPopIn .5s var(--spring) .6s backwards,suggFloat 5.2s ease-in-out 1.6s infinite}
-@keyframes suggFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-/* When a pill is tapped, briefly scale down + flash accent (no blue) */
-.sugg.tapped{
-  animation:suggTap .4s var(--spring)!important;
+.sugg::before{
+  content:'💬';
+  margin-right:.4rem;
+  font-size:.7rem;
+  opacity:.6;
 }
-@keyframes suggTap{
-  0%{transform:scale(1.04)}
-  40%{transform:scale(.9);background:var(--acc-bg);border-color:var(--acc)}
-  100%{transform:scale(1)}
-}
-/* Hide emoji prefix in pop-out design (cleaner) */
-.sugg::before{content:none}
 
 /* ════ QUICK ACCESS PILLS ════ */
 .quick-access{
@@ -1132,11 +1061,8 @@ body{
 @media(max-width:900px){
   .avatar{width:180px;height:207px}
   .speech{font-size:1.2rem}
+  .suggestions{max-width:90vw}
   .quick-access{max-width:90vw}
-  /* Pop-out pills scale slightly smaller on tablet */
-  .sugg{font-size:.74rem;padding:.38rem .8rem}
-  .sugg:nth-child(3){left:-18%}
-  .sugg:nth-child(4){right:-18%}
 }
 
 /* Mobile */
@@ -1147,24 +1073,22 @@ body{
     justify-content:flex-start;
     overflow-y:auto;
   }
-  .avatar-wrap{margin-bottom:.6rem;margin-top:.5rem;padding:0 .5rem}
+  .avatar-wrap{margin-bottom:.6rem;margin-top:.5rem}
   .speech{
     font-size:1.15rem;
     padding:.3rem .8rem;
     line-height:1.4;
   }
   .speech ul{font-size:.85rem}
-  /* Pop-out pills tighter + smaller on mobile */
-  .sugg{
-    font-size:.66rem;
-    padding:.32rem .6rem;
+  .suggestions{
+    gap:.35rem;
+    margin-bottom:1rem;
   }
-  .sugg:nth-child(1){top:10%;left:-8%}
-  .sugg:nth-child(2){top:6%;right:-4%}
-  .sugg:nth-child(3){top:38%;left:-14%}
-  .sugg:nth-child(4){top:38%;right:-14%}
-  .sugg:nth-child(5){top:72%;left:-6%}
-  .sugg:nth-child(6){top:76%;right:-2%}
+  .sugg{
+    font-size:.72rem;
+    padding:.4rem .7rem;
+  }
+  .sugg::before{font-size:.6rem;margin-right:.3rem}
   .qa-pill{
     font-size:.7rem;
     padding:.4rem .7rem;
@@ -1195,16 +1119,9 @@ body{
 
 /* Very small phones */
 @media(max-width:380px){
-  .avatar{width:110px;height:127px}
+  .avatar{width:120px;height:138px}
   .speech{font-size:1.05rem}
-  /* Pills even tighter — stack closer to head, smaller text */
-  .sugg{font-size:.6rem;padding:.28rem .5rem}
-  .sugg:nth-child(1){top:12%;left:-4%}
-  .sugg:nth-child(2){top:8%;right:0%}
-  .sugg:nth-child(3){top:40%;left:-8%}
-  .sugg:nth-child(4){top:40%;right:-8%}
-  .sugg:nth-child(5){top:74%;left:-2%}
-  .sugg:nth-child(6){top:78%;right:2%}
+  .sugg{font-size:.66rem;padding:.35rem .6rem}
   .qa-pill{font-size:.65rem;padding:.35rem .6rem}
   .brand{font-size:.9rem}
   .theme-grid{grid-template-columns:repeat(2,1fr)}
@@ -1216,7 +1133,7 @@ body{
   .stage{padding:60px 1rem .8rem;justify-content:center}
   .avatar-wrap{margin-bottom:.3rem}
   .speech{font-size:1rem;margin-bottom:.3rem;min-height:40px}
-  .sugg{font-size:.6rem;padding:.28rem .55rem}
+  .suggestions{margin-bottom:.5rem}
   .quick-access{margin-top:.3rem}
 }
 
@@ -1674,8 +1591,6 @@ body{
         </g>
       </svg>
     </div>
-    <!-- v11: Suggestion pills pop out around Printko's head -->
-    <div class="suggestions-pop" id="suggestions"></div>
     <!-- Speech text sits directly below avatar (no comic cloud) -->
     <div class="speech-wrap">
       <div class="speech" id="speech">
@@ -1686,10 +1601,13 @@ body{
     <div class="avatar-status" id="avatar-status">Pripravljen</div>
   </div>
 
+  <!-- SUGGESTIONS -->
+  <div class="suggestions" id="suggestions"></div>
+
   <!-- CHAT BAR -->
   <div class="chat-bar">
     <div class="chat-input-wrap">
-      <textarea class="chat-in" id="chat-in" placeholder="Vprašaj Printka…" rows="1" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
+      <textarea class="chat-in" id="chat-in" placeholder="Vprašaj Pika…" rows="1" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
     </div>
     <button class="send-btn" id="send-btn" onclick="sendMsg()">
       <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
@@ -1812,7 +1730,7 @@ body{
       </button>
 
       <div class="section-lbl" id="lbl-about">O programu · About</div>
-      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v11.0 · Printko</span></div>
+      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v10.0 · Printko</span></div>
       <div class="about-row"><span class="l" id="lbl-printer">Tiskalnik</span><span class="v">eufy E1 UV</span></div>
       <div class="about-row"><span class="l" id="lbl-status">Stanje</span><span class="v" id="conn-status">— povezave</span></div>
     </div>
@@ -1840,14 +1758,6 @@ const I18N={
     listening:'Printko posluša…',
     sleeping:'Printko spi…',
     grumpy:'Mmm… kar je?',
-    annoyed:'Uf, kaj pa zdaj?',
-    exasperated:'Vže… res?',
-    unimpressed:'Mhm.',
-    fedup:'Dosti je bilo.',
-    sarcastic:'Ja, ja, zelo smešno.',
-    mischievous:'Kaj smukaš?',
-    dramatic:'O, ne!',
-    sideeye:'…',
     askPlaceholder:'Vprašaj Printka…',
     send:'Pošlji',
     news:'Novice',
@@ -1926,14 +1836,6 @@ const I18N={
     listening:'Printko is listening…',
     sleeping:'Printko is sleeping…',
     grumpy:'Mmm… what is it?',
-    annoyed:'Ugh, what now?',
-    exasperated:'Oh, really?',
-    unimpressed:'Mhm.',
-    fedup:'That\'s enough.',
-    sarcastic:'Yeah, hilarious.',
-    mischievous:'What are you up to?',
-    dramatic:'Oh, no!',
-    sideeye:'…',
     askPlaceholder:'Ask Printko…',
     send:'Send',
     news:'News',
@@ -2204,45 +2106,29 @@ function updateUIText(){
 /* EMOTION SYSTEM: each emotion maps to (eyes, eyebrows, mouth) variants.
    CSS rules in the style block handle visibility based on .emotion-<name> class. */
 const EMOTIONS={
-  // Calm/neutral family
   neutral:    {eyes:'normal',       eyebrows:'neutral',    mouth:'neutral',     statusKey:'ready'},
-  content:    {eyes:'half',         eyebrows:'neutral',    mouth:'smile',       statusKey:'ready'},
-  sleepy:     {eyes:'half',         eyebrows:'sleeping',   mouth:'flat',        statusKey:'sleeping'},
-  // Happy family
   happy:      {eyes:'slanted-up',   eyebrows:'raised',     mouth:'big-smile',   statusKey:'ready'},
   joyful:     {eyes:'star',         eyebrows:'raised',     mouth:'open-tongue', statusKey:'speaking'},
-  grateful:   {eyes:'star',         eyebrows:'raised',     mouth:'smile',       statusKey:'ready'},
-  proud:      {eyes:'half',         eyebrows:'smug',       mouth:'grin',        statusKey:'ready'},
-  kiss:       {eyes:'slanted-up',   eyebrows:'raised',     mouth:'kiss',        statusKey:'ready'},
-  // Thinking/confused family
+  content:    {eyes:'half',         eyebrows:'neutral',    mouth:'smile',       statusKey:'ready'},
+  smug:       {eyes:'wink',         eyebrows:'smug',       mouth:'smirk',       statusKey:'ready'},
   thinking:   {eyes:'normal',       eyebrows:'raised',     mouth:'thinking',    statusKey:'thinking'},
   confused:   {eyes:'swirl',        eyebrows:'furrowed',   mouth:'wavy',        statusKey:'thinking'},
-  dizzy:      {eyes:'dizzy',        eyebrows:'worried',    mouth:'wavy',        statusKey:'grumpy'},
-  // Surprised family
   surprised:  {eyes:'wide',         eyebrows:'surprised',  mouth:'big-o',       statusKey:'listening'},
   shocked:    {eyes:'big',          eyebrows:'surprised',  mouth:'gasp',        statusKey:'listening'},
-  // Sad family
   sad:        {eyes:'small',        eyebrows:'sad',        mouth:'sad-frown',   statusKey:'ready'},
   crying:     {eyes:'closed',       eyebrows:'sad',        mouth:'sad-frown',   statusKey:'ready'},
   worried:    {eyes:'small',        eyebrows:'worried',    mouth:'frown',       statusKey:'ready'},
-  embarrassed:{eyes:'slanted-down', eyebrows:'worried',    mouth:'smirk',       statusKey:'ready'},
-  // Angry/annoyed family — ATTITUDE
   grumpy:     {eyes:'squint',       eyebrows:'furrowed',   mouth:'grumpy',      statusKey:'grumpy'},
   angry:      {eyes:'squint',       eyebrows:'furrowed',   mouth:'flat',        statusKey:'grumpy'},
-  annoyed:    {eyes:'squint',       eyebrows:'furrowed',   mouth:'smirk',       statusKey:'annoyed'},
-  exasperated:{eyes:'closed',       eyebrows:'furrowed',   mouth:'flat',        statusKey:'annoyed'},
-  unimpressed:{eyes:'half',         eyebrows:'smug',       mouth:'flat',        statusKey:'annoyed'},
-  fedup:      {eyes:'closed',       eyebrows:'furrowed',   mouth:'grumpy',      statusKey:'annoyed'},
-  // Sassy/attitude family
-  smug:       {eyes:'wink',         eyebrows:'smug',       mouth:'smirk',       statusKey:'ready'},
-  sarcastic:  {eyes:'half',         eyebrows:'raised',     mouth:'smirk',       statusKey:'annoyed'},
-  mischievous:{eyes:'wink',         eyebrows:'smug',       mouth:'grin',        statusKey:'ready'},
-  dramatic:   {eyes:'wide',         eyebrows:'surprised',  mouth:'big-o',       statusKey:'listening'},
-  sideeye:    {eyes:'slanted-down', eyebrows:'smug',       mouth:'flat',        statusKey:'annoyed'},
-  // System states
   speaking:   {eyes:'normal',       eyebrows:'neutral',    mouth:'speaking',    statusKey:'speaking'},
   listening:  {eyes:'big',          eyebrows:'raised',     mouth:'flat',        statusKey:'listening'},
-  sleeping:   {eyes:'closed',       eyebrows:'sleeping',   mouth:'sleeping',    statusKey:'sleeping'}
+  sleeping:   {eyes:'closed',       eyebrows:'sleeping',   mouth:'sleeping',    statusKey:'sleeping'},
+  dizzy:      {eyes:'dizzy',        eyebrows:'worried',    mouth:'wavy',        statusKey:'grumpy'},
+  kiss:       {eyes:'slanted-up',   eyebrows:'raised',     mouth:'kiss',        statusKey:'ready'},
+  grateful:   {eyes:'star',         eyebrows:'raised',     mouth:'smile',       statusKey:'ready'},
+  proud:      {eyes:'half',         eyebrows:'smug',       mouth:'grin',        statusKey:'ready'},
+  sleepy:     {eyes:'half',         eyebrows:'sleeping',   mouth:'flat',        statusKey:'sleeping'},
+  embarrassed:{eyes:'slanted-down', eyebrows:'worried',    mouth:'smirk',       statusKey:'ready'}
 };
 
 function setAvatarStatus(text){
@@ -2364,32 +2250,15 @@ function avatarClick(){
   if(isGrumpyWaking)return;
   if(isSpeaking||isThinking)return;
   blink();
-  // v11: Printko has attitude — mix of reactions instead of always-happy
-  const reactions=[
-    // Helpful (30%)
-    {emotion:'happy',      line:curLang==='sl'?'<strong>Pozdravljeni!</strong> Kako lahko pomagam?':'<strong>Hello!</strong> How can I help?'},
-    {emotion:'content',    line:curLang==='sl'?'<strong>Tukaj sem.</strong> Vprašajte.': '<strong>Here for you.</strong> Ask away.'},
-    {emotion:'grateful',   line:curLang==='sl'?'<strong>O, vas!</strong> Spet pri tisku?':'<strong>Oh, you!</strong> Printing again?'},
-    // Sassy/smug (25%)
-    {emotion:'smug',       line:curLang==='sl'?'<strong>Vem vse.</strong> Samo vprašajte.':'<strong>I know everything.</strong> Just ask.'},
-    {emotion:'mischievous',line:curLang==='sl'?'<strong>Kaj?</strong> Pripravljam nekaj zvijačno.':'<strong>What?</strong> I\'m plotting something.'},
-    {emotion:'proud',      line:curLang==='sl'?'<strong>Videl sem</strong> vaš zadnji tisk. Ne slab.':'<strong>I saw</strong> your last print. Not bad.'},
-    // Attitude/annoyed (25%) — not mean, just sassy
-    {emotion:'annoyed',    line:curLang==='sl'?'<strong>Ja, ja.</strong> Kaj je?':'<strong>Yeah, yeah.</strong> What?'},
-    {emotion:'sarcastic',  line:curLang==='sl'?'<strong>O.</strong> Končno me opazite.':'<strong>Oh.</strong> You finally noticed me.'},
-    {emotion:'unimpressed',line:curLang==='sl'?'<strong>Mhm.</strong> Kliknili ste me. Čestitam.':'<strong>Mhm.</strong> You clicked me. Congrats.'},
-    {emotion:'sideeye',    line:curLang==='sl'?'<strong>…</strong> kaj?':'<strong>…</strong> what?'},
-    // Dramatic (10%)
-    {emotion:'dramatic',   line:curLang==='sl'?'<strong>O, ne!</strong> Klik! Kdo bi si mislil.':'<strong>Oh no!</strong> A click! Who would have thought.'},
-    {emotion:'surprised',  line:curLang==='sl'?'<strong>Nebo!</strong> Presenetili ste me.':'<strong>Heavens!</strong> You startled me.'},
-    // Sleepy (10%)
-    {emotion:'sleepy',     line:curLang==='sl'?'<strong>Mmmm.</strong> Skoraj zaspal.':'<strong>Mmmm.</strong> Almost dozed off.'},
-    {emotion:'content',    line:curLang==='sl'?'<strong>Zdravo.</strong> Kakšna novica?':'<strong>Hi.</strong> What\'s the news?'}
-  ];
-  const pick=reactions[Math.floor(Math.random()*reactions.length)];
-  setEmotion(pick.emotion);
-  setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping&&!isGrumpyWaking)setEmotion('neutral')},2200);
-  showSpeech(pick.line);
+  // Cycle through a few friendly emotions on click
+  const emotions=['happy','surprised','joyful','content','grateful'];
+  const pick=emotions[Math.floor(Math.random()*emotions.length)];
+  setEmotion(pick);
+  setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping)setEmotion('neutral')},1800);
+  const greetings=curLang==='sl'?
+    ['Pozdravljeni!','Kako vam lahko pomagam?','Vaš tiskalnik je pripravljen.','Vprašajte me karkoli!','Zdravo!']:
+    ['Hello!','How can I help?','Your printer is ready.','Ask me anything!','Hi there!'];
+  showSpeech('<strong>'+(greetings[Math.floor(Math.random()*greetings.length)])+'</strong>');
 }
 function setAvatarState(state){
   const av=$('#avatar');
@@ -2402,12 +2271,6 @@ function setAvatarState(state){
       setEmotion('neutral');
     }
     setAvatarStatus(t('ready'));
-    // Restore pop-out pills after conversation ends
-    const sugg=$('#suggestions');
-    if(sugg){
-      sugg.style.opacity='1';
-      sugg.style.pointerEvents='auto';
-    }
   }
 }
 /* Face direction switching — occasionally turn L/R for more motion */
@@ -2452,19 +2315,13 @@ function wakeUp(){
   if(!isSleeping)return;
   isSleeping=false;
   isGrumpyWaking=true;
-  // v11: changed from 'grumpy' to 'annoyed' with attitude
-  setEmotion('annoyed');
-  setAvatarStatus(t('annoyed'));
+  setEmotion('grumpy');
+  setAvatarStatus(t('grumpy'));
   const av=$('#avatar');
-  av.classList.add('waking-grumpy'); // keep the shake animation class
+  av.classList.add('waking-grumpy');
   setTimeout(()=>{
     av.classList.remove('waking-grumpy');
   },1200);
-  // Pick a random annoyed wake-up line with attitude
-  const wakeLines=curLang==='sl'?
-    ['<strong>Kaj?</strong> Spet vi?','<strong>Uf.</strong> Kaj pa tokrat?','<strong>Mmm.</strong> Sem raje spal.','<strong>Ajc.</strong> Pustite me spati.','<strong>Nič ne maram</strong> zgodnjega vstajanja.','<strong>Konec miru.</strong> Kaj je?']:
-    ['<strong>What?</strong> You again?','<strong>Ugh.</strong> What is it this time?','<strong>Mmm.</strong> I was sleeping, you know.','<strong>Ahem.</strong> Let me sleep.','<strong>I hate</strong> waking up early.','<strong>So much for peace.</strong> What?'];
-  showSpeech(wakeLines[Math.floor(Math.random()*wakeLines.length)],false);
   setTimeout(()=>{
     isGrumpyWaking=false;
     setEmotion('neutral');
@@ -2542,32 +2399,13 @@ function renderSuggestions(){
   const c=$('#suggestions');
   if(!c)return;
   const suggestions=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
-  c.innerHTML=suggestions.map((k,i)=>`<button class="sugg" data-i="${i}" onclick="askSuggestion(${i},this)" ontouchstart="event.preventDefault();askSuggestion(${i},this)">${t(k)}</button>`).join('');
+  c.innerHTML=suggestions.map((k,i)=>`<button class="sugg" onclick="askSuggestion(${i})">${t(k)}</button>`).join('');
 }
-function askSuggestion(i,el){
+function askSuggestion(i){
   const map=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
   const text=t(map[i]);
-  // Visual feedback — no blue highlight, just the .tapped animation
-  if(el){
-    el.classList.remove('tapped');
-    void el.offsetWidth; // force reflow to restart animation
-    el.classList.add('tapped');
-    setTimeout(()=>el.classList.remove('tapped'),400);
-  }
-  // v11: Printko reacts to the tap with an attitude emotion before answering
-  if(!isSleeping&&!isGrumpyWaking){
-    const reactEmotions=['listening','thinking','mischievous','smug','content'];
-    const pick=reactEmotions[i%reactEmotions.length];
-    setEmotion(pick);
-    // Quick reaction quip before processing the actual answer
-    const quips=curLang==='sl'?
-      ['<strong>Hm.</strong> Zanimivo vprašanje.','<strong>Okej.</strong> Povej več.','<strong>Nič lažjega.</strong>','<strong>Mhm.</strong> Pomislil sem.','<strong>Aja.</strong> To znam.','<strong>Zvedav.</strong> Bravo.']:
-      ['<strong>Hm.</strong> Interesting question.','<strong>Okay.</strong> Tell me more.','<strong>Easy.</strong>','<strong>Mhm.</strong> I thought so.','<strong>Ah.</strong> I know this one.','<strong>Curious.</strong> Good one.'];
-    showSpeech(quips[i],false);
-  }
   $('#chat-in').value=text;
-  // Process the actual answer after the brief reaction
-  setTimeout(()=>sendMsg(),650);
+  sendMsg();
 }
 
 /* ─── QUICK ACCESS ─── */
@@ -2769,9 +2607,8 @@ function sendMsg(){
   inp.value='';autoR(inp);
   chatHistory.push({role:'user',text});
   resetIdle();
-  // Hide pop-out pills during conversation (fade out, no blue highlight)
-  $('#suggestions').style.opacity='0.25';
-  $('#suggestions').style.pointerEvents='none';
+  // Hide suggestions during conversation
+  $('#suggestions').style.opacity='0.3';
   // Show user message in speech bubble briefly
   $('#speech').classList.add('show');
   $('#speech-text').innerHTML='<strong style="color:var(--tlo)">'+escapeHtml(text)+'</strong>';

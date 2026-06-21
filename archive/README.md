@@ -12,6 +12,7 @@ The current version lives in `/index.html` at the project root.
 | `eufy-dashboard-v7.html` | v7 | 3-column focus mode, before character avatar |
 | `eufy-studio.html` | v8 | Centered Piko avatar, before rename to Printko |
 | `printko-v9.html` | v9 | Printko with weather themes, before emotion system |
+| `printko-v10.html` | v10 | Printko with 23-emotion system + iconic backgrounds, before attitude/pop-out pills |
 
 ## Why they're here
 
