@@ -4,122 +4,128 @@
 
 ## 1. Project Overview
 
-**Printko** is a custom assistant web app for the eufy E1 UV printer, centered around an animated character avatar named Printko. The app tracks prints, finances, projects, and inventory, and lets the user chat with the assistant. It is designed to connect to a Notion database for live data sync. The UI is Slovenian-first (with English toggle), uses light relaxed colors and minimalism, and ships with 9 weather-themed animated backgrounds — each with iconic animated elements (butterflies, birds, fish, sailboats, moon, snowman, etc.). The avatar has deep character — eyebrows, eyes, and mouths combine into 31 named emotions including a sassy/annoyed attitude family, the eyes smoothly track the mouse when near and look in the direction of motion, he occasionally turns to face left/right (face stays centered), sleeps when idle for 45s, and wakes up **annoyed** with attitude for 4s. Suggestion pills pop out around his head; tapping them makes him react before answering (no blue highlight). Printko is **cozy, not official** — he calls the user by name (default: Lara), and his greetings/wake-ups/quips/reactions come from a configurable preset bank with 3 tones (cozy/formal/playful) in SL + EN, plus a "Generate 3× variations" button that expands the base presets using a local template combinator. The avatar shape is also configurable (round/square/hex/blob).
+**Printko** is a custom assistant web app for the eufy E1 UV printer, centered around an animated character avatar named **Printko** — now shaped like an actual printer (with paper feed slot, control panel face screen, output tray with paper, status LEDs). The app tracks prints, finances, projects, and inventory, and lets the user chat with the assistant via a FAB button (press to expand input, hold for speech recognition). The UI is Slovenian-first, uses light relaxed colors and minimalism, and ships with 9 weather-themed **layered scene backgrounds** (sky circling clockwise + horizon + ground/sea + clouds + animated birds/butterflies/leaves). The avatar has 31 emotions, eyes that track mouse/taps, sleeps when idle, wakes annoyed, and dynamically resizes (large when idle/listening, shrinks + moves up when report space is needed). Quick-access is via 6 meaningful report icons. Printko has a cozy personality (calls user by name, default: Lara) with a configurable preset bank + variation generator.
 
-Current phase: **v12.0 — personality system + avatar shapes + tap-to-look fix + face centering fix shipped.** Notion sync is stubbed (UI wired, sample data shown, real API call not yet implemented). OpenRouter agent is offline-only with a context-aware local fallback.
+Current phase: **v13.0 — printer-shaped avatar + FAB + speech recognition + layered scene backgrounds + report icons shipped.** Notion sync is stubbed. OpenRouter agent is offline-only.
 
 ## 2. File Map (The Architecture)
 
 ```
 Printko/
-├── index.html           # the entire app (HTML + CSS + JS inline, ~3420 lines) — CURRENT VERSION
+├── index.html           # the entire app (HTML + CSS + JS inline, ~3950 lines) — CURRENT VERSION
 ├── AI_CODING_RULES.md   # 6 rules every AI contributor must follow
 ├── PROJECT_STATUS.md    # this file — single source of truth
 ├── README.md            # repo readme
 ├── .gitignore
 └── archive/             # DEPRECATED older versions — DO NOT USE
-    ├── README.md         # explains what's deprecated and why
+    ├── README.md
     ├── eufy-dashboard-v6-1.html   # v6
     ├── eufy-dashboard-v7.html     # v7
     ├── eufy-studio.html           # v8
     ├── printko-v9.html            # v9
     ├── printko-v10.html           # v10
-    └── printko-v11.html           # v11
+    ├── printko-v11.html           # v11
+    └── printko-v12.html           # v12
 ```
 
 ### Inside `index.html`
-- **CSS section** (~lines 10–1215): 9 illustrated themes, eyebrow/eye/mouth emotion visibility rules for 31 emotions, weather animation keyframes, extra ambient animations (butterfly, birds, fish, sailboat, moon, snowman), pop-out suggestion pill positioning, **avatar shape variants (round/square/hex/blob)**, **preset list styling**, panel/modal styles, full responsive breakpoints.
-- **HTML body** (~lines 1215–1960): ambient background SVG decorations, weather-fx particle layer, topbar, main stage (avatar with `data-shape` + pop-out pills + speech + chat bar + quick-access pills), 6 slide-in panels, settings modal **with Printko personality subsection (name, tone, shape, presets, generate button)**.
-- **JS section** (~lines 1960–3420): I18N strings (SL/EN), theme metadata, mock DB, state, utils, toast, theme management, language toggle, **PERSONALITY system (name, tone, shape, PRESETS bank, variation generator, save/load/show/add/delete presets)**, EMOTIONS table (31 emotions), avatar functions (emotion, blink, eye tracking with velocity, **annoyed wake-up using personality preset**, face direction — **face stays centered, no translateX**, **global click-to-look listener**), weather-fx, speech reveal, pop-out pill rendering + tap reactions, quick access, panel rendering, chat, settings persistence, boot/init.
+- **CSS section** (~lines 10–1490): 9 themes, 31-emotion visibility rules, weather animations, **v13: report icons, FAB button + expanded panel + listening overlay, dynamic avatar sizing (has-report/is-listening), curved-arch blink (SVG path), layered scene (sky circling + horizon + ground), paper-sheet feed animation**.
+- **HTML body** (~lines 1490–1950): **v13: layered scene background (scene-sky + scene-horizon + scene-ground + scene-deco)**, weather-fx, topbar, main stage (**printer-shaped avatar** + pop-out pills + speech + **report icons** + **FAB wrap with panel + listening overlay**), 6 slide-in panels, settings modal with personality subsection.
+- **JS section** (~lines 1950–3950): I18N, themes, mock DB, state, **v13: SCENE_DEFS + renderScene()**, personality system (v12), EMOTIONS table (31), avatar functions, **v13: FAB logic (fabClick/fabClose/fabHoldStart/fabHoldEnd) + speech recognition (Web Speech API)**, **v13: dynamic sizing triggers (has-report on sendMsg, is-listening on hold)**, weather-fx, speech reveal, pop-out pills, **v13: report icon rendering**, panels, chat, settings, boot.
 
 ## 3. Completed Features
 
-- [x] **Centered avatar "Printko"** — friendly robot-printer SVG. Hands/arms removed in v10. **v12: shape is configurable** (round/square/hex/blob) via `data-shape` attribute on `#avatar` + CSS `rx`/`ry` overrides on the body rect. (Implemented in: avatar SVG, `.avatar[data-shape="..."]` CSS, `setShape()`, shape-card grid in settings)
-- [x] **9 illustrated weather themes** with animated iconic elements per theme (butterfly, birds, fish, sailboat, moon, snowman, etc.). (Implemented in: CSS theme blocks, ambient SVG, `THEMES`/`THEME_META`)
-- [x] **Emotion system with 31 named emotions** organized into 8 families (calm, happy, thinking, surprised, sad, angry/annoyed, sassy, system). (Implemented in: `EMOTIONS` table, CSS visibility rules, `setEmotion()`)
-- [x] **15 eye shapes + 8 eyebrow shapes + 17 mouth shapes** — composed into 31 emotions.
-- [x] **Smart eye tracking** — pupils smoothly follow mouse when within 350px; extrapolates look direction from mouse velocity; 12% focus-lock chance when near; 5% glance chance when far. (Implemented in: `trackEyes()`, `lookAt()`, `focusEyesOn()`, `exploreEyes()`)
-- [x] **Global click-to-look (v12 NEW FIX)** — any click anywhere on the page (except on the avatar itself or interactive controls) now makes Printko look at that point for 2.5× the normal focus duration. This fixes the "can't get him to look in direction of tap" issue. (Implemented in: global `click` listener in `boot()`)
-- [x] **Face direction switching with face centered (v12 FIXED)** — every 5-9s Printko randomly faces forward/left/right via 3D Y-rotation. **v12 fix: removed the `translateX` shifts** that were making the face drift off-center; now only the rotation happens, face stays centered. (Implemented in: `.facing-left`/`.facing-right` CSS — `rotateY(±15deg)` only, no translateX)
-- [x] **Sleep / wake cycle with ANNOYED wake-up** — 45s idle → sleeps. Click/msg → wakes **annoyed** with attitude line for 4s, then neutral. **v12: wake-up line now comes from personality presets** (cozy/formal/playful + user's name). (Implemented in: `wakeUp()`, `pickPreset('wakeups')`)
-- [x] **Printko has ATTITUDE on click** — `avatarClick()` picks from 13 emotion families. **v12: greeting line now comes from personality presets** instead of hardcoded lines. (Implemented in: `avatarClick()`, `pickPreset('greetings')`)
-- [x] **PERSONALITY SYSTEM (v12 NEW)** — a new "Printko · Osebnost" subsection in Settings with:
-  - **User name input** (default: "Lara") — Printko calls the user by name
-  - **Tone selector** (cozy / formal / playful) — changes the entire preset bank
-  - **Avatar shape selector** (round / square / hex / blob) — live-updates the avatar body shape
-  - **Preset sentence bank** with 4 categories: greetings, wakeups, quips, reactions
-  - **Add custom preset** — user can type their own sentences (with `{name}` placeholder)
-  - **Delete preset** — custom and generated presets can be deleted
-  - **"Generate 3× variations" button** — expands base presets using a local template combinator (prefix + suffix modifiers in SL + EN). Produces ~45 variations across all 4 categories.
-  - **Stats display** — shows total/base/custom/generated counts per category
-  - (Implemented in: `personality` state object, `PRESETS` constant, `VARIATION_MODIFIERS`, `fillPreset()`, `getActivePresets()`, `pickPreset()`, `generateVariations()`, `savePersonality()`, `loadPersonality()`, `setShape()`, `showPresets()`, `addPreset()`, `deletePreset()`)
-- [x] **Cozy tone (v12 NEW)** — default tone is "cozy" (was hardcoded formal/official). Printko now says "Pozdravljena, Lara!" instead of "Pozdravljeni!". All greetings/wake-ups/quips/reactions use the cozy tone by default, with formal and playful as alternatives. (Implemented in: `PRESETS.sl.cozy`, `PRESETS.en.cozy`, default `personality.tone='cozy'`)
-- [x] **User name in all speech (v12 NEW)** — `{name}` placeholder in all presets is filled at runtime with the user's name. Default "Lara". Stored in `localStorage['es-personality']`. (Implemented in: `fillPreset()`)
-- [x] **Pop-out suggestion pills around Printko's head** — 6 pills positioned absolutely (top-left, top-right, mid-left, mid-right, bottom-left, bottom-right) with staggered pop-in + idle floating. Tapping triggers a brief attitude quip (**v12: from personality presets**) before answering. No blue tap highlight. (Implemented in: `.suggestions-pop` CSS, `askSuggestion()`, `pickPreset('quips')`)
-- [x] **Body animation** — float, sway, breathing, shadow pulse. (Implemented in: `.body-group`, `.body-sway`, `.body-breath` CSS)
-- [x] **Flat speech text below avatar in Caveat font** — Printko's replies use the Caveat handwriting font. (Implemented in: `.speech` CSS, `showSpeech()`)
-- [x] **State descriptor in less intense color** — avatar-status uses `--tdim` at 80% opacity. (Implemented in: `.avatar-status` CSS)
-- [x] **Fully responsive** — breakpoints at 900px (tablet), 640px (mobile), 380px (very small), landscape <500px, `prefers-reduced-motion`. (Implemented in: `@media` blocks)
-- [x] **Slovenian default + English toggle** — all UI strings, suggestions, status, agent replies, attitude lines, wake-up quips, personality presets, and variation modifiers are bilingual. (Implemented in: `I18N`, `PRESETS.sl`/`PRESETS.en`, `VARIATION_MODIFIERS.sl`/`VARIATION_MODIFIERS.en`)
-- [x] **Quick-access pills** — 6 pills (Novice/Projekti/Zgodovina/Tiski/Črnilo/Finance) that open slide-in panels. (Implemented in: `renderQuickAccess()`, panel system)
-- [x] **6 slide-in panels** — News, Projects, History, Ink, Finances, Prints. (Implemented in: panel render functions)
-- [x] **Offline agent with context-aware replies** — keyword-based reply generator (SL + EN). (Implemented in: `generateReply()`)
-- [x] **Settings modal** — theme grid, language tabs, **Printko personality subsection (v12)**, OpenRouter API key + model, Notion token + DB ID, sync button, about rows. (Implemented in: `openSettings()`, `saveKeys()`, `savePersonality()`, `loadPersonality()`, `loadKeysUI()`)
-- [x] **Deprecated files archived** — v6 through v11 files in `/archive/` with deprecation headers + README. (Implemented in: `archive/` folder)
+- [x] **Printer-shaped avatar (v13 NEW)** — Printko now looks like an actual printer: top paper feed slot, main chassis with face screen (control panel display), 3 control LED buttons on the right, paper output tray with a sheet of paper coming out (with text lines), status LED strip, side vents, "eufy E1 UV" brand label. The face screen holds all the eye/eyebrow/mouth emotion variants. (Implemented in: avatar SVG)
+- [x] **Curved-arch blink (v13 FIXED)** — blink now uses SVG `d:path()` with arc commands matching the eye's circular shape, so the eyelid curves over the eye instead of being a flat rectangle. (Implemented in: `.avatar.blinking.emotion-* .piko .lid-l/lid-r` CSS with `d:path('M83 118 A 11 11 0 0 1 105 118...')`)
+- [x] **Report icons replace quick-access pills (v13 NEW)** — 6 meaningful report icons: Črnilo (ink drop), Finance (euro), Projekti (folder), Tiski (printer), Zgodovina (clock), Novice (newspaper). Each has an SVG icon + label + optional badge. No blue tap highlight. (Implemented in: `.report-icons`/`.report-icon` CSS, `renderQuickAccess()`)
+- [x] **FAB button with expand + hold-to-talk (v13 NEW)** — a floating action button (bottom-right) that:
+  - **Click**: expands into a 3-line text input panel with send + close buttons
+  - **Hold (300ms+)**: vibrates (if supported), turns red, shows listening overlay, starts Web Speech API recognition, and Printko grows larger
+  - **Release**: stops recognition, auto-opens input panel with recognized text
+  - (Implemented in: `.fab-wrap`/`.fab`/`.fab-panel`/`.fab-listening` CSS, `fabClick()`/`fabClose()`/`fabHoldStart()`/`fabHoldEnd()`, `SpeechRecognition` API)
+- [x] **Dynamic avatar sizing (v13 NEW)** — Printko is **large by default** (idle). When the user sends a message (report space needed), the `.stage` gets `has-report` class → Printko shrinks to 150px and moves up 10px. When the FAB is held (listening), `.stage` gets `is-listening` → Printko grows to 230px. Returns to large after speech completes (3s delay). (Implemented in: `.stage.has-report .avatar`, `.stage.is-listening .avatar` CSS, `sendMsg()` adds has-report, `setAvatarState('idle')` removes it after 3s, `fabHoldStart/End` toggles is-listening)
+- [x] **Layered scene backgrounds (v13 NEW)** — each theme now renders 3 layers:
+  1. **Sky** (circles slowly clockwise over 120s) — gradient + sun/moon/stars/clouds/comet depending on theme
+  2. **Horizon** — a subtle horizontal line at 30% from bottom
+  3. **Ground/sea** (bottom 30%) — theme-specific: grass, forest (pine trees), sea (waves + fish + sailboat), desert, snow (snowman), wet, flat, dark, or fog
+  - (Implemented in: `SCENE_DEFS` constant, `renderScene()`, `.scene-sky`/`.scene-horizon`/`.scene-ground` CSS)
+- [x] **More animated elements (v13 NEW)** — each scene includes more ambient life:
+  - Birds: 5 flying across at different speeds (all themes with sky)
+  - Butterflies: 3 fluttering with wing flap animation (Trta, Solnce)
+  - Falling leaves: 8 drifting down (Trta, Jelka)
+  - Fish: 2 swimming back and forth (Morje)
+  - Sailboat: bobbing on waves (Morje)
+  - Snowman: swaying (Sneg)
+  - Stars: 40 twinkling (Noč)
+  - Comet: occasional fly-by (Noč)
+  - Clouds: 5 drifting (all themes with clouds)
+  - (Implemented in: `renderScene()` deco layer)
+- [x] **All weather conditions (v13)** — 9 themes covering: sunny (Trta, Solnce), forest (Jelka), sea (Morje), night (Noč), minimal (Mleko), rain (Dež), snow (Sneg), fog (Meglja). Each with appropriate sky, ground, and animated elements.
+- [x] **Web Speech API integration (v13 NEW)** — hold-to-talk uses `window.SpeechRecognition` / `window.webkitSpeechRecognition` with `sl-SI` or `en-US` locale based on UI language. Interim results populate the input + listening overlay text. Gracefully degrades if not supported. (Implemented in: `speechRecog` object, `fabHoldStart/End`)
+- [x] **31-emotion system** (v10-v12) — 8 families, 15 eye shapes, 8 eyebrow shapes, 17 mouth shapes.
+- [x] **Personality system** (v12) — user name (default Lara), tone (cozy/formal/playful), avatar shape (round/square/hex/blob), preset bank with 4 categories + variation generator.
+- [x] **Pop-out suggestion pills** (v11) — 6 pills around avatar head, tap triggers reaction.
+- [x] **Smart eye tracking** — mouse follow within 350px, velocity-based look direction, focus-lock.
+- [x] **Global click-to-look** (v12) — any click on empty space makes Printko look at that point.
+- [x] **Sleep/wake cycle** — 45s idle → sleeps, wakes annoyed (v11) with personality preset (v12).
+- [x] **Face direction switching** — every 5-9s, face stays centered (v12 fix).
+- [x] **Cozy speech in Caveat font** — Printko's replies use handwriting font.
+- [x] **Fully responsive** — tablet, mobile, very small, landscape, reduced-motion.
+- [x] **Slovenian default + English toggle** — all strings bilingual.
+- [x] **6 slide-in panels** — News, Projects, History, Ink, Finances, Prints.
+- [x] **Offline agent** — keyword-based context-aware replies.
+- [x] **Settings modal** — themes, language, personality subsection, API keys.
 
 ## 4. In-Progress / Next Features
 
-- [ ] **Real OpenRouter API call** — `callLiveAgent()` not yet implemented. Settings UI accepts key/model, but `sendMsg()` always uses offline `generateReply()`. (Status: Queued)
-- [ ] **Real Notion sync** — `syncNotion()` only toasts. Need real Notion API queries + CORS proxy. (Status: Queued)
-- [ ] **AI-powered variation generation (v12 stretch)** — currently the "Generate 3× variations" button uses a local template combinator. When OpenRouter key is set, it should call the LLM to produce higher-quality, semantically varied sentences based on the base presets. (Status: Queued)
+- [ ] **Real OpenRouter API call** — `callLiveAgent()` not yet implemented. (Status: Queued)
+- [ ] **Real Notion sync** — `syncNotion()` only toasts. (Status: Queued)
+- [ ] **AI-powered variation generation** — currently local template combinator. (Status: Queued)
 - [ ] **Auto weather detection** — geolocation + weather API to auto-pick theme. (Status: Queued)
-- [ ] **Printko voice (TTS)** — Web Speech API. (Status: Queued)
-- [ ] **Project / print detail views** — clicking a card currently just toasts. Should open detail drawer. (Status: Queued)
-- [ ] **Add/edit forms for all entity types** — panels are read-only. (Status: Queued)
-- [ ] **Chat history persistence** — `chatHistory` is in-memory only. Should persist to `localStorage`. (Status: Queued)
-- [ ] **Emotion-reactive agent replies** — agent detects sad/negative query → Printko shows worried/sad during reply. (Status: Queued)
-- [ ] **More avatar shapes** — add more shape options (e.g., "star", "heart", "diamond"). Currently 4 (round/square/hex/blob). (Status: Queued)
-- [ ] **Personality import/export** — let users export their preset bank as JSON and import on another device. (Status: Queued)
+- [ ] **Printko voice (TTS)** — Web Speech API for spoken replies. (Status: Queued)
+- [ ] **Project / print detail views** — clicking a card should open detail drawer. (Status: Queued)
+- [ ] **Add/edit forms** — panels are read-only. (Status: Queued)
+- [ ] **Chat history persistence** — in-memory only. (Status: Queued)
+- [ ] **More scene elements** — fireflies for night, rainbows after rain, lightning in storms. (Status: Queued)
+- [ ] **More printer-shaped details** — paper advancing animation when printing, ink cartridges visible. (Status: Queued)
 
 ## 5. Architectural Decisions & Constraints
 
-- **Single self-contained `index.html`** — no build step, no dependencies, no server. Do NOT split into multiple files or add a bundler.
-- **CSS-variable-driven theming** — every theme defines the same CSS custom properties on `[data-theme="name"]`. Do NOT introduce runtime CSS-in-JS.
-- **Emotion system = CSS class swap + EMOTIONS table** — SVG contains all eye/eyebrow/mouth variants; CSS visibility rules show only the trio matching `emotion-<name>`. Do NOT regenerate the SVG or use JS to toggle individual `display`.
-- **31-emotion vocabulary is the canonical set** — organized into 8 families. Adding a new emotion requires: (1) adding to `EMOTIONS` table, (2) adding a CSS visibility rule. Do NOT add emotions that reuse the same combo as an existing one.
-- **PERSONALITY system is the canonical way to configure Printko's voice (v12 NEW)** — `personality` state object holds `name`, `tone`, `shape`, `customPresets`, `generated`. All persisted to `localStorage['es-personality']`. Do NOT hardcode greetings/wake-ups/quips/reactions in `avatarClick()`, `wakeUp()`, or `askSuggestion()` — always use `pickPreset(category)`. The only hardcoded speech remaining is the welcome message and the offline agent's keyword-based replies (which are data-driven, not personality-driven).
-- **PRESETS bank structure (v12 NEW)** — `PRESETS[lang][tone][category]` returns an array of template strings. Each template uses `{name}` placeholder. Categories are: `greetings`, `wakeups`, `quips`, `reactions`. Tones are: `cozy`, `formal`, `playful`. Do NOT add a 4th tone or 5th category without expanding all 3 languages × all tones × all categories.
-- **Variation generator uses local template combinator (v12)** — `generateVariations()` combines each base preset with random prefix + suffix from `VARIATION_MODIFIERS[lang]` to produce 3 variations per base preset. Do NOT replace this with a pure random word salad — the modifiers are curated to produce natural-sounding variations. When real AI is added (In-Progress #3), it should augment, not replace, this local generator.
-- **Avatar shape via `data-shape` attribute (v12 NEW)** — `#avatar` has `data-shape="round|square|hex|blob"`. CSS rules override the body rect's `rx`/`ry` accordingly. Do NOT use JS to change the SVG attributes directly — use `setShape(shape)` which updates `personality.shape` + the DOM attribute + persists to localStorage.
-- **Wake-up reaction is "annoyed" (v11, kept in v12)** — the user explicitly requested this. `wakeUp()` sets `emotion:'annoyed'` and uses `pickPreset('wakeups')` for the line. Do NOT change back to grumpy.
-- **Avatar click uses personality greeting (v12)** — `avatarClick()` picks a random emotion + uses `pickPreset('greetings')` for the line. Do NOT revert to hardcoded reactions.
-- **Pop-out pills are absolutely positioned around the avatar head (v11, kept in v12)** — pills live inside `.avatar-wrap`. Do NOT revert to the old row-below layout.
-- **No blue tap highlight (v11, kept in v12)** — all interactive pills/buttons have `-webkit-tap-highlight-color:transparent`. Tap feedback is custom CSS animation only.
-- **Global click-to-look (v12 NEW)** — any click on empty space (not on avatar or controls) makes Printko look at that point. Do NOT remove this listener — it's the fix for the "can't get him to look at tap" bug.
-- **Face stays centered when facing L/R (v12 FIX)** — `.facing-left`/`.facing-right` use `rotateY(±15deg)` only, NO `translateX`. Do NOT re-add the translateX shift.
-- **Slovenian (SL) is the default language.** All new strings MUST be added to both `I18N.sl` and `I18N.en`, AND to `PRESETS.sl` and `PRESETS.en` if they're personality lines.
-- **Light relaxed colors and minimalism** — avoid dark themes as defaults (Noč is the deliberate exception).
-- **Weather themes cycle via the topbar sun button** — do NOT remove.
-- **No comic-book speech cloud** — plain text below avatar.
-- **Speech text uses Caveat font** — Printko's voice.
-- **State descriptor (avatar-status) uses `--tdim` at 80% opacity** — deliberately less intense.
-- **Avatar has NO hands/arms** (removed v10) — do NOT re-add.
-- **Mock data in `DB` constant** — all panels render from `DB`.
-- **`localStorage` keys prefixed `es-`** — `es-theme`, `es-lang`, `es-or-key`, `es-notion-key`, `es-notion-db`, `es-model`, **`es-personality` (v12 NEW)**. Do NOT rename.
-- **Idle/sleep timing constants** — `IDLE_TIMEOUT=45000`, `GRUMPY_DURATION=4000`, `EYE_EXPLORE_INTERVAL=4000`, `EYE_FOCUS_DURATION=2500`.
-- **Eye tracking proximity threshold = 350px**.
-- **Deprecated files in `/archive/`** — per RULE 6, never delete old versions. v11 was added to archive in v12.
+- **Single self-contained `index.html`** — no build step, no dependencies, no server.
+- **CSS-variable-driven theming** — `data-theme="name"` on `<html>`.
+- **Emotion system = CSS class swap + EMOTIONS table** — SVG contains all variants; CSS shows the matching trio.
+- **31-emotion vocabulary is canonical** — adding requires EMOTIONS table + CSS rule.
+- **PERSONALITY system is canonical** (v12) — `personality` state, `PRESETS` bank, `pickPreset(category)`. Do NOT hardcode greetings.
+- **Avatar is printer-shaped (v13 NEW)** — the SVG has paper feed slot, chassis, face screen, output tray, paper, LEDs. Do NOT revert to the old blob shape. The `data-shape` attribute from v12 still controls the chassis corner radius (round/square/hex/blob).
+- **Curved-arch blink uses SVG `d:path()` (v13 NEW)** — the eyelid is a path with arc commands matching the eye circle, not a flat rect. Do NOT revert to `height:20px` rect blink.
+- **FAB button is the primary input (v13 NEW)** — the old always-visible chat bar is gone. The FAB at bottom-right expands on click, holds for speech. Do NOT re-add a permanent chat bar.
+- **Dynamic sizing via `.stage.has-report` and `.stage.is-listening` (v13 NEW)** — Printko is large by default, shrinks when report shows, grows when listening. Do NOT remove these classes.
+- **Layered scene backgrounds (v13 NEW)** — `SCENE_DEFS` constant defines sky/ground/elements per theme. `renderScene()` builds the SVG. Do NOT revert to the old single-layer ambient decorations.
+- **Sky circles clockwise (v13 NEW)** — `.scene-sky` has `animation:skyCircle 120s linear infinite`. Do NOT remove or reverse.
+- **Report icons replace quick-access pills (v13 NEW)** — `.report-icons` with `.report-icon` buttons. Do NOT revert to the old pill layout.
+- **Web Speech API for hold-to-talk (v13 NEW)** — `speechRecog` uses `SpeechRecognition` with `sl-SI`/`en-US`. Falls back gracefully. Do NOT replace with a third-party service.
+- **Wake-up is "annoyed"** (v11) — `wakeUp()` uses `pickPreset('wakeups')`.
+- **Avatar click uses personality greeting** (v12) — `avatarClick()` uses `pickPreset('greetings')`.
+- **Pop-out pills around head** (v11) — absolute positioning in `.avatar-wrap`.
+- **No blue tap highlight** (v11) — `-webkit-tap-highlight-color:transparent` everywhere.
+- **Global click-to-look** (v12) — any click on empty space.
+- **Face stays centered** (v12) — no translateX on facing-left/right.
+- **Slovenian default** — all strings in both SL + EN.
+- **Light relaxed colors** — Noč is the only dark theme.
+- **No comic-book speech cloud** — plain Caveat text below avatar.
+- **Avatar has NO hands/arms** (v10) — do NOT re-add.
+- **`localStorage` keys prefixed `es-`** — `es-theme`, `es-lang`, `es-or-key`, `es-notion-key`, `es-notion-db`, `es-model`, `es-personality`.
+- **Deprecated files in `/archive/`** — v12 added in v13.
 
 ## 6. Known Bugs / Technical Debt
 
-- **Vision-model false negatives on emotions** — subtle emotions may be reported as "neutral" by vision models. Verify via `getComputedStyle(.eyes-<name>).display === 'block'`.
-- **Theme decoration visibility is intentionally subtle** — opacities 0.18–0.35 for minimalism.
+- **Vision-model false negatives** on subtle emotions — verify via `getComputedStyle`.
 - **`chatHistory` is in-memory only** — lost on reload.
-- **No real API calls yet** — OpenRouter and Notion are UI-only stubs.
-- **`generateReply()` ink breakdown is simplified** — returns flat 0.4ml per channel per print.
-- **Face direction 3D rotation may not render on very old browsers** — falls back gracefully.
-- **Pop-out pills can overlap on very narrow screens (<320px)** — they reposition tighter but may collide.
-- **Variation generator is local-only (v12)** — produces ~45 variations using prefix+suffix combinator. Quality is decent but not as good as LLM-generated. See In-Progress #3.
-- **The `GRUMPY_DURATION` constant name is now misleading** (v11) — it governs the annoyed wake-up phase, not grumpy. Kept per RULE 6.
-- **Custom presets don't validate `{name}` placeholder (v12)** — users can type anything; if they don't include `{name}`, the sentence just won't have a name. Acceptable but could add a hint.
-- **Shape change doesn't re-animate the body (v12)** — switching shape updates `rx`/`ry` instantly. Could add a smooth transition, but SVG attribute transitions are limited. Acceptable for now.
+- **No real API calls yet** — OpenRouter and Notion are stubs.
+- **Speech recognition requires HTTPS or localhost** — won't work on `file://` in some browsers. User should serve via local server or deploy.
+- **`d:path()` CSS property for blink** — works in modern browsers (Chrome 88+, Firefox 97+). Falls back gracefully (no blink animation) on older browsers.
+- **FAB hold on desktop** — `onmousedown`/`onmouseup` are not yet wired (only touch). Desktop users can click to expand + type. Add mouse hold in a future iteration.
+- **Scene sky rotation may cause slight rendering overhead** — the SVG is large (2000×2000). Acceptable on modern devices.
+- **Report icons don't show real-time data** — badges are static (e.g. "7" prints, "€191" profit). Should pull from DB dynamically in a future iteration.
+- **Paper sheet animation is subtle** — only 2px translateY. Could be more dramatic when a print is actually happening.
+- **The `GRUMPY_DURATION` constant name is misleading** (v11) — governs annoyed phase.
