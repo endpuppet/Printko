@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html lang="sl" data-theme="trta" data-lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Printko · UV Printer Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
+:root{
+  --ease:cubic-bezier(.25,.46,.45,.94);
+  --spring:cubic-bezier(.34,1.56,.64,1);
+  --r:20px;
+  --rsm:14px;
+  --rxs:8px;
+  --t-fast:.18s;
+  --t-base:.32s;
+  --t-slow:.6s;
+}
+
+/* ════════════════════════════════════════════════════
+   6 ILLUSTRATED THEMES
+   Each theme has: bg gradient, accent, avatar colors,
+   decorative ambient elements (different per theme)
+   ════════════════════════════════════════════════════ */
+
+/* TRTA — Vine / warm cream + amber */
+[data-theme="trta"]{
+  --bg-1:#f5e9d4; --bg-2:#e8d4b0; --bg-3:#d4b888;
+  --card:#fbf3e0; --card-soft:#f0e0c4;
+  --text:#3d2a14; --tlo:#6b5234; --tdim:#9c8160;
+  --acc:#c46a18; --acc-hi:#e88820; --acc-lo:#8a4810;
+  --acc-bg:rgba(196,106,24,.14);
+  --pos:#5a8a3a; --neg:#b04030; --whi:#c89020;
+  --line:#d8c0a0;
+  --shadow:0 8px 32px rgba(120,80,30,.12),0 2px 8px rgba(120,80,30,.08);
+  --shadow-soft:0 4px 16px rgba(120,80,30,.08);
+  --avatar-l:#f8d8a8; --avatar-d:#d49458;
+  --avatar-stroke:#7a4818; --avatar-shadow:#9c6828;
+  --screen-l:#fff8e8; --screen-d:#e8c890;
+  --ambient:'vine';
+}
+
+/* JELKA — Pine / sage + cream */
+[data-theme="jelka"]{
+  --bg-1:#e8ecd8; --bg-2:#c8d4a8; --bg-3:#9cb078;
+  --card:#f4f0dc; --card-soft:#e0dcc4;
+  --text:#2a3818; --tlo:#4a5c30; --tdim:#7c8a60;
+  --acc:#3a7048; --acc-hi:#5a9060; --acc-lo:#205028;
+  --acc-bg:rgba(58,112,72,.14);
+  --pos:#3a7048; --neg:#a04030; --whi:#c89020;
+  --line:#bcc8a4;
+  --shadow:0 8px 32px rgba(60,80,30,.12),0 2px 8px rgba(60,80,30,.08);
+  --shadow-soft:0 4px 16px rgba(60,80,30,.08);
+  --avatar-l:#c8dca8; --avatar-d:#7ca060;
+  --avatar-stroke:#2a4818; --avatar-shadow:#4a6c30;
+  --screen-l:#f0f8e0; --screen-d:#c0d4a0;
+  --ambient:'pine';
+}
+
+/* MORJE — Sea / soft blue + sand */
+[data-theme="morje"]{
+  --bg-1:#dfeaf2; --bg-2:#a8c8dc; --bg-3:#7898b8;
+  --card:#f0f5fa; --card-soft:#d8e4ee;
+  --text:#1a2c3c; --tlo:#3a5060; --tdim:#6a8090;
+  --acc:#3a78b8; --acc-hi:#5098d8; --acc-lo:#205498;
+  --acc-bg:rgba(58,120,184,.14);
+  --pos:#3a8a6a; --neg:#b04848; --whi:#c8a820;
+  --line:#a8c0d4;
+  --shadow:0 8px 32px rgba(30,60,90,.14),0 2px 8px rgba(30,60,90,.08);
+  --shadow-soft:0 4px 16px rgba(30,60,90,.08);
+  --avatar-l:#b8d8ec; --avatar-d:#6890b8;
+  --avatar-stroke:#1a3a5c; --avatar-shadow:#3a5c80;
+  --screen-l:#e8f0fa; --screen-d:#a8c8dc;
+  --ambient:'wave';
+}
+
+/* SOLNCE — Sun / dawn pink-orange */
+[data-theme="solnce"]{
+  --bg-1:#fce4d4; --bg-2:#f8b894; --bg-3:#e89878;
+  --card:#fff0e4; --card-soft:#f8d8c0;
+  --text:#3a1a10; --tlo:#6c3a28; --tdim:#9c6a58;
+  --acc:#d8482a; --acc-hi:#f06840; --acc-lo:#982810;
+  --acc-bg:rgba(216,72,42,.14);
+  --pos:#5a8a3a; --neg:#a03030; --whi:#d8a020;
+  --line:#e8b890;
+  --shadow:0 8px 32px rgba(160,60,30,.14),0 2px 8px rgba(160,60,30,.08);
+  --shadow-soft:0 4px 16px rgba(160,60,30,.08);
+  --avatar-l:#fcc8a8; --avatar-d:#e08858;
+  --avatar-stroke:#7a2010; --avatar-shadow:#a04028;
+  --screen-l:#fff0e0; --screen-d:#f0b890;
+  --ambient:'rays';
+}
+
+/* NOČ — Night / deep indigo + lavender */
+[data-theme="noc"]{
+  --bg-1:#1a1a36; --bg-2:#241e48; --bg-3:#0e0a20;
+  --card:#2a2548; --card-soft:#1e1a36;
+  --text:#e8e4f4; --tlo:#b8b0d4; --tdim:#7c70a0;
+  --acc:#a888e8; --acc-hi:#c8a8ff; --acc-lo:#6848b0;
+  --acc-bg:rgba(168,136,232,.18);
+  --pos:#68c890; --neg:#e87070; --whi:#e8c850;
+  --line:#3a345c;
+  --shadow:0 8px 32px rgba(0,0,0,.4),0 2px 8px rgba(0,0,0,.3);
+  --shadow-soft:0 4px 16px rgba(0,0,0,.25);
+  --avatar-l:#483c6c; --avatar-d:#28244c;
+  --avatar-stroke:#a888e8; --avatar-shadow:#0a0820;
+  --screen-l:#3a3460; --screen-d:#1e1a3c;
+  --ambient:'stars';
+}
+
+/* MLEKO — Milk / pure minimal cream-white */
+[data-theme="mleko"]{
+  --bg-1:#fafaf6; --bg-2:#f0ede4; --bg-3:#e4e0d4;
+  --card:#ffffff; --card-soft:#f4f0e8;
+  --text:#1a1a18; --tlo:#4a4a48; --tdim:#8a8a88;
+  --acc:#3a3a38; --acc-hi:#5a5a58; --acc-lo:#1a1a18;
+  --acc-bg:rgba(58,58,56,.08);
+  --pos:#3a8a4a; --neg:#b04040; --whi:#c89020;
+  --line:#dcd8cc;
+  --shadow:0 8px 32px rgba(0,0,0,.06),0 2px 8px rgba(0,0,0,.04);
+  --shadow-soft:0 4px 16px rgba(0,0,0,.04);
+  --avatar-l:#f4f0e8; --avatar-d:#c8c4b8;
+  --avatar-stroke:#3a3a38; --avatar-shadow:#8a8a88;
+  --screen-l:#ffffff; --screen-d:#e0dcd0;
+  --ambient:'none';
+}
+
+/* DEŽ — Rain / cool gray-blue with raindrops */
+[data-theme="dez"]{
+  --bg-1:#d8dee5; --bg-2:#b4c0cc; --bg-3:#8a98a8;
+  --card:#e8eef4; --card-soft:#d0d8e0;
+  --text:#1f2a36; --tlo:#3e4a58; --tdim:#6a7888;
+  --acc:#4a6a8a; --acc-hi:#6a8aaa; --acc-lo:#2a4a6a;
+  --acc-bg:rgba(74,106,138,.14);
+  --pos:#4a8a6a; --neg:#a04848; --whi:#c8a830;
+  --line:#a8b8c8;
+  --shadow:0 8px 32px rgba(30,50,80,.12),0 2px 8px rgba(30,50,80,.08);
+  --shadow-soft:0 4px 16px rgba(30,50,80,.08);
+  --avatar-l:#c8d4e0; --avatar-d:#7a8a9c;
+  --avatar-stroke:#1f3a52; --avatar-shadow:#3a5060;
+  --screen-l:#e0e8f0; --screen-d:#a8b8c8;
+  --ambient:'rain';
+}
+
+/* SNEG — Snow / pale winter blue-white */
+[data-theme="sneg"]{
+  --bg-1:#eef3f8; --bg-2:#d8e4ee; --bg-3:#bcccdc;
+  --card:#ffffff; --card-soft:#eaf0f6;
+  --text:#1a2638; --tlo:#3a4a5e; --tdim:#6a7a8e;
+  --acc:#5a78a0; --acc-hi:#7a98c0; --acc-lo:#3a5880;
+  --acc-bg:rgba(90,120,160,.14);
+  --pos:#4a8a5a; --neg:#a04040; --whi:#c89028;
+  --line:#c4d4e0;
+  --shadow:0 8px 32px rgba(40,70,110,.1),0 2px 8px rgba(40,70,110,.06);
+  --shadow-soft:0 4px 16px rgba(40,70,110,.06);
+  --avatar-l:#e0e8f0; --avatar-d:#a8b8c8;
+  --avatar-stroke:#2a3a4e; --avatar-shadow:#5a6a7e;
+  --screen-l:#f0f4f8; --screen-d:#c0d0e0;
+  --ambient:'snow';
+}
+
+/* MEGLJA — Fog / soft gray-lavender */
+[data-theme="meglja"]{
+  --bg-1:#e4e6ec; --bg-2:#cdd0d8; --bg-3:#b4b8c2;
+  --card:#f0f1f6; --card-soft:#e0e2e8;
+  --text:#2a2e3a; --tlo:#4a4e5c; --tdim:#7a7e8c;
+  --acc:#6a6a8a; --acc-hi:#8a8aaa; --acc-lo:#4a4a6a;
+  --acc-bg:rgba(106,106,138,.14);
+  --pos:#4a8a6a; --neg:#a04848; --whi:#b89028;
+  --line:#c0c4cc;
+  --shadow:0 8px 32px rgba(50,50,70,.1),0 2px 8px rgba(50,50,70,.06);
+  --shadow-soft:0 4px 16px rgba(50,50,70,.06);
+  --avatar-l:#dcdce4; --avatar-d:#a0a0b0;
+  --avatar-stroke:#3a3a4e; --avatar-shadow:#5a5a6e;
+  --screen-l:#e8e8f0; --screen-d:#b8b8c8;
+  --ambient:'fog';
+}
+
+html,body{height:100%;overflow:hidden}
+body{
+  background:var(--bg-1);
+  color:var(--text);
+  font-family:'Nunito',sans-serif;
+  font-weight:400;
+  font-size:15px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  transition:background var(--t-slow),color var(--t-base);
+  position:relative;
+}
+.disp{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-.01em}
+.hand{font-family:'Caveat',cursive;font-weight:600}
+.mono{font-family:'IBM Plex Mono',monospace;letter-spacing:-.02em}
+.acc{color:var(--acc)}
+.dim{color:var(--tdim)}
+.lo{color:var(--tlo)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--acc)}
+
+/* ════ AMBIENT BACKGROUND ════ */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ambient-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 20% 10%,var(--bg-2) 0%,transparent 60%),
+    radial-gradient(ellipse at 80% 90%,var(--bg-3) 0%,transparent 55%),
+    radial-gradient(ellipse at 50% 50%,var(--bg-1) 0%,var(--bg-1) 100%);
+  opacity:.85;
+}
+.ambient-deco{position:absolute;inset:0;opacity:.45}
+.ambient-deco svg{position:absolute;width:100%;height:100%}
+
+/* Different decorations per theme */
+.ambient-deco.trta-deco{display:none}
+[data-theme="trta"] .ambient-deco.trta-deco{display:block}
+[data-theme="jelka"] .ambient-deco.jelka-deco{display:block}
+[data-theme="morje"] .ambient-deco.morje-deco{display:block}
+[data-theme="solnce"] .ambient-deco.solnce-deco{display:block}
+[data-theme="noc"] .ambient-deco.noc-deco{display:block}
+[data-theme="dez"] .ambient-deco.dez-deco{display:block}
+[data-theme="sneg"] .ambient-deco.sneg-deco{display:block}
+[data-theme="meglja"] .ambient-deco.meglja-deco{display:block}
+.ambient-deco{display:none}
+
+/* ════ ANIMATED WEATHER LAYERS ════ */
+.weather-fx{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.weather-fx svg{position:absolute;width:100%;height:100%}
+
+/* TRTA — gentle leaf sway */
+[data-theme="trta"] .leaf{animation:leafSway 5s ease-in-out infinite;transform-origin:center bottom}
+@keyframes leafSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+/* JELKA — gentle tree sway */
+[data-theme="jelka"] .pine{animation:treeSway 6s ease-in-out infinite;transform-origin:center bottom}
+[data-theme="jelka"] .pine:nth-child(2){animation-delay:-2s}
+[data-theme="jelka"] .pine:nth-child(3){animation-delay:-4s}
+[data-theme="jelka"] .pine:nth-child(4){animation-delay:-1s}
+[data-theme="jelka"] .pine:nth-child(5){animation-delay:-3s}
+@keyframes treeSway{0%,100%{transform:rotate(-1deg) translateY(0)}50%{transform:rotate(1deg) translateY(-2px)}}
+
+/* MORJE — animated waves */
+[data-theme="morje"] .wave{animation:waveMotion 6s linear infinite}
+[data-theme="morje"] .wave-2{animation-duration:8s;animation-delay:-2s}
+[data-theme="morje"] .wave-3{animation-duration:10s;animation-delay:-4s}
+@keyframes waveMotion{0%{transform:translateX(-100px)}100%{transform:translateX(100px)}}
+[data-theme="morje"] .bubble{animation:bubbleRise 7s ease-in infinite}
+[data-theme="morje"] .bubble-2{animation-delay:-3s;animation-duration:9s}
+@keyframes bubbleRise{0%{transform:translateY(0) scale(.6);opacity:0}10%{opacity:.5}90%{opacity:.4}100%{transform:translateY(-200px) scale(1);opacity:0}}
+
+/* SOLNCE — slow sun rotation and pulsing rays */
+[data-theme="solnce"] .sun-rays{animation:sunRotate 60s linear infinite;transform-origin:880px 140px}
+@keyframes sunRotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+[data-theme="solnce"] .sun-core{animation:sunPulse 4s ease-in-out infinite;transform-origin:880px 140px}
+@keyframes sunPulse{0%,100%{transform:scale(1);opacity:.32}50%{transform:scale(1.06);opacity:.42}}
+
+/* NOČ — twinkling stars and occasional comet */
+[data-theme="noc"] .star{animation:starTwinkle 4s ease-in-out infinite}
+[data-theme="noc"] .star:nth-child(odd){animation-duration:5s;animation-delay:-1s}
+[data-theme="noc"] .star:nth-child(3n){animation-duration:3s;animation-delay:-2s}
+@keyframes starTwinkle{0%,100%{opacity:.3}50%{opacity:1}}
+[data-theme="noc"] .comet{animation:cometFly 18s linear infinite;animation-delay:8s;opacity:0}
+@keyframes cometFly{
+  0%{opacity:0;transform:translate(0,0)}
+  3%{opacity:1}
+  20%{opacity:1}
+  25%{opacity:0;transform:translate(700px,400px)}
+  100%{opacity:0;transform:translate(700px,400px)}
+}
+
+/* DEŽ — animated raindrops falling */
+[data-theme="dez"] .raindrop{animation:rainFall 1.2s linear infinite}
+@keyframes rainFall{0%{transform:translateY(-20px);opacity:0}10%{opacity:.5}100%{transform:translateY(100vh);opacity:.3}}
+[data-theme="dez"] .raindrop:nth-child(3n){animation-duration:.9s;animation-delay:-.3s}
+[data-theme="dez"] .raindrop:nth-child(5n){animation-duration:1.5s;animation-delay:-.7s}
+[data-theme="dez"] .raindrop:nth-child(7n){animation-duration:1.1s;animation-delay:-1s}
+
+/* SNEG — animated snowflakes drifting */
+[data-theme="sneg"] .snowflake{animation:snowFall 9s linear infinite}
+@keyframes snowFall{
+  0%{transform:translateY(-20px) translateX(0) rotate(0);opacity:0}
+  10%{opacity:.8}
+  90%{opacity:.8}
+  100%{transform:translateY(100vh) translateX(40px) rotate(360deg);opacity:0}
+}
+[data-theme="sneg"] .snowflake:nth-child(odd){animation-duration:11s;animation-delay:-3s}
+[data-theme="sneg"] .snowflake:nth-child(3n){animation-duration:13s;animation-delay:-5s}
+[data-theme="sneg"] .snowflake:nth-child(5n){animation-duration:7s;animation-delay:-2s}
+
+/* MEGLJA — drifting fog clouds */
+[data-theme="meglja"] .fog-cloud{animation:fogDrift 30s linear infinite}
+[data-theme="meglja"] .fog-cloud-2{animation-duration:40s;animation-delay:-10s;animation-direction:reverse}
+[data-theme="meglja"] .fog-cloud-3{animation-duration:50s;animation-delay:-20s}
+@keyframes fogDrift{0%{transform:translateX(-30%)}100%{transform:translateX(130%)}}
+
+/* ════ TOPBAR ════ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;
+  height:56px;
+  display:flex;align-items:center;
+  padding:0 1.2rem;
+  z-index:50;
+  background:linear-gradient(to bottom,var(--bg-1) 0%,var(--bg-1) 60%,transparent 100%);
+}
+.brand{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:1.25rem;
+  letter-spacing:-.02em;
+  display:flex;align-items:center;gap:.5rem;
+}
+.brand em{color:var(--acc);font-style:italic}
+.brand .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--pos);
+  box-shadow:0 0 12px var(--pos);
+  animation:statusPulse 2.5s ease-in-out infinite;
+}
+@keyframes statusPulse{0%,100%{opacity:.6}50%{opacity:1}}
+.topbar-actions{margin-left:auto;display:flex;gap:.4rem;align-items:center}
+.tb-btn{
+  width:38px;height:38px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--tlo);
+  background:var(--card);
+  box-shadow:var(--shadow-soft);
+  transition:all var(--t-base) var(--ease);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.7rem;
+  font-weight:500;
+  letter-spacing:.05em;
+}
+.tb-btn:hover{color:var(--acc);transform:translateY(-2px);box-shadow:var(--shadow)}
+.tb-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tb-btn.wide{width:auto;padding:0 .85rem;gap:.35rem;border-radius:99px}
+
+/* ════ STAGE (centered) ════ */
+.stage{
+  position:relative;
+  z-index:1;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 1rem 1.5rem;
+  overflow:hidden;
+}
+
+/* ════ AVATAR ════ */
+.avatar-wrap{
+  position:relative;
+  display:flex;flex-direction:column;align-items:center;
+  margin-bottom:1rem;
+  user-select:none;
+}
+.avatar{
+  width:200px;height:230px;
+  position:relative;
+  cursor:pointer;
+  filter:drop-shadow(0 12px 24px rgba(0,0,0,.12));
+  transition:transform var(--t-base) var(--spring);
+}
+.avatar:hover{transform:translateY(-4px) scale(1.02)}
+.avatar.thinking{animation:thinkPulse 1.2s ease-in-out infinite}
+@keyframes thinkPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+.piko{width:100%;height:100%;display:block}
+
+/* Avatar parts */
+.piko .body-group{
+  animation:float 4.5s ease-in-out infinite;
+  transform-origin:120px 220px;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* Body sway — gentle left/right rocking */
+.piko .body-sway{
+  animation:bodySway 6s ease-in-out infinite;
+  transform-origin:120px 220px;
+}
+@keyframes bodySway{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+
+/* Body breathing — subtle scale pulse on the main body */
+.piko .body-breath{
+  animation:bodyBreath 3.8s ease-in-out infinite;
+  transform-origin:120px 142px;
+}
+@keyframes bodyBreath{0%,100%{transform:scaleY(1) scaleX(1)}50%{transform:scaleY(1.015) scaleX(1.008)}}
+
+.piko .shadow-ellipse{
+  animation:shadowPulse 4.5s ease-in-out infinite;
+  transform-origin:120px 260px;
+}
+@keyframes shadowPulse{0%,100%{transform:scale(1);opacity:.18}50%{transform:scale(.92);opacity:.24}}
+
+.piko .antenna-glow{
+  animation:antennaGlow 2.2s ease-in-out infinite;
+  transform-origin:120px 22px;
+}
+@keyframes antennaGlow{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.75;transform:scale(1.4)}}
+
+.avatar.thinking .piko .antenna-glow{animation-duration:.6s}
+.avatar.speaking .piko .antenna-glow{animation-duration:.4s}
+.avatar.emotion-sleeping .piko .antenna-glow{animation-duration:3.5s;opacity:.25}
+.avatar.emotion-grumpy .piko .antenna-glow{animation-duration:1.6s;opacity:.5}
+
+/* Side arms — gentle wave when speaking/happy */
+.piko .arm-l{animation:armWaveL 5s ease-in-out infinite;transform-origin:50px 132px}
+.piko .arm-r{animation:armWaveR 5s ease-in-out infinite;transform-origin:190px 132px}
+@keyframes armWaveL{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg)}}
+@keyframes armWaveR{0%,100%{transform:rotate(0)}50%{transform:rotate(6deg)}}
+.avatar.emotion-happy .piko .arm-l{animation:armWaveL 1.4s ease-in-out infinite}
+.avatar.emotion-happy .piko .arm-r{animation:armWaveR 1.4s ease-in-out infinite}
+.avatar.emotion-sleeping .piko .arm-l,
+.avatar.emotion-sleeping .piko .arm-r{animation:none;transform:rotate(0)}
+
+/* Pupil smoothing */
+.piko .pupil{transition:transform .15s var(--ease)}
+
+/* ═══ EYE/MOUTH EMOTION VISIBILITY ═══ */
+/* All eye/mouth variants hidden by default */
+.piko .eyes,
+.piko .mouth{display:none}
+
+/* Show only the matching emotion's eyes + mouth.
+   Higher-specificity rules — override the default hiding. */
+.avatar.emotion-neutral .piko .eyes-normal,
+.avatar.emotion-neutral .piko .mouth-neutral{display:block}
+.avatar.emotion-thinking .piko .eyes-normal,
+.avatar.emotion-thinking .piko .mouth-thinking{display:block}
+.avatar.emotion-speaking .piko .eyes-normal,
+.avatar.emotion-speaking .piko .mouth-speaking{display:block}
+.avatar.emotion-happy .piko .eyes-happy,
+.avatar.emotion-happy .piko .mouth-happy{display:block}
+.avatar.emotion-sad .piko .eyes-sad,
+.avatar.emotion-sad .piko .mouth-sad{display:block}
+.avatar.emotion-surprised .piko .eyes-surprised,
+.avatar.emotion-surprised .piko .mouth-surprised{display:block}
+.avatar.emotion-sleeping .piko .eyes-sleeping,
+.avatar.emotion-sleeping .piko .mouth-sleeping{display:block}
+.avatar.emotion-grumpy .piko .eyes-grumpy,
+.avatar.emotion-grumpy .piko .mouth-grumpy{display:block}
+
+/* Fallback: if no emotion class is set yet, show neutral */
+.avatar:not([class*="emotion-"]) .piko .eyes-normal,
+.avatar:not([class*="emotion-"]) .piko .mouth-neutral{display:block}
+
+/* Speaking mouth animation */
+.avatar.emotion-speaking .piko .mouth-speaking ellipse{
+  animation:talkMouth .25s ease-in-out infinite;
+  transform-origin:120px 143px;
+}
+@keyframes talkMouth{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1.6)}}
+
+/* Zzz animation when sleeping */
+.avatar.emotion-sleeping .piko .zzz{
+  animation:zzzFloat 3s ease-out infinite;
+}
+.avatar.emotion-sleeping .piko .zzz-1{animation-delay:0s}
+.avatar.emotion-sleeping .piko .zzz-2{animation-delay:1s}
+.avatar.emotion-sleeping .piko .zzz-3{animation-delay:2s}
+@keyframes zzzFloat{
+  0%{opacity:0;transform:translateY(0) scale(.8)}
+  30%{opacity:1}
+  100%{opacity:0;transform:translateY(-25px) scale(1.2)}
+}
+
+/* Tear drop animation when sad */
+.avatar.emotion-sad .piko .tear-drop{
+  animation:tearDrop 2.5s ease-in infinite;
+  transform-origin:85px 130px;
+}
+@keyframes tearDrop{
+  0%{opacity:0;transform:translateY(-4px)}
+  20%{opacity:1}
+  80%{opacity:1;transform:translateY(12px)}
+  100%{opacity:0;transform:translateY(16px)}
+}
+
+/* Eyelids for blink (only used in normal mode) */
+.piko .lid{
+  fill:var(--screen-d);
+  transition:height .12s var(--ease),y .12s var(--ease);
+}
+.avatar.blinking.emotion-neutral .piko .lid-l,
+.avatar.blinking.emotion-thinking .piko .lid-l,
+.avatar.blinking.emotion-speaking .piko .lid-l{height:20px}
+.avatar.blinking.emotion-neutral .piko .lid-r,
+.avatar.blinking.emotion-thinking .piko .lid-r,
+.avatar.blinking.emotion-speaking .piko .lid-r{height:20px}
+
+/* Grumpy wake-up shake */
+.avatar.waking-grumpy{animation:grumpyShake .4s ease-in-out 3}
+@keyframes grumpyShake{0%,100%{transform:translateX(0) rotate(0)}25%{transform:translateX(-3px) rotate(-2deg)}75%{transform:translateX(3px) rotate(2deg)}}
+
+.piko .status-light{animation:statusBlink 3s ease-in-out infinite}
+@keyframes statusBlink{0%,100%{opacity:.6}50%{opacity:1}}
+.avatar.emotion-sleeping .piko .status-light{animation-duration:5s;opacity:.3}
+
+.avatar-status{
+  margin-top:.4rem;
+  font-family:'Caveat',cursive;
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--acc);
+  letter-spacing:.01em;
+  text-align:center;
+  min-height:1.6rem;
+  transition:opacity var(--t-base);
+}
+
+/* ════ SPEECH BUBBLE (flat text below avatar — no comic cloud) ════ */
+.speech-wrap{
+  width:100%;
+  max-width:560px;
+  min-height:60px;
+  margin-bottom:1.2rem;
+  display:flex;
+  justify-content:center;
+}
+.speech{
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:.4rem 1rem;
+  font-size:1rem;
+  line-height:1.55;
+  color:var(--text);
+  box-shadow:none;
+  max-width:520px;
+  position:relative;
+  opacity:0;
+  transform:translateY(4px);
+  transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease);
+  text-align:center;
+  font-family:'Nunito',sans-serif;
+  font-weight:400;
+}
+.speech.show{opacity:1;transform:translateY(0)}
+/* Removed comic-cloud ::before triangle — text sits below avatar plainly */
+.speech strong{color:var(--acc);font-weight:700}
+.speech ul{padding-left:1.2rem;margin:.4rem 0;text-align:left;display:inline-block}
+.speech li{margin-bottom:.2rem}
+.speech code{font-family:'IBM Plex Mono',monospace;font-size:.82rem;background:var(--card-soft);padding:1px 6px;border-radius:4px;color:var(--acc)}
+.speech .typing-cursor{
+  display:inline-block;
+  width:2px;height:1em;
+  background:var(--acc);
+  margin-left:2px;
+  vertical-align:text-bottom;
+  animation:cursorBlink .8s steps(2) infinite;
+}
+@keyframes cursorBlink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+
+/* ════ CHAT BAR ════ */
+.chat-bar{
+  width:100%;
+  max-width:560px;
+  display:flex;
+  gap:.5rem;
+  align-items:flex-end;
+  margin-bottom:.85rem;
+}
+.chat-input-wrap{
+  flex:1;
+  background:var(--card);
+  border:2px solid var(--line);
+  border-radius:99px;
+  padding:.2rem .2rem .2rem 1.1rem;
+  display:flex;align-items:center;
+  box-shadow:var(--shadow-soft);
+  transition:all var(--t-base);
+}
+.chat-input-wrap:focus-within{
+  border-color:var(--acc);
+  box-shadow:var(--shadow),0 0 0 4px var(--acc-bg);
+}
+.chat-in{
+  flex:1;
+  border:none;background:transparent;
+  font-family:inherit;
+  font-size:.95rem;
+  color:var(--text);
+  padding:.65rem 0;
+  outline:none;
+  resize:none;
+  max-height:90px;
+  line-height:1.4;
+}
+.chat-in::placeholder{color:var(--tdim)}
+.send-btn{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--acc);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:all var(--t-base) var(--spring);
+  box-shadow:0 4px 14px var(--acc-bg);
+}
+.send-btn:hover{background:var(--acc-hi);transform:scale(1.05) rotate(-5deg)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.send-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ════ SUGGESTIONS ════ */
+.suggestions{
+  display:flex;
+  gap:.4rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:680px;
+  margin-bottom:1.4rem;
+  min-height:32px;
+}
+.sugg{
+  font-size:.78rem;
+  padding:.4rem .8rem;
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:99px;
+  color:var(--tlo);
+  transition:all var(--t-base) var(--ease);
+  font-weight:500;
+  box-shadow:var(--shadow-soft);
+}
+.sugg:hover{
+  color:var(--acc);
+  border-color:var(--acc);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+/* ════ QUICK ACCESS PILLS ════ */
+.quick-access{
+  display:flex;
+  gap:.4rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  max-width:760px;
+}
+.qa-pill{
+  display:flex;align-items:center;gap:.4rem;
+  padding:.5rem .9rem;
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:99px;
+  color:var(--tlo);
+  font-size:.82rem;
+  font-weight:600;
+  transition:all var(--t-base) var(--spring);
+  box-shadow:var(--shadow-soft);
+}
+.qa-pill:hover{
+  color:var(--acc);
+  border-color:var(--acc);
+  transform:translateY(-3px);
+  box-shadow:var(--shadow);
+}
+.qa-pill svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:var(--acc)}
+.qa-pill .badge{
+  background:var(--acc-bg);
+  color:var(--acc);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;
+  font-weight:700;
+  padding:1px 6px;
+  border-radius:99px;
+  min-width:18px;
+  text-align:center;
+}
+
+/* ════ SLIDE-IN PANELS ════ */
+.panel-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.35);
+  backdrop-filter:blur(4px);
+  z-index:100;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity var(--t-base),visibility var(--t-base);
+}
+.panel-overlay.open{opacity:1;visibility:visible}
+.panel-slide{
+  position:fixed;
+  top:0;right:0;
+  width:min(440px,90vw);
+  height:100vh;
+  background:var(--card);
+  z-index:101;
+  transform:translateX(100%);
+  transition:transform var(--t-slow) var(--ease);
+  display:flex;flex-direction:column;
+  box-shadow:-8px 0 32px rgba(0,0,0,.15);
+}
+.panel-slide.open{transform:translateX(0)}
+.panel-head{
+  padding:1.2rem 1.4rem .9rem;
+  display:flex;align-items:center;gap:.6rem;
+  border-bottom:1.5px solid var(--line);
+}
+.panel-head-icon{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--acc-bg);
+  color:var(--acc);
+  display:flex;align-items:center;justify-content:center;
+}
+.panel-head-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.panel-head-title{
+  flex:1;
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:1.15rem;
+  letter-spacing:-.01em;
+}
+.panel-head-title em{color:var(--acc);font-style:italic}
+.panel-close{
+  width:32px;height:32px;
+  border-radius:50%;
+  color:var(--tdim);
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);
+}
+.panel-close:hover{color:var(--neg);background:var(--card-soft)}
+.panel-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round}
+.panel-body{flex:1;overflow-y:auto;padding:1rem 1.2rem 1.5rem}
+
+/* Panel content components */
+.panel-tabs{
+  display:flex;gap:3px;
+  background:var(--card-soft);
+  border-radius:99px;
+  padding:3px;
+  margin-bottom:1rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.panel-tabs::-webkit-scrollbar{display:none}
+.panel-tab{
+  padding:.4rem .75rem;
+  border-radius:99px;
+  font-size:.74rem;
+  font-weight:600;
+  color:var(--tdim);
+  white-space:nowrap;
+  transition:all var(--t-fast);
+}
+.panel-tab.active{background:var(--card);color:var(--acc);box-shadow:var(--shadow-soft)}
+
+.panel-card{
+  background:var(--card);
+  border:1.5px solid var(--line);
+  border-radius:var(--rsm);
+  padding:.85rem 1rem;
+  margin-bottom:.55rem;
+  transition:all var(--t-base);
+  cursor:pointer;
+}
+.panel-card:hover{
+  border-color:var(--acc);
+  transform:translateX(-3px);
+  box-shadow:var(--shadow-soft);
+}
+.pc-title{font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:.25rem}
+.pc-meta{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--tdim);display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.pc-meta .acc{color:var(--acc);font-weight:700}
+
+.bar{height:6px;background:var(--card-soft);border-radius:3px;overflow:hidden;margin:.4rem 0}
+.bar-fill{height:100%;background:var(--acc);border-radius:3px;transition:width .6s var(--ease)}
+.bar-fill.pos{background:var(--pos)}
+.bar-fill.warn{background:var(--whi)}
+.bar-fill.neg{background:var(--neg)}
+
+.tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  padding:.18rem .42rem;
+  border-radius:4px;
+  background:var(--acc-bg);
+  color:var(--acc);
+  font-weight:600;
+}
+.tag.pos{background:rgba(90,138,58,.18);color:var(--pos)}
+.tag.warn{background:rgba(200,144,32,.18);color:var(--whi)}
+.tag.neg{background:rgba(176,64,48,.18);color:var(--neg)}
+
+.section-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:.66rem;
+  color:var(--tdim);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin:1rem 0 .55rem;
+}
+.empty-state{text-align:center;padding:2rem 1rem;color:var(--tdim)}
+.empty-state .em{font-size:2.2rem;opacity:.4;margin-bottom:.4rem}
+
+/* ════ SETTINGS MODAL ════ */
+.modal{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(6px);
+  z-index:200;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:1rem;
+}
+.modal.open{display:flex;animation:fadeIn .25s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-card{
+  background:var(--card);
+  border-radius:24px;
+  width:100%;max-width:560px;
+  max-height:90vh;
+  display:flex;flex-direction:column;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);
+  animation:slideUp .35s var(--spring);
+  overflow:hidden;
+}
+@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-head{padding:1.3rem 1.5rem .9rem;border-bottom:1.5px solid var(--line);display:flex;align-items:center}
+.modal-title{flex:1;font-family:'Fraunces',serif;font-weight:500;font-size:1.3rem;letter-spacing:-.01em}
+.modal-title em{color:var(--acc);font-style:italic}
+.modal-body{flex:1;overflow-y:auto;padding:1.2rem 1.5rem}
+
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:1.4rem}
+.theme-card{
+  padding:.7rem .5rem .55rem;
+  border-radius:var(--rsm);
+  background:var(--card-soft);
+  border:2px solid transparent;
+  cursor:pointer;
+  transition:all var(--t-base);
+  text-align:center;
+}
+.theme-card:hover{transform:translateY(-2px)}
+.theme-card.active{border-color:var(--acc);box-shadow:0 0 0 4px var(--acc-bg)}
+.theme-preview{
+  height:60px;
+  border-radius:10px;
+  margin-bottom:.45rem;
+  position:relative;
+  overflow:hidden;
+}
+.theme-preview .tp-bg{position:absolute;inset:0}
+.theme-preview .tp-acc{position:absolute;bottom:8px;left:8px;width:14px;height:14px;border-radius:50%}
+.theme-preview .tp-av{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:24px;height:24px;
+  border-radius:8px;
+}
+.theme-name{font-size:.78rem;font-weight:700;color:var(--text)}
+.theme-meta{font-family:'Caveat',cursive;font-size:.95rem;color:var(--tdim);margin-top:-2px}
+
+.field{margin-bottom:.85rem}
+.field-lbl{display:block;font-size:.82rem;font-weight:600;color:var(--tlo);margin-bottom:.3rem}
+.field-in{
+  width:100%;
+  background:var(--card-soft);
+  border:1.5px solid var(--line);
+  border-radius:var(--rsm);
+  padding:.6rem .8rem;
+  font-size:.88rem;
+  color:var(--text);
+  outline:none;
+  transition:all var(--t-fast);
+  font-family:inherit;
+}
+.field-in:focus{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-bg)}
+.field-in[type=password]{font-family:'IBM Plex Mono',monospace;letter-spacing:.2em}
+.field-row{display:flex;gap:.4rem;align-items:center;margin-bottom:.85rem}
+.field-row .field-lbl{margin:0;width:130px}
+
+.btn{
+  padding:.55rem 1rem;
+  border-radius:99px;
+  background:var(--acc);
+  color:#fff;
+  font-weight:700;
+  font-size:.85rem;
+  transition:all var(--t-base) var(--spring);
+  display:inline-flex;align-items:center;gap:.4rem;
+}
+.btn:hover{background:var(--acc-hi);transform:translateY(-1px)}
+.btn.ghost{background:var(--card-soft);color:var(--tlo)}
+.btn.ghost:hover{background:var(--card);color:var(--acc)}
+.btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+
+.about-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem .85rem;background:var(--card-soft);border-radius:var(--rsm);margin-bottom:.4rem;font-size:.84rem}
+.about-row .l{color:var(--tlo)}
+.about-row .v{font-family:'IBM Plex Mono',monospace;color:var(--text);font-size:.74rem}
+
+/* ════ TOASTS ════ */
+.toasts{position:fixed;top:14px;right:14px;z-index:300;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{
+  background:var(--card);
+  border-left:3px solid var(--acc);
+  border-radius:var(--rsm);
+  padding:.65rem .9rem .65rem .8rem;
+  display:flex;align-items:center;gap:.55rem;
+  min-width:220px;max-width:320px;
+  font-size:.84rem;
+  box-shadow:var(--shadow);
+  animation:toastIn .35s var(--spring);
+  pointer-events:auto;
+}
+.toast.success{border-color:var(--pos)}
+.toast.warn{border-color:var(--whi)}
+.toast.error{border-color:var(--neg)}
+.toast.hide{animation:toastOut .3s forwards}
+@keyframes toastIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes toastOut{to{transform:translateX(120%);opacity:0}}
+.toast svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.toast.success svg{color:var(--pos)}
+.toast.warn svg{color:var(--whi)}
+.toast.error svg{color:var(--neg)}
+.toast.info svg{color:var(--acc)}
+
+/* ════ RESPONSIVE ════ */
+@media(max-width:640px){
+  .avatar{width:160px;height:184px}
+  .stage{padding:70px 1rem 1rem}
+  .speech{font-size:.88rem;padding:.8rem 1.1rem}
+  .qa-pill{font-size:.74rem;padding:.42rem .75rem}
+  .sugg{font-size:.72rem;padding:.35rem .65rem}
+  .brand{font-size:1.05rem}
+  .tb-btn{width:34px;height:34px}
+}
+</style>
+</head>
+<body>
+
+<!-- AMBIENT BACKGROUND -->
+<div class="ambient">
+  <div class="ambient-bg"></div>
+  <!-- TRTA: vine leaves (sway) -->
+  <div class="ambient-deco trta-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#8a4810" opacity="0.28">
+      <path class="leaf" d="M50,150 Q80,120 110,150 Q140,180 110,210 Q80,180 50,150 Z"/>
+      <path class="leaf" d="M150,100 Q180,70 210,100 Q240,130 210,160 Q180,130 150,100 Z"/>
+      <path class="leaf" d="M850,200 Q880,170 910,200 Q940,230 910,260 Q880,230 850,200 Z"/>
+      <path class="leaf" d="M80,800 Q110,770 140,800 Q170,830 140,860 Q110,830 80,800 Z"/>
+      <path class="leaf" d="M920,750 Q950,720 980,750 Q1010,780 980,810 Q950,780 920,750 Z"/>
+    </g>
+    <g stroke="#8a4810" stroke-width="2" fill="none" opacity="0.3">
+      <path d="M50,150 Q60,200 70,250"/>
+      <path d="M150,100 Q160,150 170,200"/>
+      <path d="M850,200 Q860,250 870,300"/>
+    </g>
+  </svg></div>
+  <!-- JELKA: pine trees (sway) -->
+  <div class="ambient-deco jelka-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#2a4818" opacity="0.18">
+      <path class="pine" d="M100,750 L80,750 L100,650 L85,650 L100,550 L115,650 L100,650 Z"/>
+      <path class="pine" d="M100,650 L70,650 L100,500 L75,500 L100,350 L125,500 L100,500 Z"/>
+      <path class="pine" d="M880,780 L855,780 L880,650 L860,650 L880,520 L900,650 L880,650 Z"/>
+      <path class="pine" d="M50,850 L30,850 L50,780 L40,780 L50,720 L60,780 L50,780 Z"/>
+      <path class="pine" d="M950,820 L935,820 L950,760 L940,760 L950,710 L960,760 L950,760 Z"/>
+    </g>
+  </svg></div>
+  <!-- MORJE: animated waves + bubbles -->
+  <div class="ambient-deco morje-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#1a3a5c" stroke-width="2.5" fill="none" opacity="0.35">
+      <path class="wave" d="M-200,750 Q-50,720 100,750 T400,750 T700,750 T1000,750 T1300,750"/>
+      <path class="wave wave-2" d="M-200,800 Q-50,770 100,800 T400,800 T700,800 T1000,800 T1300,800"/>
+      <path class="wave wave-3" d="M-200,850 Q-50,820 100,850 T400,850 T700,850 T1000,850 T1300,850"/>
+    </g>
+    <g fill="#7898b8" opacity="0.4">
+      <circle class="bubble" cx="120" cy="800" r="5"/>
+      <circle class="bubble bubble-2" cx="125" cy="800" r="3"/>
+      <circle class="bubble" cx="850" cy="780" r="6"/>
+      <circle class="bubble bubble-2" cx="855" cy="780" r="4"/>
+    </g>
+  </svg></div>
+  <!-- SOLNCE: rotating sun rays + pulsing core -->
+  <div class="ambient-deco solnce-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g class="sun-rays" stroke="#d8482a" stroke-width="2.5" fill="none" opacity="0.22" stroke-linecap="round">
+      <line x1="850" y1="120" x2="880" y2="80"/>
+      <line x1="900" y1="180" x2="950" y2="160"/>
+      <line x1="820" y1="80" x2="840" y2="40"/>
+      <line x1="930" y1="100" x2="970" y2="70"/>
+      <line x1="810" y1="180" x2="770" y2="200"/>
+      <line x1="950" y1="220" x2="990" y2="240"/>
+    </g>
+    <circle class="sun-core" cx="880" cy="140" r="42" fill="#e89878" opacity="0.32"/>
+    <circle class="sun-core" cx="880" cy="140" r="28" fill="#f8b894" opacity="0.4"/>
+  </svg></div>
+  <!-- NOČ: twinkling stars + occasional comet -->
+  <div class="ambient-deco noc-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#e8e4f4">
+      <circle class="star" cx="80" cy="100" r="2" opacity="0.95"/>
+      <circle class="star" cx="200" cy="150" r="2.5" opacity="0.85"/>
+      <circle class="star" cx="350" cy="80" r="1.5" opacity="0.9"/>
+      <circle class="star" cx="500" cy="120" r="2" opacity="0.95"/>
+      <circle class="star" cx="700" cy="100" r="2.5" opacity="0.8"/>
+      <circle class="star" cx="850" cy="180" r="1.5" opacity="0.9"/>
+      <circle class="star" cx="920" cy="100" r="2" opacity="0.85"/>
+      <circle class="star" cx="120" cy="250" r="1.5" opacity="0.75"/>
+      <circle class="star" cx="450" cy="220" r="2" opacity="0.9"/>
+      <circle class="star" cx="780" cy="280" r="2.5" opacity="0.85"/>
+      <circle class="star" cx="60" cy="400" r="1.5" opacity="0.7"/>
+      <circle class="star" cx="950" cy="350" r="2" opacity="0.85"/>
+      <circle class="star" cx="280" cy="380" r="1.5" opacity="0.75"/>
+      <circle class="star" cx="620" cy="450" r="2" opacity="0.85"/>
+      <circle class="star" cx="180" cy="500" r="1.5" opacity="0.7"/>
+      <circle class="star" cx="400" cy="600" r="2" opacity="0.8"/>
+      <circle class="star" cx="720" cy="550" r="1.5" opacity="0.75"/>
+    </g>
+    <g class="comet" fill="#e8e4f4">
+      <circle cx="100" cy="100" r="3" fill="#c8a8ff"/>
+      <path d="M100,100 L40,80 L20,75" stroke="#c8a8ff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>
+    </g>
+    <g fill="#a888e8" opacity="0.7">
+      <path d="M150,180 L152,184 L156,186 L152,188 L150,192 L148,188 L144,186 L148,184 Z"/>
+      <path d="M820,120 L822,124 L826,126 L822,128 L820,132 L818,128 L814,126 L818,124 Z"/>
+    </g>
+  </svg></div>
+  <!-- DEŽ: rain (raindrops handled by weather-fx layer) -->
+  <div class="ambient-deco dez-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#4a6a8a" opacity="0.12">
+      <ellipse cx="200" cy="180" rx="80" ry="30"/>
+      <ellipse cx="600" cy="220" rx="120" ry="35"/>
+      <ellipse cx="850" cy="160" rx="90" ry="28"/>
+    </g>
+  </svg></div>
+  <!-- SNEG: snow (snowflakes handled by weather-fx layer) -->
+  <div class="ambient-deco sneg-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#5a78a0" opacity="0.22">
+      <path d="M50,800 L150,780 L250,790 L350,775 L450,785 L550,780 L650,790 L750,775 L850,785 L950,780 L950,800 L50,800 Z"/>
+    </g>
+    <g fill="#a8c8e8" opacity="0.35">
+      <circle cx="200" cy="780" r="4"/>
+      <circle cx="500" cy="785" r="5"/>
+      <circle cx="800" cy="778" r="4"/>
+      <circle cx="350" cy="775" r="3"/>
+      <circle cx="650" cy="782" r="4"/>
+    </g>
+  </svg></div>
+  <!-- MEGLJA: fog (drifting clouds handled here + weather-fx) -->
+  <div class="ambient-deco meglja-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+    <g fill="#b4b8c2" opacity="0.35">
+      <ellipse class="fog-cloud" cx="200" cy="400" rx="180" ry="40"/>
+      <ellipse class="fog-cloud fog-cloud-2" cx="600" cy="500" rx="220" ry="50"/>
+      <ellipse class="fog-cloud fog-cloud-3" cx="800" cy="350" rx="160" ry="35"/>
+      <ellipse class="fog-cloud fog-cloud-2" cx="400" cy="600" rx="200" ry="45"/>
+    </g>
+  </svg></div>
+</div>
+
+<!-- WEATHER FX LAYER (particles: raindrops, snowflakes) -->
+<div class="weather-fx" id="weather-fx"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="brand">
+    <em>Printko</em>
+    <span class="dot"></span>
+  </div>
+  <div class="topbar-actions">
+    <button class="tb-btn wide" id="lang-toggle" onclick="toggleLang()" title="Jezik / Language">
+      <span id="lang-label">SL</span>
+    </button>
+    <button class="tb-btn" onclick="cycleTheme()" title="Tema / Theme">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    </button>
+    <button class="tb-btn" onclick="openSettings()" title="Nastavitve / Settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN STAGE -->
+<main class="stage">
+  <!-- AVATAR -->
+  <div class="avatar-wrap">
+    <div class="avatar emotion-neutral" id="avatar" onclick="avatarClick()">
+      <svg class="piko" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--avatar-l)"/>
+            <stop offset="100%" stop-color="var(--avatar-d)"/>
+          </linearGradient>
+          <radialGradient id="screenGrad" cx="0.5" cy="0.4" r="0.7">
+            <stop offset="0%" stop-color="var(--screen-l)"/>
+            <stop offset="100%" stop-color="var(--screen-d)"/>
+          </radialGradient>
+        </defs>
+        
+        <!-- ground shadow -->
+        <ellipse class="shadow-ellipse" cx="120" cy="260" rx="58" ry="8" fill="rgba(0,0,0,0.18)"/>
+        
+        <!-- antenna -->
+        <line x1="120" y1="62" x2="120" y2="32" stroke="var(--avatar-stroke)" stroke-width="3" stroke-linecap="round"/>
+        <circle class="antenna-glow" cx="120" cy="22" r="9" fill="var(--acc)"/>
+        <circle cx="120" cy="22" r="5" fill="var(--acc-hi)" stroke="var(--avatar-stroke)" stroke-width="1"/>
+        
+        <!-- body group (sway + breathe + float) -->
+        <g class="body-group">
+          <g class="body-sway">
+            <!-- back shadow for depth -->
+            <rect x="56" y="68" width="130" height="160" rx="36" fill="var(--avatar-shadow)" opacity="0.5"/>
+            <!-- main body (breathes) -->
+            <g class="body-breath">
+              <rect x="50" y="62" width="130" height="160" rx="36" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              
+              <!-- face screen -->
+              <rect x="66" y="82" width="98" height="74" rx="22" fill="url(#screenGrad)" stroke="var(--avatar-stroke)" stroke-width="2"/>
+              
+              <!-- ═══ EYE VARIANTS (CSS controls which shows) ═══ -->
+              <!-- Normal eyes -->
+              <g class="eyes eyes-normal">
+                <circle cx="95" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="118" r="5.5" fill="#1a1a1a"/>
+                <circle cx="145" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="118" r="5.5" fill="#1a1a1a"/>
+                <circle cx="98" cy="115" r="1.5" fill="white"/>
+                <circle cx="148" cy="115" r="1.5" fill="white"/>
+              </g>
+              <!-- Sleeping eyes (closed arcs) -->
+              <g class="eyes eyes-sleeping">
+                <path d="M84 119 Q95 125 106 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 119 Q145 125 156 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Grumpy eyes (half-closed, slanted) -->
+              <g class="eyes eyes-grumpy">
+                <path d="M84 116 L106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M84 122 Q95 118 106 122" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+                <path d="M134 116 L156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 122 Q145 118 156 122" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+              </g>
+              <!-- Surprised eyes (bigger) -->
+              <g class="eyes eyes-surprised">
+                <circle cx="95" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="118" r="7" fill="#1a1a1a"/>
+                <circle cx="145" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="118" r="7" fill="#1a1a1a"/>
+              </g>
+              <!-- Happy eyes (upside-down arcs ^_^) -->
+              <g class="eyes eyes-happy">
+                <path d="M84 122 Q95 112 106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 122 Q145 112 156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Sad eyes (downturned with small pupil) -->
+              <g class="eyes eyes-sad">
+                <circle cx="95" cy="120" r="9" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="123" r="4" fill="#1a1a1a"/>
+                <circle cx="145" cy="120" r="9" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="123" r="4" fill="#1a1a1a"/>
+                <!-- tear drop -->
+                <ellipse cx="85" cy="130" rx="2" ry="3" fill="#7ab8d8" opacity=".8" class="tear-drop"/>
+              </g>
+              
+              <!-- eyelids for blink (only used in normal mode) -->
+              <rect class="lid lid-l" x="84" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
+              <rect class="lid lid-r" x="134" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
+              
+              <!-- ═══ MOUTH VARIANTS (CSS controls which shows) ═══ -->
+              <!-- Neutral slight smile -->
+              <g class="mouth mouth-neutral">
+                <path d="M111 142 Q120 147 129 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Happy big smile -->
+              <g class="mouth mouth-happy">
+                <path d="M103 138 Q120 158 137 138" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="var(--acc)" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <!-- Sad frown -->
+              <g class="mouth mouth-sad">
+                <path d="M108 148 Q120 142 132 148" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Surprised O -->
+              <g class="mouth mouth-surprised">
+                <ellipse cx="120" cy="143" rx="6" ry="8" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
+              </g>
+              <!-- Thinking (small offset line) -->
+              <g class="mouth mouth-thinking">
+                <path d="M114 144 L126 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Speaking (animated ellipse) -->
+              <g class="mouth mouth-speaking">
+                <ellipse cx="120" cy="143" rx="7" ry="3" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
+              </g>
+              <!-- Sleeping (flat line + Zzz) -->
+              <g class="mouth mouth-sleeping">
+                <path d="M114 143 L126 143" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <text class="zzz zzz-1" x="158" y="105" font-family="Caveat,cursive" font-size="14" fill="var(--acc)" font-weight="700">z</text>
+                <text class="zzz zzz-2" x="168" y="88" font-family="Caveat,cursive" font-size="18" fill="var(--acc)" font-weight="700">z</text>
+                <text class="zzz zzz-3" x="178" y="68" font-family="Caveat,cursive" font-size="24" fill="var(--acc)" font-weight="700">Z</text>
+              </g>
+              <!-- Grumpy (curved down, asymmetrical) -->
+              <g class="mouth mouth-grumpy">
+                <path d="M108 148 Q118 145 128 147 Q132 148 134 146" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              
+              <!-- printer slot decoration -->
+              <rect x="72" y="172" width="86" height="6" rx="3" fill="var(--avatar-stroke)" opacity="0.35"/>
+              <rect x="82" y="180" width="66" height="3" rx="1.5" fill="var(--avatar-stroke)" opacity="0.25"/>
+              
+              <!-- status light -->
+              <circle class="status-light" cx="120" cy="200" r="3.5" fill="var(--pos)" stroke="var(--avatar-stroke)" stroke-width="1"/>
+              
+              <!-- side arms (gentle wave) -->
+              <g class="arm arm-l">
+                <circle cx="44" cy="132" r="11" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              </g>
+              <g class="arm arm-r">
+                <circle cx="196" cy="132" r="11" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              </g>
+              
+              <!-- small detail dots -->
+              <circle cx="78" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+              <circle cx="120" cy="210" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+              <circle cx="162" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <!-- Speech text sits directly below avatar (no comic cloud) -->
+    <div class="speech-wrap">
+      <div class="speech" id="speech">
+        <span id="speech-text">Pozdravljeni! Sem <strong>Printko</strong>, vaš pomočnik. Vprašajte me karkoli o vaših tiskih, črnilu, projektih ali financah.</span>
+      </div>
+    </div>
+    <!-- Small caveat status label below speech (sleeping/grumpy/thinking indicator) -->
+    <div class="avatar-status" id="avatar-status">Pripravljen</div>
+  </div>
+
+  <!-- SUGGESTIONS -->
+  <div class="suggestions" id="suggestions"></div>
+
+  <!-- CHAT BAR -->
+  <div class="chat-bar">
+    <div class="chat-input-wrap">
+      <textarea class="chat-in" id="chat-in" placeholder="Vprašaj Pika…" rows="1" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
+    </div>
+    <button class="send-btn" id="send-btn" onclick="sendMsg()">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+
+  <!-- QUICK ACCESS -->
+  <div class="quick-access" id="quick-access"></div>
+</main>
+
+<!-- PANEL OVERLAY -->
+<div class="panel-overlay" id="panel-overlay" onclick="closeAllPanels()"></div>
+
+<!-- SLIDE-IN PANEL: NEWS -->
+<aside class="panel-slide" id="panel-news">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg></div>
+    <div class="panel-head-title" id="news-title">Novice</div>
+    <button class="panel-close" onclick="closePanel('news')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="news-body"></div>
+</aside>
+
+<!-- SLIDE-IN PANEL: PROJECTS -->
+<aside class="panel-slide" id="panel-projects">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+    <div class="panel-head-title" id="projects-title">Projekti</div>
+    <button class="panel-close" onclick="closePanel('projects')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="projects-body"></div>
+</aside>
+
+<!-- SLIDE-IN PANEL: HISTORY -->
+<aside class="panel-slide" id="panel-history">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg></div>
+    <div class="panel-head-title" id="history-title">Zgodovina</div>
+    <button class="panel-close" onclick="closePanel('history')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="history-body"></div>
+</aside>
+
+<!-- SLIDE-IN PANEL: INK -->
+<aside class="panel-slide" id="panel-ink">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+    <div class="panel-head-title" id="ink-title">Črnilo</div>
+    <button class="panel-close" onclick="closePanel('ink')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="ink-body"></div>
+</aside>
+
+<!-- SLIDE-IN PANEL: FINANCES -->
+<aside class="panel-slide" id="panel-finances">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+    <div class="panel-head-title" id="finances-title">Finance</div>
+    <button class="panel-close" onclick="closePanel('finances')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="finances-body"></div>
+</aside>
+
+<!-- SLIDE-IN PANEL: PRINTS -->
+<aside class="panel-slide" id="panel-prints">
+  <div class="panel-head">
+    <div class="panel-head-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+    <div class="panel-head-title" id="prints-title">Tiski</div>
+    <button class="panel-close" onclick="closePanel('prints')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+  </div>
+  <div class="panel-body" id="prints-body"></div>
+</aside>
+
+<!-- SETTINGS MODAL -->
+<div class="modal" id="modal-settings" onclick="if(event.target===this)closeSettings()">
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">Nastavitve · <em>Settings</em></div>
+      <button class="panel-close" onclick="closeSettings()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="section-lbl" id="lbl-themes">Teme · Themes</div>
+      <div class="theme-grid" id="theme-grid"></div>
+
+      <div class="section-lbl" id="lbl-language">Jezik · Language</div>
+      <div class="panel-tabs" style="margin-bottom:1.4rem">
+        <button class="panel-tab active" data-lang="sl" onclick="setLang('sl')">Slovenščina</button>
+        <button class="panel-tab" data-lang="en" onclick="setLang('en')">English</button>
+      </div>
+
+      <div class="section-lbl" id="lbl-agent">pi.dev · Agent</div>
+      <div class="field">
+        <label class="field-lbl" id="lbl-or">OpenRouter API ključ</label>
+        <input class="field-in" type="password" id="or-key" placeholder="sk-or-v1-…" onchange="saveKeys()">
+      </div>
+      <div class="field">
+        <label class="field-lbl" id="lbl-model">Privzeti model</label>
+        <select class="field-in" id="or-model" onchange="saveKeys()">
+          <option value="offline">Offline Agent (vgrajen)</option>
+          <option value="anthropic/claude-sonnet-4">Claude Sonnet 4</option>
+          <option value="openai/gpt-4o">GPT-4o</option>
+          <option value="google/gemini-2.0-flash-exp">Gemini 2.0 Flash</option>
+          <option value="mistralai/mistral-large">Mistral Large</option>
+          <option value="deepseek/deepseek-chat">DeepSeek V3</option>
+        </select>
+      </div>
+
+      <div class="section-lbl" id="lbl-notion">Notion · Sinhronizacija</div>
+      <div class="field">
+        <label class="field-lbl" id="lbl-notion-key">Notion žeton</label>
+        <input class="field-in" type="password" id="notion-key" placeholder="secret_…" onchange="saveKeys()">
+      </div>
+      <div class="field">
+        <label class="field-lbl" id="lbl-notion-db">ID podatkovne baze (projekti)</label>
+        <input class="field-in" id="notion-db" placeholder="32-znakovni hex…" onchange="saveKeys()">
+      </div>
+      <button class="btn ghost" onclick="syncNotion()" style="margin-top:.4rem">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>
+        <span id="lbl-sync">Sinhroniziraj</span>
+      </button>
+
+      <div class="section-lbl" id="lbl-about">O programu · About</div>
+      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v9.0 · Printko</span></div>
+      <div class="about-row"><span class="l" id="lbl-printer">Tiskalnik</span><span class="v">eufy E1 UV</span></div>
+      <div class="about-row"><span class="l" id="lbl-status">Stanje</span><span class="v" id="conn-status">— povezave</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ════════════════════════════════════════════════
+   Printko v9 · centered avatar dashboard
+   Slovenian (SL) default, English (EN) toggle
+   Weather-themed animated backgrounds, character avatar
+   ════════════════════════════════════════════════ */
+
+/* ─── I18N ─── */
+const I18N={
+  sl:{
+    welcome:'Pozdravljeni!',
+    welcomeSpeech:'Pozdravljeni! Sem <strong>Printko</strong>, vaš pomočnik. Vprašajte me karkoli o vaših tiskih, črnilu, projektih ali financah.',
+    ready:'Pripravljen',
+    thinking:'Printko razmišlja…',
+    speaking:'Printko govori…',
+    listening:'Printko posluša…',
+    sleeping:'Printko spi…',
+    grumpy:'Mmm… kar je?',
+    askPlaceholder:'Vprašaj Printka…',
+    send:'Pošlji',
+    news:'Novice',
+    projects:'Projekti',
+    history:'Zgodovina',
+    ink:'Črnilo',
+    finances:'Finance',
+    prints:'Tiski',
+    settings:'Nastavitve',
+    themes:'Teme',
+    language:'Jezik',
+    agent:'pi.dev · Agent',
+    notion:'Notion · Sinhronizacija',
+    about:'O programu',
+    version:'Različica',
+    printer:'Tiskalnik',
+    status:'Stanje',
+    sync:'Sinhroniziraj',
+    orKey:'OpenRouter API ključ',
+    model:'Privzeti model',
+    notionKey:'Notion žeton',
+    notionDb:'ID podatkovne baze (projekti)',
+    all:'Vse',
+    products:'Izdelki',
+    tutorials:'Vadnice',
+    community:'Skupnost',
+    firmware:'Firmver',
+    printsJob:'Tiski',
+    refills:'Polnitve',
+    maintenance:'Vzdrževanje',
+    expenses:'Stroški',
+    projectsTab:'Projekti',
+    ontrack:'Po načrtu',
+    atrisk:'V tveganju',
+    blocked:'Blokiran',
+    done:'Končan',
+    due:'Rok',
+    progress:'Napredek',
+    lastAct:'Zadnja aktivnost',
+    client:'Stranka',
+    refresh:'Osveži',
+    noData:'Ni podatkov',
+    syncSuccess:'Sinhronizirano',
+    syncFail:'Sinhronizacija ni uspela',
+    saved:'Shranjeno',
+    settingsSaved:'Nastavitve shranjene',
+    notConnected:'Brez povezave',
+    connected:'Povezano',
+    clear:'Počisti',
+    newPrint:'Nov tisk',
+    newProject:'Nov projekt',
+    chatCleared:'Klepet počiščen',
+    notifCount:'obvestila',
+    suggestion1:'Koliko črnila sem porabil?',
+    suggestion2:'Kateri projekti so v težavah?',
+    suggestion3:'Pokaži zadnje tiske',
+    suggestion4:'Predvidi potrebo po črnilu',
+    suggestion5:'Primerjaj marec in april',
+    suggestion6:'Pokaži stanje zalog',
+    replyInkMonth:'Ta mesec ste porabili <strong>{total}ml</strong> črnila pri {count} tiskih.<br><br>Razčlenitev po kanalih:<ul>{breakdown}</ul>{levels}',
+    replyRevenue:'Vaša najboljša stranka je <strong>Atelier Bergman</strong> s 420 € pri 8 naročilih.<br><br>Aprilska statistika:<ul><li>Promet: 284 € (+18 % vs. marec)</li><li>Stroški: 93 €</li><li>Dobiček: 191 € (67 % marža)</li></ul>',
+    replyClean:'Zadnje čiščenje glave je bilo <strong>{days} dni nazaj</strong>. Priporočilo: čiščenje vsakih 30 dni.<br><br>{status}',
+    replyProjects:'Imate <strong>{total} aktivnih projektov</strong>.{atRisk}{blocked}<br><br><strong>Priporočilo:</strong> Najprej rešite pomanjkanje belega črnila — blokira projekt Nordic Gifts Q2.',
+    replyForecast:'Napoved za belo črnilo:<br><br>Trenutno stanje: <strong>{level}%</strong><br>Povprečna dnevna poraba: ~2 %<br>Predvidena polnitev čez: <strong>{days} dni</strong><br><br>Priporočam naročilo 100ml (28 €) v 3 dneh.',
+    replyCompare:'Marec vs. april 2026:<br><br><ul><li><strong>Promet:</strong> 240 € → 284 € (+18,3 %)</li><li><strong>Stroški:</strong> 110 € → 93 € (-15,5 %)</li><li><strong>Marža:</strong> 54 % → 67 % (+13 t. točk)</li></ul>April je bil precej bolj donosen.',
+    replyStock:'<strong>Nizke zaloge materialov:</strong><ul><li>Wood Plank Cherry — 3 planks (mejna vrednost: 5)</li></ul>Priporočam naročilo v tednu dni.',
+    replyDefault:'Razumem, da sprašujete o "{text}".<br><br>Trenutno delujem v <strong>offline načinu</strong> z dostopom do vaših lokalnih podatkov.<br><br>Vprašajte me o:<ul><li>Porabi črnila</li><li>Stanju projektov</li><li>Financah</li><li>Potrebi po polnitvah</li></ul>',
+    replyHelp:'Ukazi:<br><br><ul><li><code>/sinhro</code> — Sinhroniziraj z Notion</li><li><code>/porocilo</code> — Dnevno poročilo</li><li><code>/napoved</code> — 7-dnevna napoved</li><li><code>/pomoc</code> — To sporočilo</li></ul>'
+  },
+  en:{
+    welcome:'Welcome!',
+    welcomeSpeech:'Hello! I\'m <strong>Printko</strong>, your assistant. Ask me anything about your prints, ink, projects, or finances.',
+    ready:'Ready',
+    thinking:'Printko is thinking…',
+    speaking:'Printko is speaking…',
+    listening:'Printko is listening…',
+    sleeping:'Printko is sleeping…',
+    grumpy:'Mmm… what is it?',
+    askPlaceholder:'Ask Printko…',
+    send:'Send',
+    news:'News',
+    projects:'Projects',
+    history:'History',
+    ink:'Ink',
+    finances:'Finances',
+    prints:'Prints',
+    settings:'Settings',
+    themes:'Themes',
+    language:'Language',
+    agent:'pi.dev · Agent',
+    notion:'Notion · Sync',
+    about:'About',
+    version:'Version',
+    printer:'Printer',
+    status:'Status',
+    sync:'Sync',
+    orKey:'OpenRouter API key',
+    model:'Default model',
+    notionKey:'Notion token',
+    notionDb:'Database ID (projects)',
+    all:'All',
+    products:'Products',
+    tutorials:'Tutorials',
+    community:'Community',
+    firmware:'Firmware',
+    printsJob:'Prints',
+    refills:'Refills',
+    maintenance:'Maintenance',
+    expenses:'Expenses',
+    projectsTab:'Projects',
+    ontrack:'On track',
+    atrisk:'At risk',
+    blocked:'Blocked',
+    done:'Done',
+    due:'Due',
+    progress:'Progress',
+    lastAct:'Last activity',
+    client:'Client',
+    refresh:'Refresh',
+    noData:'No data',
+    syncSuccess:'Synced',
+    syncFail:'Sync failed',
+    saved:'Saved',
+    settingsSaved:'Settings saved',
+    notConnected:'Not connected',
+    connected:'Connected',
+    clear:'Clear',
+    newPrint:'New print',
+    newProject:'New project',
+    chatCleared:'Chat cleared',
+    notifCount:'notifications',
+    suggestion1:'How much ink did I use?',
+    suggestion2:'Which projects are at risk?',
+    suggestion3:'Show recent prints',
+    suggestion4:'Forecast ink needs',
+    suggestion5:'Compare March and April',
+    suggestion6:'Show stock levels',
+    replyInkMonth:'You used <strong>{total}ml</strong> of ink this month across {count} prints.<br><br>Breakdown by channel:<ul>{breakdown}</ul>{levels}',
+    replyRevenue:'Your top client is <strong>Atelier Bergman</strong> with €420 across 8 orders.<br><br>April stats:<ul><li>Revenue: €284 (+18% vs March)</li><li>Costs: €93</li><li>Profit: €191 (67% margin)</li></ul>',
+    replyClean:'Last head cleaning was <strong>{days} days ago</strong>. Recommendation: clean every 30 days.<br><br>{status}',
+    replyProjects:'You have <strong>{total} active projects</strong>.{atRisk}{blocked}<br><br><strong>Recommendation:</strong> Fix the white ink shortage first — it\'s blocking the Nordic Gifts Q2 project.',
+    replyForecast:'White ink forecast:<br><br>Current level: <strong>{level}%</strong><br>Average daily use: ~2%<br>Refill needed in: <strong>{days} days</strong><br><br>Recommend ordering 100ml (€28) within 3 days.',
+    replyCompare:'March vs April 2026:<br><br><ul><li><strong>Revenue:</strong> €240 → €284 (+18.3%)</li><li><strong>Costs:</strong> €110 → €93 (-15.5%)</li><li><strong>Margin:</strong> 54% → 67% (+13pp)</li></ul>April was significantly more profitable.',
+    replyStock:'<strong>Low-stock materials:</strong><ul><li>Wood Plank Cherry — 3 planks (threshold: 5)</li></ul>Recommend reordering within a week.',
+    replyDefault:'I understand you\'re asking about "{text}".<br><br>I\'m currently running in <strong>offline mode</strong> with access to your local data.<br><br>Ask me about:<ul><li>Ink usage</li><li>Project status</li><li>Finances</li><li>Refill forecasts</li></ul>',
+    replyHelp:'Commands:<br><br><ul><li><code>/sync</code> — Sync with Notion</li><li><code>/report</code> — Daily report</li><li><code>/forecast</code> — 7-day forecast</li><li><code>/help</code> — This message</li></ul>'
+  }
+};
+
+/* ─── THEMES ─── */
+const THEMES=['trta','jelka','morje','solnce','noc','mleko','dez','sneg','meglja'];
+const THEME_META={
+  trta:{n:'Trta',m:'Vine',bg1:'#f5e9d4',bg2:'#e8d4b0',acc:'#c46a18',av:'#d49458',weather:'sunny'},
+  jelka:{n:'Jelka',m:'Pine',bg1:'#e8ecd8',bg2:'#c8d4a8',acc:'#3a7048',av:'#7ca060',weather:'sunny'},
+  morje:{n:'Morje',m:'Sea',bg1:'#dfeaf2',bg2:'#a8c8dc',acc:'#3a78b8',av:'#6890b8',weather:'breezy'},
+  solnce:{n:'Solnce',m:'Sun',bg1:'#fce4d4',bg2:'#f8b894',acc:'#d8482a',av:'#e08858',weather:'sunny'},
+  noc:{n:'Noč',m:'Night',bg1:'#1a1a36',bg2:'#241e48',acc:'#a888e8',av:'#483c6c',weather:'clear-night'},
+  mleko:{n:'Mleko',m:'Milk',bg1:'#fafaf6',bg2:'#f0ede4',acc:'#3a3a38',av:'#c8c4b8',weather:'calm'},
+  dez:{n:'Dež',m:'Rain',bg1:'#d8dee5',bg2:'#b4c0cc',acc:'#4a6a8a',av:'#7a8a9c',weather:'rain'},
+  sneg:{n:'Sneg',m:'Snow',bg1:'#eef3f8',bg2:'#d8e4ee',acc:'#5a78a0',av:'#a8b8c8',weather:'snow'},
+  meglja:{n:'Meglja',m:'Fog',bg1:'#e4e6ec',bg2:'#cdd0d8',acc:'#6a6a8a',av:'#a0a0b0',weather:'fog'}
+};
+
+/* ─── MOCK DATA ─── */
+const DB={
+  inkLevels:{c:62,m:48,y:71,k:18,w:8,g:54},
+  prints:[
+    {id:'p1',name:'Monogram usnjene denarnice',emoji:'👛',material:'Usnje',duration:'14 min',date:'2026-04-18',cost:'€22',quality:5,tags:['izdelek','usnje']},
+    {id:'p2',name:'Akrilni stojalo za telefon',emoji:'📱',material:'Akril',duration:'8 min',date:'2026-04-17',cost:'€8',quality:4,tags:['test','akril']},
+    {id:'p3',name:'Niz podstavkov iz lesa',emoji:'🪵',material:'Les',duration:'22 min',date:'2026-04-16',cost:'€34',quality:5,tags:['izdelek']},
+    {id:'p4',name:'Gravirana steklena trofeja',emoji:'🏆',material:'Steklo',duration:'31 min',date:'2026-04-15',cost:'€48',quality:5,tags:['izdelek']},
+    {id:'p5',name:'Serie ključev kovinski',emoji:'🔑',material:'Kovina',duration:'12 min',date:'2026-04-14',cost:'€18',quality:3,tags:['izdelek']},
+    {id:'p6',name:'Silikonski natis traku',emoji:'⌚',material:'Silikon',duration:'9 min',date:'2026-04-13',cost:'€4',quality:2,tags:['test','neuspel'],failed:true},
+    {id:'p7',name:'Keramična skuta po meri',emoji:'☕',material:'Keramika',duration:'18 min',date:'2026-04-12',cost:'€28',quality:5,tags:['izdelek']}
+  ],
+  projects:[
+    {id:'pr1',name:'Bergman Pomladni Katalog',client:'Atelier Bergman',status:'ontrack',progress:68,due:'2026-05-02',lastAct:'12 denarnic natisnjenih · 6 ostaja',lastActDate:'pred 2h'},
+    {id:'pr2',name:'Nordic Gifts Q2 Serija',client:'Nordic Gifts Co.',status:'atrisk',progress:42,due:'2026-04-28',lastAct:'Belo črnilo kritično nizko — blokirano',lastActDate:'pred 4h'},
+    {id:'pr3',name:'Lumen Promo Skodelice',client:'Studio Lumen',status:'ontrack',progress:90,due:'2026-04-22',lastAct:'22/24 skodelic natisnjenih',lastActDate:'pred 1h'},
+    {id:'pr4',name:'Velikonočni Niz Podstavkov',client:'Atelier Bergman',status:'done',progress:100,due:'2026-04-10',lastAct:'Dostavljeno · zaračunano 340 €',lastActDate:'pred 8d'},
+    {id:'pr5',name:'Trofeja Serija #4',client:'Nordic Gifts Co.',status:'blocked',progress:25,due:'2026-05-15',lastAct:'Čaka na odobritev artworka',lastActDate:'pred 1d'}
+  ],
+  news:[
+    {id:'n1',cat:'Izdelki',title:'eufy E1 UV firmver 2.4 izdan',summary:'Nov firmver izboljša cirkulacijo belega črnila in 12 % hitrejše sušenje pri temnih materialih.',src:'eufy.com',date:'pred 2h',unread:true},
+    {id:'n2',cat:'Vadnice',title:'Obvladovanje CMYK+W+G profilov',summary:'Poglobljen vodnik o upravljanju barv za UV tiskalnike z barvnimi profili za usnje in akril.',src:'community',date:'pred 6h',unread:true},
+    {id:'n3',cat:'Skupnost',title:'Aprilski natečaj: "Pomladna tekstura"',summary:'Pošljite svoj najboljši tisk teksture ta mesec — prve tri zmagovalce dobijo brezplačno polnitev črnila.',src:'discord',date:'pred 1d',unread:false},
+    {id:'n4',cat:'Firmver',title:'Samodejno načrtovanje vzdrževanja',summary:'Nov načrtovalec lahko samodejno sproži čiščenje glave po 30 dneh ali 500 tiskih.',src:'eufy.com',date:'pred 2d',unread:false},
+    {id:'n5',cat:'Izdelki',title:'eufy P2 Pro napoved',summary:'Večji brat E1 — format A3+, dvojne UV svetilke, 8-kanalni sistem črnil. Prednaročila od 5. maja.',src:'eufy.com',date:'pred 3d',unread:false},
+    {id:'n6',cat:'Vadnice',title:'Priprava usnja za tisk',summary:'5 tehnik predobdelave usnja za boljši oprijem in manj razmazov.',src:'youtube',date:'pred 4d',unread:false}
+  ],
+  maintenance:[
+    {id:'mt1',type:'Čiščenje glave',date:'2026-04-02',duration:'18 min',outcome:'Uspešno'},
+    {id:'mt2',type:'Preverba šob',date:'2026-03-28',duration:'5 min',outcome:'Uspešno'},
+    {id:'mt3',type:'Cirkulacija belega črnila',date:'2026-03-25',duration:'8 min',outcome:'Uspešno'}
+  ],
+  refills:[
+    {id:'i1',ch:'K',ml:18,date:'2026-04-10',cost:'€24'},
+    {id:'i2',ch:'W',ml:22,date:'2026-04-08',cost:'€28'},
+    {id:'i3',ch:'C',ml:45,date:'2026-03-28',cost:'€22'}
+  ],
+  expenses:[
+    {id:'e1',name:'Paket polnitev črnil',cat:'Črnilo',amt:'-€78',date:'2026-04-10'},
+    {id:'e2',name:'Akrilni bloki ×10',cat:'Materiali',amt:'-€40',date:'2026-04-07'},
+    {id:'e3',name:'Vzdrževalna storitev',cat:'Storitev',amt:'-€35',date:'2026-04-02'},
+    {id:'e4',name:'Plačilo denarnice',cat:'Promet',amt:'+€22',date:'2026-04-18'},
+    {id:'e5',name:'Plačilo trofeje',cat:'Promet',amt:'+€48',date:'2026-04-15'}
+  ],
+  materials:[
+    {id:'m1',name:'Usnje A4',type:'Usnje',stock:12,unit:'listov',low:5,cost:'€8/list'},
+    {id:'m2',name:'Akrilni blok 10mm',type:'Akril',stock:8,unit:'bloki',low:5,cost:'€4/blok'},
+    {id:'m3',name:'Lesena deska Češnja',type:'Les',stock:3,unit:'deske',low:5,cost:'€12/deska'},
+    {id:'m4',name:'Steklena trofeja',type:'Steklo',stock:6,unit:'kos',low:3,cost:'€18/kos'},
+    {id:'m5',name:'Keramična skuta',type:'Keramika',stock:24,unit:'kos',low:10,cost:'€3/kos'}
+  ]
+};
+
+/* ─── STATE ─── */
+let curLang='sl';
+let curTheme='trta';
+let curModel='offline';
+let isSpeaking=false;
+let isThinking=false;
+let curNewsCat='Vse';
+let curHistCat='Vse';
+let blinkTimer=null;
+let chatHistory=[];
+let curEmotion='neutral';
+let idleTimer=null;
+let isSleeping=false;
+let isGrumpyWaking=false;
+let eyeExploreTimer=null;
+let mouseFocusTimer=null;
+let isEyeFocused=false;
+const IDLE_TIMEOUT=45000;        // 45s of inactivity → sleep
+const GRUMPY_DURATION=4000;      // 4s of grumpy after wake
+const EYE_EXPLORE_INTERVAL=4000; // every 4s look somewhere random
+const EYE_FOCUS_DURATION=2500;   // 2.5s focus lock on mouse/tap
+
+/* ─── UTILS ─── */
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+function t(key,vars){
+  let s=I18N[curLang][key]||I18N.en[key]||key;
+  if(vars)Object.keys(vars).forEach(k=>s=s.replace('{'+k+'}',vars[k]));
+  return s;
+}
+function nowTime(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function daysAgo(s){const d=new Date(s);const n=new Date();return Math.floor((n-d)/86400000)}
+function fmtRel(s){const d=daysAgo(s);if(d===0)return curLang==='sl'?'danes':'today';if(d===1)return curLang==='sl'?'včeraj':'yesterday';if(d<7)return curLang==='sl'?'pred '+d+'d':d+'d ago';if(d<30)return curLang==='sl'?'pred '+Math.floor(d/7)+'td':Math.floor(d/7)+'w ago';return curLang==='sl'?'pred '+Math.floor(d/30)+'md':Math.floor(d/30)+'mo ago'}
+
+/* ─── TOAST ─── */
+function toast(msg,type='info'){
+  const c=$('#toasts');
+  const el=document.createElement('div');
+  el.className='toast '+type;
+  const icons={
+    success:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+    info:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+    warn:'<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    error:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+  };
+  el.innerHTML=(icons[type]||icons.info)+'<span>'+escapeHtml(msg)+'</span>';
+  c.appendChild(el);
+  setTimeout(()=>{el.classList.add('hide');setTimeout(()=>el.remove(),300)},2600);
+}
+
+/* ─── THEME ─── */
+function setTheme(name){
+  curTheme=name;
+  document.documentElement.dataset.theme=name;
+  localStorage.setItem('es-theme',name);
+  $$('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.theme===name));
+  renderWeatherFx();
+  resetIdle();
+}
+function cycleTheme(){
+  const i=THEMES.indexOf(curTheme);
+  const next=THEMES[(i+1)%THEMES.length];
+  setTheme(next);
+  toast((curLang==='sl'?'Tema: ':'Theme: ')+THEME_META[next].n,'info');
+}
+function renderThemeGrid(){
+  const c=$('#theme-grid');
+  if(!c)return;
+  c.innerHTML=THEMES.map(name=>{
+    const m=THEME_META[name];
+    return `<div class="theme-card ${name===curTheme?'active':''}" data-theme="${name}" onclick="setTheme('${name}')">
+      <div class="theme-preview">
+        <div class="tp-bg" style="background:linear-gradient(135deg,${m.bg1} 0%,${m.bg2} 100%)"></div>
+        <div class="tp-av" style="background:${m.av}"></div>
+        <div class="tp-acc" style="background:${m.acc}"></div>
+      </div>
+      <div class="theme-name">${m.n}</div>
+      <div class="theme-meta">${m.m}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── LANGUAGE ─── */
+function setLang(lang){
+  curLang=lang;
+  document.documentElement.lang=lang;
+  localStorage.setItem('es-lang',lang);
+  $('#lang-label').textContent=lang.toUpperCase();
+  $$('.panel-tab[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  updateUIText();
+  renderSuggestions();
+  renderQuickAccess();
+  setAvatarStatus(t('ready'));
+  // Reset speech to welcome
+  showSpeech(t('welcomeSpeech'));
+}
+function toggleLang(){setLang(curLang==='sl'?'en':'sl')}
+function updateUIText(){
+  $('#chat-in').placeholder=t('askPlaceholder');
+  $('#news-title').innerHTML=t('news');
+  $('#projects-title').innerHTML=t('projects');
+  $('#history-title').innerHTML=t('history');
+  $('#ink-title').innerHTML=t('ink');
+  $('#finances-title').innerHTML=t('finances');
+  $('#prints-title').innerHTML=t('prints');
+  $('#lbl-themes').textContent=t('themes')+' · '+(curLang==='sl'?'Themes':'Teme');
+  $('#lbl-language').textContent=t('language')+' · '+(curLang==='sl'?'Language':'Jezik');
+  $('#lbl-agent').textContent=t('agent');
+  $('#lbl-notion').textContent=t('notion');
+  $('#lbl-about').textContent=t('about')+' · '+(curLang==='sl'?'About':'O programu');
+  $('#lbl-version').textContent=t('version');
+  $('#lbl-printer').textContent=t('printer');
+  $('#lbl-status').textContent=t('status');
+  $('#lbl-sync').textContent=t('sync');
+  $('#lbl-or').textContent=t('orKey');
+  $('#lbl-model').textContent=t('model');
+  $('#lbl-notion-key').textContent=t('notionKey');
+  $('#lbl-notion-db').textContent=t('notionDb');
+  // Re-render open panels
+  if($('#panel-news').classList.contains('open'))renderNews();
+  if($('#panel-projects').classList.contains('open'))renderProjects();
+  if($('#panel-history').classList.contains('open'))renderHistory();
+  if($('#panel-ink').classList.contains('open'))renderInk();
+  if($('#panel-finances').classList.contains('open'))renderFinances();
+  if($('#panel-prints').classList.contains('open'))renderPrints();
+}
+
+/* ─── AVATAR ─── */
+function setAvatarStatus(text){
+  const el=$('#avatar-status');
+  if(el)el.textContent=text;
+}
+function setEmotion(emotion){
+  const av=$('#avatar');
+  if(!av)return;
+  // Remove all emotion-* classes
+  const classes=Array.from(av.classList).filter(c=>c.startsWith('emotion-'));
+  classes.forEach(c=>av.classList.remove(c));
+  av.classList.add('emotion-'+emotion);
+  curEmotion=emotion;
+}
+function blink(){
+  const av=$('#avatar');
+  if(!av||av.classList.contains('blinking'))return;
+  // Only blink in eye-open emotions
+  const blinkable=['neutral','thinking','speaking'];
+  if(!blinkable.includes(curEmotion))return;
+  av.classList.add('blinking');
+  setTimeout(()=>av.classList.remove('blinking'),150);
+  scheduleBlink();
+}
+function scheduleBlink(){
+  if(blinkTimer)clearTimeout(blinkTimer);
+  blinkTimer=setTimeout(blink,3000+Math.random()*3500);
+}
+/* Eye exploration: every few seconds, look at a random spot.
+   Occasionally (when mouse moves or user taps), focus-lock on that point. */
+function lookAt(x,y){
+  const av=$('#avatar');
+  if(!av)return;
+  const rect=av.getBoundingClientRect();
+  const cx=rect.left+rect.width/2;
+  const cy=rect.top+rect.height/2;
+  const dx=x-cx;
+  const dy=y-cy;
+  const dist=Math.sqrt(dx*dx+dy*dy);
+  const maxMove=4;
+  const moveX=(dx/Math.max(dist,1))*Math.min(maxMove,dist/60);
+  const moveY=(dy/Math.max(dist,1))*Math.min(maxMove,dist/60);
+  const pl=$('.pupil-l'),pr=$('.pupil-r');
+  if(pl)pl.setAttribute('transform',`translate(${moveX} ${moveY})`);
+  if(pr)pr.setAttribute('transform',`translate(${moveX} ${moveY})`);
+}
+function exploreEyes(){
+  // Look at a random point within the viewport
+  const x=Math.random()*window.innerWidth;
+  const y=Math.random()*window.innerHeight;
+  lookAt(x,y);
+}
+function scheduleEyeExplore(){
+  if(eyeExploreTimer)clearTimeout(eyeExploreTimer);
+  eyeExploreTimer=setTimeout(()=>{
+    if(!isEyeFocused&&!isSleeping&&curEmotion!=='speaking'){
+      exploreEyes();
+    }
+    scheduleEyeExplore();
+  },EYE_EXPLORE_INTERVAL);
+}
+function focusEyesOn(x,y,duration){
+  isEyeFocused=true;
+  lookAt(x,y);
+  if(mouseFocusTimer)clearTimeout(mouseFocusTimer);
+  mouseFocusTimer=setTimeout(()=>{
+    isEyeFocused=false;
+  },duration);
+}
+function trackEyes(e){
+  if(isSleeping)return;
+  // Throttle: only focus-lock occasionally, otherwise just explore
+  if(Math.random()<0.15){ // 15% of mouse moves trigger a focus lock
+    focusEyesOn(e.clientX,e.clientY,EYE_FOCUS_DURATION);
+  }else if(!isEyeFocused){
+    lookAt(e.clientX,e.clientY);
+  }
+}
+function avatarTapFocus(x,y){
+  if(isSleeping){wakeUp();return}
+  if(isGrumpyWaking)return;
+  focusEyesOn(x,y,EYE_FOCUS_DURATION*1.5);
+}
+function avatarClick(){
+  if(isSleeping){wakeUp();return}
+  if(isGrumpyWaking)return;
+  if(isSpeaking||isThinking)return;
+  blink();
+  // Cycle through a few friendly emotions on click
+  const emotions=['happy','surprised','happy','neutral'];
+  const pick=emotions[Math.floor(Math.random()*emotions.length)];
+  setEmotion(pick);
+  setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping)setEmotion('neutral')},1500);
+  const greetings=curLang==='sl'?
+    ['Pozdravljeni!','Kako vam lahko pomagam?','Vaš tiskalnik je pripravljen.','Vprašajte me karkoli!']:
+    ['Hello!','How can I help?','Your printer is ready.','Ask me anything!'];
+  showSpeech('<strong>'+(greetings[Math.floor(Math.random()*greetings.length)])+'</strong>');
+}
+function setAvatarState(state){
+  const av=$('#avatar');
+  av.classList.remove('thinking','speaking');
+  if(state==='thinking'){av.classList.add('thinking');setEmotion('thinking');setAvatarStatus(t('thinking'))}
+  else if(state==='speaking'){av.classList.add('speaking');setEmotion('speaking');setAvatarStatus(t('speaking'))}
+  else{
+    // Return to neutral emotion (unless sleeping or grumpy-waking)
+    if(!isSleeping&&!isGrumpyWaking){
+      setEmotion('neutral');
+    }
+    setAvatarStatus(t('ready'));
+  }
+}
+/* Sleep / wake cycle */
+function resetIdle(){
+  if(isSleeping)return; // wakeUp handles its own reset
+  if(idleTimer)clearTimeout(idleTimer);
+  idleTimer=setTimeout(goToSleep,IDLE_TIMEOUT);
+}
+function goToSleep(){
+  if(isSpeaking||isThinking)return;
+  isSleeping=true;
+  setEmotion('sleeping');
+  setAvatarStatus(t('sleeping'));
+  // Stop blink/exploration while sleeping
+  if(blinkTimer)clearTimeout(blinkTimer);
+  if(eyeExploreTimer)clearTimeout(eyeExploreTimer);
+  // Reset pupils to center
+  const pl=$('.pupil-l'),pr=$('.pupil-r');
+  if(pl)pl.setAttribute('transform','translate(0 0)');
+  if(pr)pr.setAttribute('transform','translate(0 0)');
+}
+function wakeUp(){
+  if(!isSleeping)return;
+  isSleeping=false;
+  isGrumpyWaking=true;
+  setEmotion('grumpy');
+  setAvatarStatus(t('grumpy'));
+  const av=$('#avatar');
+  av.classList.add('waking-grumpy');
+  setTimeout(()=>{
+    av.classList.remove('waking-grumpy');
+  },1200);
+  setTimeout(()=>{
+    isGrumpyWaking=false;
+    setEmotion('neutral');
+    setAvatarStatus(t('ready'));
+    scheduleBlink();
+    scheduleEyeExplore();
+    resetIdle();
+  },GRUMPY_DURATION);
+}
+
+/* ─── WEATHER FX (particles) ─── */
+function renderWeatherFx(){
+  const fx=$('#weather-fx');
+  if(!fx)return;
+  fx.innerHTML='';
+  if(curTheme==='dez'){
+    // 40 raindrops
+    let svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%">';
+    for(let i=0;i<40;i++){
+      const x=Math.random()*100;
+      const delay=Math.random()*1.2;
+      const len=8+Math.random()*8;
+      svg+=`<line class="raindrop" x1="${x}" y1="0" x2="${x-2}" y2="${len}" stroke="#4a6a8a" stroke-width=".3" opacity=".5" style="animation-delay:-${delay}s"/>`;
+    }
+    svg+='</svg>';
+    fx.innerHTML=svg;
+  }else if(curTheme==='sneg'){
+    // 30 snowflakes
+    let svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%">';
+    for(let i=0;i<30;i++){
+      const x=Math.random()*100;
+      const r=.3+Math.random()*.6;
+      const delay=Math.random()*9;
+      svg+=`<circle class="snowflake" cx="${x}" cy="0" r="${r}" fill="#ffffff" opacity=".9" style="animation-delay:-${delay}s"/>`;
+    }
+    svg+='</svg>';
+    fx.innerHTML=svg;
+  }
+}
+
+/* ─── SPEECH BUBBLE ─── */
+function showSpeech(html,animate=true){
+  const s=$('#speech');
+  const txt=$('#speech-text');
+  if(!animate){
+    txt.innerHTML=html;
+    s.classList.add('show');
+    return;
+  }
+  s.classList.add('show');
+  // Word-by-word reveal
+  const words=html.split(' ');
+  txt.innerHTML='';
+  let i=0;
+  isSpeaking=true;
+  setAvatarState('speaking');
+  const cursor='<span class="typing-cursor"></span>';
+  function reveal(){
+    if(i>=words.length){
+      txt.innerHTML=html;
+      isSpeaking=false;
+      setAvatarState('idle');
+      return;
+    }
+    txt.innerHTML=words.slice(0,i+1).join(' ')+cursor;
+    i++;
+    setTimeout(reveal,55+Math.random()*40);
+  }
+  reveal();
+}
+
+/* ─── SUGGESTIONS ─── */
+function renderSuggestions(){
+  const c=$('#suggestions');
+  if(!c)return;
+  const suggestions=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
+  c.innerHTML=suggestions.map((k,i)=>`<button class="sugg" onclick="askSuggestion(${i})">${t(k)}</button>`).join('');
+}
+function askSuggestion(i){
+  const map=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
+  const text=t(map[i]);
+  $('#chat-in').value=text;
+  sendMsg();
+}
+
+/* ─── QUICK ACCESS ─── */
+function renderQuickAccess(){
+  const c=$('#quick-access');
+  if(!c)return;
+  const items=[
+    {id:'news',label:t('news'),icon:'<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>'},
+    {id:'projects',label:t('projects'),icon:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>'},
+    {id:'history',label:t('history'),icon:'<path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>'},
+    {id:'prints',label:t('prints'),icon:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>'},
+    {id:'ink',label:t('ink'),icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',badge:DB.inkLevels.w+'%'},
+    {id:'finances',label:t('finances'),icon:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'}
+  ];
+  c.innerHTML=items.map(it=>`<button class="qa-pill" onclick="openPanel('${it.id}')"><svg viewBox="0 0 24 24">${it.icon}</svg><span>${it.label}</span>${it.badge?`<span class="badge">${it.badge}</span>`:''}</button>`).join('');
+}
+
+/* ─── PANELS ─── */
+function openPanel(id){
+  closeAllPanels();
+  $('#panel-overlay').classList.add('open');
+  $('#panel-'+id).classList.add('open');
+  if(id==='news')renderNews();
+  if(id==='projects')renderProjects();
+  if(id==='history')renderHistory();
+  if(id==='ink')renderInk();
+  if(id==='finances')renderFinances();
+  if(id==='prints')renderPrints();
+}
+function closePanel(id){
+  $('#panel-'+id).classList.remove('open');
+  if(!$$('.panel-slide.open').length)$('#panel-overlay').classList.remove('open');
+}
+function closeAllPanels(){
+  $$('.panel-slide').forEach(p=>p.classList.remove('open'));
+  $('#panel-overlay').classList.remove('open');
+}
+
+/* ─── NEWS PANEL ─── */
+function renderNews(){
+  const body=$('#news-body');
+  if(!body)return;
+  const cats=curLang==='sl'?['Vse','Izdelki','Vadnice','Skupnost','Firmver']:['All','Products','Tutorials','Community','Firmware'];
+  const catMap={'Vse':'all','All':'all','Izdelki':'Izdelki','Products':'Izdelki','Vadnice':'Vadnice','Tutorials':'Vadnice','Skupnost':'Skupnost','Community':'Skupnost','Firmver':'Firmver'};
+  const filterKey=catMap[curNewsCat];
+  const items=DB.news.filter(n=>filterKey==='all'||n.cat===filterKey);
+  const tabsHtml=`<div class="panel-tabs">${cats.map(c=>`<button class="panel-tab ${c===curNewsCat?'active':''}" onclick="curNewsCat='${c}';renderNews()">${c}</button>`).join('')}</div>`;
+  const listHtml=items.length?items.map(n=>`
+    <div class="panel-card" onclick="toast('${escapeHtml(n.title).replace(/'/g,'\\\'')}','info')">
+      <div class="pc-meta" style="margin-bottom:.4rem"><span class="tag">${n.cat}</span>${n.unread?'<span class="tag pos">novo</span>':''}</div>
+      <div class="pc-title">${escapeHtml(n.title)}</div>
+      <div style="font-size:.82rem;color:var(--tlo);line-height:1.45;margin:.3rem 0 .4rem">${escapeHtml(n.summary)}</div>
+      <div class="pc-meta"><span class="acc">${n.src}</span><span>·</span><span>${n.date}</span></div>
+    </div>
+  `).join(''):`<div class="empty-state"><div class="em">📰</div><p>${t('noData')}</p></div>`;
+  body.innerHTML=tabsHtml+listHtml;
+}
+
+/* ─── PROJECTS PANEL ─── */
+function renderProjects(){
+  const body=$('#projects-body');
+  if(!body)return;
+  body.innerHTML=DB.projects.map(p=>{
+    const statusMap={ontrack:'pos',atrisk:'warn',blocked:'neg',done:'pos'};
+    const statusLabel=t(p.status);
+    return `<div class="panel-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.4rem">
+        <div style="flex:1">
+          <div class="pc-title">${escapeHtml(p.name)}</div>
+          <div class="pc-meta"><span>${p.client}</span><span>·</span><span>${t('due')}: ${p.due}</span></div>
+        </div>
+        <span class="tag ${statusMap[p.status]}">${statusLabel}</span>
+      </div>
+      <div class="bar"><div class="bar-fill ${p.status==='atrisk'?'warn':p.status==='blocked'?'neg':p.status==='done'?'pos':''}" style="width:${p.progress}%"></div></div>
+      <div class="pc-meta" style="justify-content:space-between">
+        <span>${t('progress')}: <span class="acc">${p.progress}%</span></span>
+        <span>${p.lastActDate}</span>
+      </div>
+      <div style="font-size:.78rem;color:var(--tlo);margin-top:.35rem;padding-top:.35rem;border-top:1px dashed var(--line)">${escapeHtml(p.lastAct)}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── HISTORY PANEL ─── */
+function buildHistory(){
+  const items=[];
+  DB.prints.forEach(p=>items.push({type:'print',date:p.date,title:`${p.emoji} ${p.name}`,meta:`${p.material} · ${p.duration}`,amt:p.cost}));
+  DB.refills.forEach(i=>items.push({type:'refill',date:i.date,title:`Polnitev ${t('ink')} ${i.ch}`,meta:`${i.ml}ml`,amt:'-'+i.cost}));
+  DB.maintenance.forEach(m=>items.push({type:'maint',date:m.date,title:m.type,meta:`${m.duration} · ${m.outcome}`,amt:''}));
+  DB.expenses.forEach(e=>items.push({type:'exp',date:e.date,title:e.name,meta:e.cat,amt:e.amt}));
+  DB.projects.forEach(p=>items.push({type:'proj',date:p.due,title:`${p.name}`,meta:p.lastAct,amt:p.progress+'%'}));
+  return items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+function renderHistory(){
+  const body=$('#history-body');
+  if(!body)return;
+  const cats=curLang==='sl'?['Vse','Tisk','Polnitve','Vzdrževanje','Stroški','Projekti']:['All','Prints','Refills','Maintenance','Expenses','Projects'];
+  const typeMap={'Vse':'all','All':'all','Tisk':'print','Prints':'print','Polnitve':'refill','Refills':'refill','Vzdrževanje':'maint','Maintenance':'maint','Stroški':'exp','Expenses':'exp','Projekti':'proj','Projects':'proj'};
+  const filterType=typeMap[curHistCat];
+  const all=buildHistory();
+  const items=filterType==='all'?all:all.filter(i=>i.type===filterType);
+  const tabsHtml=`<div class="panel-tabs">${cats.map(c=>`<button class="panel-tab ${c===curHistCat?'active':''}" onclick="curHistCat='${c}';renderHistory()">${c}</button>`).join('')}</div>`;
+  const listHtml=items.length?items.map(i=>`
+    <div class="panel-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div style="flex:1">
+          <div class="pc-title" style="font-size:.88rem">${escapeHtml(i.title)}</div>
+          <div class="pc-meta"><span>${escapeHtml(i.meta)}</span><span>·</span><span>${fmtRel(i.date)}</span></div>
+        </div>
+        ${i.amt?`<span class="pc-meta"><span class="acc ${i.amt.startsWith('-')?'':i.amt.startsWith('+')?'pos':''}" style="font-weight:700">${i.amt}</span></span>`:''}
+      </div>
+    </div>
+  `).join(''):`<div class="empty-state"><div class="em">📭</div><p>${t('noData')}</p></div>`;
+  body.innerHTML=tabsHtml+listHtml;
+}
+
+/* ─── INK PANEL ─── */
+function renderInk(){
+  const body=$('#ink-body');
+  if(!body)return;
+  const labels={c:'Cyan',m:'Magenta',y:'Yellow',k:'Black',w:'White',g:'Gloss'};
+  const slo={c:'Cian',m:'Magenta',y:'Rumena',k:'Črna',w:'Bela',g:'Sijaj'};
+  const colors={c:'#2a6a7a',m:'#7a2a4a',y:'#8a7a20',k:'#686058',w:'#b8b4a8',g:'#4a5a3a'};
+  const channelsHtml=Object.keys(DB.inkLevels).map(k=>{
+    const pct=DB.inkLevels[k];
+    const low=pct<20;
+    return `<div class="panel-card">
+      <div style="display:flex;align-items:center;gap:.7rem">
+        <div style="width:30px;height:30px;border-radius:50%;background:${colors[k]};border:2px solid var(--line);flex-shrink:0"></div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:.92rem">${curLang==='sl'?slo[k]:labels[k]} <span class="dim" style="font-weight:400">· ${k.toUpperCase()}</span></div>
+          <div class="bar"><div class="bar-fill ${low?'warn':''}" style="width:${pct}%;background:${colors[k]}"></div></div>
+        </div>
+        <div style="text-align:right">
+          <div class="acc" style="font-weight:700;font-size:1.05rem">${pct}%</div>
+          <div class="dim mono" style="font-size:.62rem">${(pct*0.3).toFixed(1)}ml</div>
+        </div>
+      </div>
+      ${low?'<div style="margin-top:.5rem;font-size:.74rem;color:var(--whi);font-weight:600">⚠ '+(curLang==='sl'?'Nizko stanje':'Low level')+'</div>':''}
+    </div>`;
+  }).join('');
+  body.innerHTML='<div class="section-lbl">'+(curLang==='sl'?'Kanali':'Channels')+'</div>'+channelsHtml+
+    '<div class="section-lbl">'+(curLang==='sl'?'Zadnje polnitve':'Recent refills')+'</div>'+
+    DB.refills.map(r=>`<div class="panel-card" style="padding:.6rem 1rem"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600">${r.ch} · ${r.ml}ml</div><div class="pc-meta"><span>${fmtRel(r.date)}</span></div></div><div class="acc" style="font-weight:700">${r.cost}</div></div></div>`).join('');
+}
+
+/* ─── FINANCES PANEL ─── */
+function renderFinances(){
+  const body=$('#finances-body');
+  if(!body)return;
+  body.innerHTML=`
+    <div class="panel-card" style="text-align:center;padding:1.2rem">
+      <div class="dim mono" style="font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.4rem">${curLang==='sl'?'Neto dobiček · April':'Net profit · April'}</div>
+      <div style="font-family:'Fraunces',serif;font-size:2.4rem;font-weight:500;color:var(--pos);line-height:1">€191.40</div>
+      <div class="dim" style="font-size:.78rem;margin-top:.3rem">67% ${curLang==='sl'?'marža':'margin'}</div>
+    </div>
+    <div class="section-lbl">${curLang==='sl'?'Promet in stroški':'Revenue and costs'}</div>
+    <div class="panel-card"><div style="display:flex;justify-content:space-between"><span>${curLang==='sl'?'Promet':'Revenue'}</span><span class="acc" style="font-weight:700">€284.00</span></div></div>
+    <div class="panel-card"><div style="display:flex;justify-content:space-between"><span>${curLang==='sl'?'Stroški črnila':'Ink costs'}</span><span style="color:var(--neg);font-weight:700">-€42.00</span></div></div>
+    <div class="panel-card"><div style="display:flex;justify-content:space-between"><span>${curLang==='sl'?'Materiali':'Materials'}</span><span style="color:var(--neg);font-weight:700">-€38.00</span></div></div>
+    <div class="panel-card"><div style="display:flex;justify-content:space-between"><span>${curLang==='sl'?'Stroški obratovanja':'Overhead'}</span><span style="color:var(--neg);font-weight:700">-€12.60</span></div></div>
+    <div class="section-lbl">${curLang==='sl'?'Zadnje transakcije':'Recent transactions'}</div>
+    ${DB.expenses.map(e=>`<div class="panel-card" style="padding:.6rem 1rem"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:600;font-size:.88rem">${escapeHtml(e.name)}</div><div class="pc-meta"><span>${e.cat}</span><span>·</span><span>${fmtRel(e.date)}</span></div></div><div style="font-weight:700;color:${e.amt.startsWith('-')?'var(--neg)':'var(--pos)'}">${e.amt}</div></div></div>`).join('')}
+  `;
+}
+
+/* ─── PRINTS PANEL ─── */
+function renderPrints(){
+  const body=$('#prints-body');
+  if(!body)return;
+  body.innerHTML=DB.prints.map(p=>{
+    const stars='★'.repeat(p.quality)+'<span style="color:var(--tdim)">'+'★'.repeat(5-p.quality)+'</span>';
+    return `<div class="panel-card">
+      <div style="display:flex;align-items:center;gap:.7rem">
+        <div style="font-size:1.6rem">${p.emoji}</div>
+        <div style="flex:1">
+          <div class="pc-title">${escapeHtml(p.name)}</div>
+          <div class="pc-meta"><span>${p.material}</span><span>·</span><span>${p.duration}</span><span>·</span><span>${fmtRel(p.date)}</span></div>
+        </div>
+        <div style="text-align:right">
+          <div class="acc" style="font-weight:700">${p.cost}</div>
+          <div style="color:var(--acc);font-size:.7rem;letter-spacing:1px">${stars}</div>
+        </div>
+      </div>
+      ${p.failed?'<div style="margin-top:.4rem;color:var(--neg);font-size:.74rem;font-weight:600">⚠ '+(curLang==='sl'?'NEUSPEL — preveri šobe':'FAILED — check nozzles')+'</div>':''}
+    </div>`;
+  }).join('');
+}
+
+/* ─── CHAT ─── */
+function autoR(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px'}
+function hkey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}}
+function sendMsg(){
+  const inp=$('#chat-in');
+  const text=inp.value.trim();
+  if(!text)return;
+  // If sleeping, wake up first (but still process the message)
+  if(isSleeping)wakeUp();
+  inp.value='';autoR(inp);
+  chatHistory.push({role:'user',text});
+  resetIdle();
+  // Hide suggestions during conversation
+  $('#suggestions').style.opacity='0.3';
+  // Show user message in speech bubble briefly
+  $('#speech').classList.add('show');
+  $('#speech-text').innerHTML='<strong style="color:var(--tlo)">'+escapeHtml(text)+'</strong>';
+  // Thinking state
+  setAvatarState('thinking');
+  setTimeout(()=>{
+    const reply=generateReply(text);
+    showSpeech(reply);
+  },700+Math.random()*500);
+}
+function generateReply(text){
+  const lower=text.toLowerCase();
+  // SL/EN keyword matching
+  const inkKw=curLang==='sl'?['črnil','porabil','porab']:['ink','used'];
+  const revenueKw=curLang==='sl'?['promet','strank','dobič','financ','prihodk']:['revenue','client','profit','financ'];
+  const cleanKw=curLang==='sl'?['čišč','vzdrž','vzdržev']:['clean','maint'];
+  const projKw=curLang==='sl'?['projekt','priorit','težav']:['project','priorit','risk'];
+  const forecastKw=curLang==='sl'?['napov','predvid','polnit']:['forecast','refill','predict'];
+  const compareKw=curLang==='sl'?['marte','prim','april']:['march','compar','april'];
+  const stockKw=curLang==='sl'?['zal','material']:['stock','material'];
+  const helpKw=['/help','/pomoc'];
+  const syncKw=['/sync','/sinhro'];
+  
+  if(helpKw.some(k=>lower.includes(k)))return t('replyHelp');
+  if(syncKw.some(k=>lower.includes(k))){
+    return curLang==='sl'?'Sinhroniziram z Notion…<br><br>Povezane baze:<ul><li>Projekti (5 zapisov)</li><li>Tiski (7 zapisov)</li><li>Novice (6 elementov)</li></ul>Zadnja sinhronizacija: pravkar.':'Syncing with Notion…<br><br>Connected databases:<ul><li>Projects (5 records)</li><li>Prints (7 records)</li><li>News (6 items)</li></ul>Last sync: just now.';
+  }
+  if(inkKw.some(k=>lower.includes(k))){
+    const total=DB.prints.reduce((s,p)=>s+1.7,0).toFixed(1); // simplified
+    const breakdown=Object.keys(DB.inkLevels).map(k=>{
+      const used=DB.prints.reduce((s,p)=>s+(p.id?0.4:0),0);
+      return `<li><strong>${k.toUpperCase()}</strong>: ${(used).toFixed(1)}ml</li>`;
+    }).join('');
+    const levels=curLang==='sl'?'Trenutno stanje: ':'Current levels: ';
+    return t('replyInkMonth',{total,count:DB.prints.length,breakdown,levels:levels+Object.entries(DB.inkLevels).map(([k,v])=>k.toUpperCase()+' '+v+'%').join(', ')});
+  }
+  if(revenueKw.some(k=>lower.includes(k)))return t('replyRevenue');
+  if(cleanKw.some(k=>lower.includes(k))){
+    const last=DB.maintenance[0];
+    const d=daysAgo(last.date);
+    const status=d>30?(curLang==='sl'?'<strong>⚠ Zapadlo — priporočam takojšnje čiščenje.</strong>':'<strong>⚠ Overdue — recommend cleaning now.</strong>'):(curLang==='sl'?'Ste znotraj roka.':'You\'re within schedule.');
+    return t('replyClean',{days:d,status});
+  }
+  if(projKw.some(k=>lower.includes(k))){
+    const atRisk=DB.projects.filter(p=>p.status==='atrisk');
+    const blocked=DB.projects.filter(p=>p.status==='blocked');
+    const atRiskHtml=atRisk.length?(curLang==='sl'?'<strong>⚠ V tveganju:</strong>':'<strong>⚠ At risk:</strong>')+'<ul>'+atRisk.map(p=>`<li>${p.name} (${p.progress}%) — ${p.lastAct}</li>`).join('')+'</ul>':'';
+    const blockedHtml=blocked.length?(curLang==='sl'?'<strong>⛔ Blokirani:</strong>':'<strong>⛔ Blocked:</strong>')+'<ul>'+blocked.map(p=>`<li>${p.name} — ${p.lastAct}</li>`).join('')+'</ul>':'';
+    return t('replyProjects',{total:DB.projects.length,atRisk:atRiskHtml,blocked:blockedHtml});
+  }
+  if(forecastKw.some(k=>lower.includes(k))){
+    const w=DB.inkLevels.w;
+    const days=Math.round(w/2);
+    return t('replyForecast',{level:w,days});
+  }
+  if(compareKw.some(k=>lower.includes(k)))return t('replyCompare');
+  if(stockKw.some(k=>lower.includes(k)))return t('replyStock');
+  return t('replyDefault',{text:escapeHtml(text)});
+}
+
+/* ─── SETTINGS ─── */
+function openSettings(){
+  $('#modal-settings').classList.add('open');
+  renderThemeGrid();
+  // Update connection status
+  const total=DB.prints.length+DB.projects.length+DB.news.length+DB.maintenance.length+DB.refills.length+DB.expenses.length+DB.materials.length;
+  const status=localStorage.getItem('es-notion-key')?(curLang==='sl'?'Povezano · ':'Connected · ')+total+' zapisov':(curLang==='sl'?'Brez povezave · '+total+' lokalno':'Not connected · '+total+' local');
+  $('#conn-status').textContent=status;
+}
+function closeSettings(){$('#modal-settings').classList.remove('open')}
+function saveKeys(){
+  const orKey=($('#or-key')||{}).value||'';
+  const notionKey=($('#notion-key')||{}).value||'';
+  const notionDb=($('#notion-db')||{}).value||'';
+  const model=($('#or-model')||{}).value||'offline';
+  if(orKey)localStorage.setItem('es-or-key',orKey);else localStorage.removeItem('es-or-key');
+  if(notionKey){localStorage.setItem('es-notion-key',notionKey);localStorage.setItem('es-notion-db',notionDb)}else{localStorage.removeItem('es-notion-key');localStorage.removeItem('es-notion-db')}
+  localStorage.setItem('es-model',model);
+  curModel=model;
+  toast(t('settingsSaved'),'success');
+}
+function loadKeysUI(){
+  const orKey=localStorage.getItem('es-or-key')||'';
+  const notionKey=localStorage.getItem('es-notion-key')||'';
+  const notionDb=localStorage.getItem('es-notion-db')||'';
+  const model=localStorage.getItem('es-model')||'offline';
+  if($('#or-key'))$('#or-key').value=orKey;
+  if($('#notion-key'))$('#notion-key').value=notionKey;
+  if($('#notion-db'))$('#notion-db').value=notionDb;
+  if($('#or-model'))$('#or-model').value=model;
+  curModel=model;
+}
+function syncNotion(){
+  const key=localStorage.getItem('es-notion-key');
+  if(!key){toast(curLang==='sl'?'Najprej vnesite Notion žeton':'Add Notion token first','warn');return}
+  toast(curLang==='sl'?'Sinhroniziram…':'Syncing…','info');
+  setTimeout(()=>toast(t('syncSuccess')+' · 23 '+(curLang==='sl'?'zapisov':'records'),'success'),1100);
+}
+
+/* ─── INIT ─── */
+function boot(){
+  try{
+    // Load saved prefs
+    curTheme=localStorage.getItem('es-theme')||'trta';
+    curLang=localStorage.getItem('es-lang')||'sl';
+    document.documentElement.dataset.theme=curTheme;
+    document.documentElement.lang=curLang;
+    $('#lang-label').textContent=curLang.toUpperCase();
+    setAvatarStatus(t('ready'));
+    loadKeysUI();
+    renderThemeGrid();
+    renderSuggestions();
+    renderQuickAccess();
+    renderWeatherFx();
+    // Show welcome speech after a beat
+    setTimeout(()=>{
+      $('#speech').classList.add('show');
+      showSpeech(t('welcomeSpeech'));
+    },800);
+    // Start blink cycle
+    scheduleBlink();
+    // Start eye exploration
+    scheduleEyeExplore();
+    // Eye tracking (throttled)
+    document.addEventListener('mousemove',e=>{trackEyes(e);resetIdle()});
+    // Tap focus on touch devices
+    document.addEventListener('touchstart',e=>{
+      if(e.touches&&e.touches[0]){
+        avatarTapFocus(e.touches[0].clientX,e.touches[0].clientY);
+      }
+      resetIdle();
+    },{passive:true});
+    // Idle reset on any user activity
+    document.addEventListener('click',resetIdle);
+    document.addEventListener('keydown',resetIdle);
+    document.addEventListener('scroll',resetIdle,{passive:true});
+    // Start idle timer (sleep after IDLE_TIMEOUT)
+    resetIdle();
+  }catch(err){
+    console.error('Printko boot error:',err);
+    try{toast('Boot error: '+err.message,'error')}catch(e){alert('Boot error: '+err.message)}
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',boot);
+}else{
+  boot();
+}
+</script>
+</body>
+</html>
