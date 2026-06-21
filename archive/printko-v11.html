@@ -1,3 +1,9 @@
+<!-- ════════════════════════════════════════════════════════════════
+     ⚠️  DEPRECATED — DO NOT USE
+     This file is from v11 of the Printko project.
+     The current version lives in /printko/index.html (v12+).
+     Kept in /archive/ for historical reference only.
+     ════════════════════════════════════════════════════════════════ -->
 <!DOCTYPE html>
 <html lang="sl" data-theme="trta" data-lang="sl">
 <head>
@@ -450,14 +456,13 @@ body{
 .avatar.emotion-sleeping .piko .antenna-glow{animation-duration:3.5s;opacity:.25}
 .avatar.emotion-grumpy .piko .antenna-glow{animation-duration:1.6s;opacity:.5}
 
-/* Face direction switching — avatar occasionally turns left/right for motion.
-   v12 fix: removed translateX so the face stays centered; only the rotation happens. */
+/* Face direction switching — avatar occasionally turns left/right for motion */
 .piko .face-direction{
   transition:transform .8s var(--ease);
   transform-origin:120px 220px;
 }
-.avatar.facing-left .piko .face-direction{transform:rotateY(15deg)}
-.avatar.facing-right .piko .face-direction{transform:rotateY(-15deg)}
+.avatar.facing-left .piko .face-direction{transform:rotateY(18deg) translateX(-4px)}
+.avatar.facing-right .piko .face-direction{transform:rotateY(-18deg) translateX(4px)}
 
 /* Pupil smoothing */
 .piko .pupil{transition:transform .15s var(--ease)}
@@ -1127,91 +1132,7 @@ body{
 .toast.error svg{color:var(--neg)}
 .toast.info svg{color:var(--acc)}
 
-/* ════ AVATAR SHAPES (v12) ════ */
-/* Shape selector cards in settings */
-.shape-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem}
-.shape-card{
-  padding:.5rem .3rem;
-  border-radius:var(--rsm);
-  background:var(--card-soft);
-  border:2px solid transparent;
-  cursor:pointer;
-  transition:all var(--t-base);
-  text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:.3rem;
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-}
-.shape-card:hover{transform:translateY(-2px)}
-.shape-card.active{border-color:var(--acc);box-shadow:0 0 0 4px var(--acc-bg)}
-.shape-preview{
-  width:36px;height:36px;
-  background:linear-gradient(135deg,var(--avatar-l),var(--avatar-d));
-  border:2px solid var(--avatar-stroke);
-}
-.shape-round{border-radius:50%}
-.shape-square{border-radius:6px}
-.shape-hex{clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0% 50%);border-radius:0}
-.shape-blob{border-radius:60% 40% 50% 50% / 50% 60% 40% 50%}
-.shape-card span{font-size:.7rem;font-weight:600;color:var(--tlo)}
-
-/* Apply shape to avatar body — uses data-shape on #avatar */
-.avatar[data-shape="round"] .piko .body-breath > rect:first-of-type,
-.avatar[data-shape="round"] .piko .body-breath > rect:nth-of-type(1){rx:36;ry:36}
-.avatar[data-shape="square"] .piko .body-breath > rect:first-of-type,
-.avatar[data-shape="square"] .piko .body-breath > rect:nth-of-type(1){rx:8;ry:8}
-.avatar[data-shape="hex"] .piko .body-breath > rect:first-of-type,
-.avatar[data-shape="hex"] .piko .body-breath > rect:nth-of-type(1){rx:4;ry:4}
-.avatar[data-shape="blob"] .piko .body-breath > rect:first-of-type,
-.avatar[data-shape="blob"] .piko .body-breath > rect:nth-of-type(1){rx:48;ry:24}
-
-/* Preset list items */
-.preset-item{
-  display:flex;align-items:flex-start;gap:.5rem;
-  padding:.5rem .65rem;
-  background:var(--card-soft);
-  border-radius:var(--rsm);
-  margin-bottom:.4rem;
-  font-size:.82rem;
-  line-height:1.4;
-}
-.preset-item .pi-mark{
-  width:18px;height:18px;border-radius:50%;
-  background:var(--acc-bg);color:var(--acc);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;font-weight:700;flex-shrink:0;margin-top:1px;
-}
-.preset-item .pi-mark.gen{background:var(--pbg);color:var(--pos)}
-.preset-item .pi-text{flex:1;color:var(--text)}
-.preset-item .pi-text.generated{color:var(--tlo);font-style:italic}
-.preset-item .pi-del{
-  width:22px;height:22px;border-radius:50%;
-  color:var(--tdim);display:flex;align-items:center;justify-content:center;
-  transition:all var(--t-fast);flex-shrink:0;
-}
-.preset-item .pi-del:hover{color:var(--neg);background:var(--nbg)}
-.preset-item .pi-del svg{width:12px;height:12px;stroke-width:2.2}
-.preset-add{
-  display:flex;gap:.4rem;margin-top:.4rem;
-}
-.preset-add input{
-  flex:1;
-  background:var(--card-soft);
-  border:1.5px solid var(--line);
-  border-radius:var(--rsm);
-  padding:.45rem .65rem;
-  font-size:.8rem;color:var(--text);outline:none;
-  font-family:inherit;
-}
-.preset-add input:focus{border-color:var(--acc)}
-.preset-add button{
-  background:var(--acc);color:#fff;
-  border-radius:var(--rsm);padding:0 .8rem;
-  font-weight:700;font-size:.78rem;
-  transition:all var(--t-fast);
-}
-.preset-add button:hover{background:var(--acc-hi)}
-
+/* ════ RESPONSIVE ════ */
 /* ════ RESPONSIVE ════ */
 /* Tablet */
 @media(max-width:900px){
@@ -1527,7 +1448,7 @@ body{
 <main class="stage">
   <!-- AVATAR -->
   <div class="avatar-wrap">
-    <div class="avatar emotion-neutral" data-shape="round" id="avatar" onclick="avatarClick()">
+    <div class="avatar emotion-neutral" id="avatar" onclick="avatarClick()">
       <svg class="piko" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
@@ -1865,57 +1786,6 @@ body{
         <button class="panel-tab" data-lang="en" onclick="setLang('en')">English</button>
       </div>
 
-      <!-- v12: Printko personality subsection -->
-      <div class="section-lbl" id="lbl-printko">Printko · Osebnost</div>
-      <div class="field">
-        <label class="field-lbl" id="lbl-username">Vaše ime / Your name</label>
-        <input class="field-in" id="user-name" placeholder="Lara" onchange="savePersonality()" maxlength="24">
-      </div>
-      <div class="field">
-        <label class="field-lbl" id="lbl-tone">Ton / Tone</label>
-        <select class="field-in" id="pko-tone" onchange="savePersonality()">
-          <option value="cozy">Cozy · Topel (privzeto)</option>
-          <option value="formal">Formal · Uraden</option>
-          <option value="playful">Playful · Igriv</option>
-        </select>
-      </div>
-      <div class="field">
-        <label class="field-lbl" id="lbl-shape">Oblika / Shape</label>
-        <div class="shape-grid" id="shape-grid">
-          <button class="shape-card" data-shape="round" onclick="setShape('round')">
-            <div class="shape-preview shape-round"></div>
-            <span>Round</span>
-          </button>
-          <button class="shape-card" data-shape="square" onclick="setShape('square')">
-            <div class="shape-preview shape-square"></div>
-            <span>Square</span>
-          </button>
-          <button class="shape-card" data-shape="hex" onclick="setShape('hex')">
-            <div class="shape-preview shape-hex"></div>
-            <span>Hex</span>
-          </button>
-          <button class="shape-card" data-shape="blob" onclick="setShape('blob')">
-            <div class="shape-preview shape-blob"></div>
-            <span>Blob</span>
-          </button>
-        </div>
-      </div>
-      <div class="field">
-        <label class="field-lbl" id="lbl-presets">Preseti stavkov / Sentence presets</label>
-        <div class="panel-tabs" style="margin-bottom:.6rem" id="preset-tabs">
-          <button class="panel-tab active" data-preset="greetings" onclick="showPresets('greetings',this)" id="lbl-preset-greetings">Pozdravi</button>
-          <button class="panel-tab" data-preset="wakeups" onclick="showPresets('wakeups',this)" id="lbl-preset-wakeups">Bujenje</button>
-          <button class="panel-tab" data-preset="quips" onclick="showPresets('quips',this)" id="lbl-preset-quips">Replike</button>
-          <button class="panel-tab" data-preset="reactions" onclick="showPresets('reactions',this)" id="lbl-preset-reactions">Reakcije</button>
-        </div>
-        <div id="preset-list" style="margin-bottom:.6rem"></div>
-        <button class="btn ghost" onclick="generateVariations()" style="width:100%;justify-content:center">
-          <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          <span id="lbl-generate">Generiraj 3× variacij</span>
-        </button>
-        <div class="dim mono" style="font-size:.66rem;margin-top:.4rem;text-align:center" id="preset-stats">— variacij</div>
-      </div>
-
       <div class="section-lbl" id="lbl-agent">pi.dev · Agent</div>
       <div class="field">
         <label class="field-lbl" id="lbl-or">OpenRouter API ključ</label>
@@ -1948,7 +1818,7 @@ body{
       </button>
 
       <div class="section-lbl" id="lbl-about">O programu · About</div>
-      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v12.0 · Printko</span></div>
+      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v11.0 · Printko</span></div>
       <div class="about-row"><span class="l" id="lbl-printer">Tiskalnik</span><span class="v">eufy E1 UV</span></div>
       <div class="about-row"><span class="l" id="lbl-status">Stanje</span><span class="v" id="conn-status">— povezave</span></div>
     </div>
@@ -2385,356 +2255,6 @@ function setAvatarStatus(text){
   const el=$('#avatar-status');
   if(el)el.textContent=text;
 }
-
-/* ─── PERSONALITY (v12) ─── */
-/* User-configurable: name, tone, shape, custom presets + generated variations.
-   All persisted to localStorage with 'es-' prefix. */
-let personality={
-  name:'Lara',
-  tone:'cozy',          // cozy | formal | playful
-  shape:'round',        // round | square | hex | blob
-  customPresets:{greetings:[],wakeups:[],quips:[],reactions:[]},
-  generated:{greetings:[],wakeups:[],quips:[],reactions:[]}
-};
-
-/* PRESETS — base sentence bank per category, per language, per tone.
-   Each sentence uses {name} placeholder which is filled at runtime. */
-const PRESETS={
-  sl:{
-    cozy:{
-      greetings:[
-        'Pozdravljena, {name}! Kako ti je?',
-        'Hej, {name}! Kaj počneš?',
-        '{name}, kavica je že pripravljena. No, kaj pa danes?',
-        'Zdravo, {name}! Spet pri tisku, vidim.'
-      ],
-      wakeups:[
-        'Mmm… {name}, kaj pa zdaj?',
-        'Uf, sem zaspal. Kaj je, {name}?',
-        '{name}, pusti me spati… no dobro, kaj je?',
-        'Konec miru. Kaj potrebuješ, {name}?'
-      ],
-      quips:[
-        'Hm, zanimivo, {name}.',
-        'Nič lažjega, {name}.',
-        'Mhm, pomislil sem, {name}.',
-        'Aja, to znam, {name}.'
-      ],
-      reactions:[
-        'O, {name}, bravo!',
-        '{name}, to je pa dober tisk.',
-        'Nisem čakal tega od tebe, {name}.',
-        'Hvala, {name}, da si vprašala.'
-      ]
-    },
-    formal:{
-      greetings:[
-        'Pozdravljena, {name}. Kako vam lahko pomagam?',
-        'Dober dan, {name}. Vaš tiskalnik je pripravljen.',
-        '{name}, kaj lahko storim zate?',
-        'Pozdravljeni, {name}. Tiski so v redu.'
-      ],
-      wakeups:[
-        'Oprostite, {name}. Kaj lahko storim?',
-        'Bil sem v mirovanju. Kako lahko pomagam, {name}?',
-        '{name}, vaše povpraševanje?',
-        'Pripravljen, {name}.'
-      ],
-      quips:[
-        'Razumem, {name}.',
-        'Seveda, {name}.',
-        'Prav, {name}.',
-        'V redu, {name}.'
-      ],
-      reactions:[
-        'Odlično, {name}.',
-        'Zadovoljen sem, {name}.',
-        'Hvala, {name}.',
-        'Prav tako, {name}.'
-      ]
-    },
-    playful:{
-      greetings:[
-        'Hej-hej, {name}! Kaj smo danes tiskali?',
-        '{name}! Spet ti! Kaj zvijačno?',
-        'Joj, {name}, spet pri stroju. Bravo!',
-        'Zdravo, {name}! Pripravljen za pustolovščino?'
-      ],
-      wakeups:[
-        'Mhm, kdo me moti? Ti, {name}?',
-        'Ej, {name}, daj mi še pet minutic!',
-        '{name}, spet ti? No, kaj je?',
-        'Kava najprej, {name}. Pol pa govoriva.'
-      ],
-      quips:[
-        'Haha, dober, {name}!',
-        '{name}, to je pa zvijačno!',
-        'Mhm, mhm, {name}.',
-        'Nič slabega, {name}!'
-      ],
-      reactions:[
-        'Wau, {name}, to je pa nekaj!',
-        '{name}, ti si genij!',
-        'Bravo, {name}, bravo!',
-        'Hvala, {name}, ti si najboljša!'
-      ]
-    }
-  },
-  en:{
-    cozy:{
-      greetings:[
-        'Hello, {name}! How are you?',
-        'Hey, {name}! What\'s up?',
-        '{name}, coffee\'s ready. What\'s today?',
-        'Hi, {name}! Printing again, I see.'
-      ],
-      wakeups:[
-        'Mmm… {name}, what now?',
-        'Ugh, I fell asleep. What is it, {name}?',
-        '{name}, let me sleep… oh alright, what?',
-        'So much for peace. What do you need, {name}?'
-      ],
-      quips:[
-        'Hm, interesting, {name}.',
-        'Easy, {name}.',
-        'Mhm, I thought so, {name}.',
-        'Ah, I know this one, {name}.'
-      ],
-      reactions:[
-        'Oh, {name}, nice!',
-        '{name}, that\'s a good print.',
-        'Wasn\'t expecting that from you, {name}.',
-        'Thanks, {name}, for asking.'
-      ]
-    },
-    formal:{
-      greetings:[
-        'Hello, {name}. How may I help?',
-        'Good day, {name}. Your printer is ready.',
-        '{name}, what can I do for you?',
-        'Greetings, {name}. Prints are in order.'
-      ],
-      wakeups:[
-        'Apologies, {name}. How may I assist?',
-        'I was at rest. How can I help, {name}?',
-        '{name}, your query?',
-        'Ready, {name}.'
-      ],
-      quips:[
-        'Understood, {name}.',
-        'Of course, {name}.',
-        'Very well, {name}.',
-        'Acknowledged, {name}.'
-      ],
-      reactions:[
-        'Excellent, {name}.',
-        'I am satisfied, {name}.',
-        'Thank you, {name}.',
-        'Likewise, {name}.'
-      ]
-    },
-    playful:{
-      greetings:[
-        'Hey-hey, {name}! What are we printing today?',
-        '{name}! You again! What\'s the mischief?',
-        'Oh, {name}, back at the machine. Bravo!',
-        'Hi, {name}! Ready for an adventure?'
-      ],
-      wakeups:[
-        'Mhm, who\'s bugging me? You, {name}?',
-        'Hey, {name}, give me five more minutes!',
-        '{name}, you again? Alright, what?',
-        'Coffee first, {name}. Then we talk.'
-      ],
-      quips:[
-        'Haha, good one, {name}!',
-        '{name}, that\'s sneaky!',
-        'Mhm, mhm, {name}.',
-        'Not bad, {name}!'
-      ],
-      reactions:[
-        'Wow, {name}, that\'s something!',
-        '{name}, you\'re a genius!',
-        'Bravo, {name}, bravo!',
-        'Thanks, {name}, you\'re the best!'
-      ]
-    }
-  }
-};
-
-/* Fill a preset template with the user's name and return the final string. */
-function fillPreset(tmpl){
-  const name=personality.name||'Lara';
-  return tmpl.replace(/\{name\}/g,name);
-}
-
-/* Get the active preset list for a category (base presets + custom + generated). */
-function getActivePresets(category){
-  const lang=curLang||'sl';
-  const tone=personality.tone||'cozy';
-  const base=(PRESETS[lang]&&PRESETS[lang][tone]&&PRESETS[lang][tone][category])||[];
-  const custom=personality.customPresets[category]||[];
-  const gen=personality.generated[category]||[];
-  return [
-    ...base.map(t=>({text:t,kind:'base'})),
-    ...custom.map(t=>({text:t,kind:'custom'})),
-    ...gen.map(t=>({text:t,kind:'generated'}))
-  ];
-}
-
-/* Pick a random preset (or generated variation) for a category, with name filled. */
-function pickPreset(category){
-  const list=getActivePresets(category);
-  if(!list.length)return '';
-  const pick=list[Math.floor(Math.random()*list.length)];
-  return fillPreset(pick.text);
-}
-
-/* Generate variations using local template combinator.
-   Takes the base presets and combines them with modifiers (prefixes/suffixes)
-   to produce 3× more variations. This simulates "AI expansion" locally. */
-const VARIATION_MODIFIERS={
-  sl:{
-    prefix:['','No, ','Povej, ','Hm, ','Slušaj, '],
-    suffix:['',' Kar tako.',' Naj bo.',' Aja.',' Vidim.']
-  },
-  en:{
-    prefix:['','Well, ','Tell me, ','Hm, ','Listen, '],
-    suffix:['',' Just like that.',' Let it be.',' Ah.',' I see.']
-  }
-};
-function generateVariations(){
-  const lang=curLang||'sl';
-  const mod=VARIATION_MODIFIERS[lang];
-  let totalGenerated=0;
-  ['greetings','wakeups','quips','reactions'].forEach(cat=>{
-    const base=(PRESETS[lang]&&PRESETS[lang][personality.tone]&&PRESETS[lang][personality.tone][cat])||[];
-    const newGen=[];
-    base.forEach(tmpl=>{
-      // For each base preset, generate 3 variations by combining prefix+suffix
-      for(let i=0;i<3;i++){
-        const prefix=mod.prefix[Math.floor(Math.random()*mod.prefix.length)];
-        const suffix=mod.suffix[Math.floor(Math.random()*mod.suffix.length)];
-        // Avoid duplicates and over-length
-        const candidate=prefix+tmpl+suffix;
-        if(!newGen.includes(candidate)&&candidate.length<120){
-          newGen.push(candidate);
-        }
-      }
-    });
-    personality.generated[cat]=newGen;
-    totalGenerated+=newGen.length;
-  });
-  savePersonality();
-  // Re-render the currently-shown preset tab
-  const activeTab=document.querySelector('.panel-tab[data-preset].active');
-  if(activeTab)showPresets(activeTab.dataset.preset,activeTab);
-  else showPresets('greetings');
-  toast(curLang==='sl'?'Generiranih '+totalGenerated+' variacij':'Generated '+totalGenerated+' variations','success');
-}
-
-/* Save personality to localStorage */
-function savePersonality(){
-  const nameInput=$('#user-name');
-  const toneInput=$('#pko-tone');
-  if(nameInput)personality.name=nameInput.value.trim()||'Lara';
-  if(toneInput)personality.tone=toneInput.value;
-  localStorage.setItem('es-personality',JSON.stringify(personality));
-  // Apply shape immediately
-  if(personality.shape){
-    const av=$('#avatar');
-    if(av)av.dataset.shape=personality.shape;
-    $$('.shape-card').forEach(c=>c.classList.toggle('active',c.dataset.shape===personality.shape));
-  }
-  toast(t('settingsSaved'),'success');
-}
-
-/* Set the avatar shape (called from shape-card buttons) */
-function setShape(shape){
-  personality.shape=shape;
-  const av=$('#avatar');
-  if(av)av.dataset.shape=shape;
-  $$('.shape-card').forEach(c=>c.classList.toggle('active',c.dataset.shape===shape));
-  savePersonality();
-}
-
-/* Load personality from localStorage */
-function loadPersonality(){
-  try{
-    const s=localStorage.getItem('es-personality');
-    if(s)personality=Object.assign(personality,JSON.parse(s));
-  }catch(e){}
-  // Apply to UI
-  if($('#user-name'))$('#user-name').value=personality.name||'Lara';
-  if($('#pko-tone'))$('#pko-tone').value=personality.tone||'cozy';
-  const av=$('#avatar');
-  if(av)av.dataset.shape=personality.shape||'round';
-  $$('.shape-card').forEach(c=>c.classList.toggle('active',c.dataset.shape===(personality.shape||'round')));
-}
-
-/* Show presets for a category in the settings modal */
-let curPresetCat='greetings';
-function showPresets(cat,el){
-  curPresetCat=cat;
-  if(el){
-    $$('.panel-tab[data-preset]').forEach(b=>b.classList.remove('active'));
-    el.classList.add('active');
-  }
-  const list=$('#preset-list');
-  if(!list)return;
-  const items=getActivePresets(cat);
-  list.innerHTML=items.map((it,i)=>`
-    <div class="preset-item">
-      <div class="pi-mark ${it.kind==='generated'?'gen':''}">${it.kind==='base'?'B':it.kind==='custom'?'C':'G'}</div>
-      <div class="pi-text ${it.kind==='generated'?'generated':''}">${escapeHtml(fillPreset(it.text))}</div>
-      ${it.kind!=='base'?`<button class="pi-del" onclick="deletePreset('${cat}',${i})" title="Izbriši"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>`:''}
-    </div>
-  `).join('')||'<div class="dim mono" style="font-size:.74rem;text-align:center;padding:.6rem">Ni presetov</div>';
-  // Add custom input row
-  list.innerHTML+=`
-    <div class="preset-add">
-      <input type="text" id="preset-new" placeholder="${curLang==='sl'?'Dodaj svoj preset…':'Add your preset…'}" onkeydown="if(event.key==='Enter')addPreset('${cat}')">
-      <button onclick="addPreset('${cat}')">+</button>
-    </div>
-  `;
-  // Update stats
-  const stats=$('#preset-stats');
-  if(stats){
-    const baseCount=(PRESETS[curLang]&&PRESETS[curLang][personality.tone]&&PRESETS[curLang][personality.tone][cat]||[]).length;
-    const customCount=(personality.customPresets[cat]||[]).length;
-    const genCount=(personality.generated[cat]||[]).length;
-    stats.textContent=(curLang==='sl'?'Skupaj: ':'Total: ')+(baseCount+customCount+genCount)+' · '+(curLang==='sl'?'baznih ':'base ')+baseCount+', '+(curLang==='sl'?'lastnih ':'custom ')+customCount+', '+(curLang==='sl'?'generiranih ':'gen ')+genCount;
-  }
-}
-
-/* Add a custom preset */
-function addPreset(cat){
-  const inp=$('#preset-new');
-  if(!inp||!inp.value.trim())return;
-  if(!personality.customPresets[cat])personality.customPresets[cat]=[];
-  personality.customPresets[cat].push(inp.value.trim());
-  savePersonality();
-  // Re-render current tab
-  const activeTab=document.querySelector('.panel-tab[data-preset].active');
-  showPresets(cat,activeTab);
-}
-
-/* Delete a custom or generated preset by index in the merged list */
-function deletePreset(cat,i){
-  const items=getActivePresets(cat);
-  const item=items[i];
-  if(!item)return;
-  if(item.kind==='custom'){
-    const idx=personality.customPresets[cat].indexOf(item.text);
-    if(idx>=0)personality.customPresets[cat].splice(idx,1);
-  }else if(item.kind==='generated'){
-    const idx=personality.generated[cat].indexOf(item.text);
-    if(idx>=0)personality.generated[cat].splice(idx,1);
-  }
-  savePersonality();
-  const activeTab=document.querySelector('.panel-tab[data-preset].active');
-  showPresets(cat,activeTab);
-}
 function setEmotion(emotion){
   const av=$('#avatar');
   if(!av)return;
@@ -2850,15 +2370,32 @@ function avatarClick(){
   if(isGrumpyWaking)return;
   if(isSpeaking||isThinking)return;
   blink();
-  // v12: use personality presets (cozy/formal/playful + user name) instead of hardcoded lines
-  // Pick a random emotion family, then use pickPreset('greetings') for the line
-  const emotionPool=['happy','content','grateful','smug','mischievous','proud','annoyed','sarcastic','unimpressed','sideeye','dramatic','surprised','sleepy'];
-  const pick=emotionPool[Math.floor(Math.random()*emotionPool.length)];
-  setEmotion(pick);
+  // v11: Printko has attitude — mix of reactions instead of always-happy
+  const reactions=[
+    // Helpful (30%)
+    {emotion:'happy',      line:curLang==='sl'?'<strong>Pozdravljeni!</strong> Kako lahko pomagam?':'<strong>Hello!</strong> How can I help?'},
+    {emotion:'content',    line:curLang==='sl'?'<strong>Tukaj sem.</strong> Vprašajte.': '<strong>Here for you.</strong> Ask away.'},
+    {emotion:'grateful',   line:curLang==='sl'?'<strong>O, vas!</strong> Spet pri tisku?':'<strong>Oh, you!</strong> Printing again?'},
+    // Sassy/smug (25%)
+    {emotion:'smug',       line:curLang==='sl'?'<strong>Vem vse.</strong> Samo vprašajte.':'<strong>I know everything.</strong> Just ask.'},
+    {emotion:'mischievous',line:curLang==='sl'?'<strong>Kaj?</strong> Pripravljam nekaj zvijačno.':'<strong>What?</strong> I\'m plotting something.'},
+    {emotion:'proud',      line:curLang==='sl'?'<strong>Videl sem</strong> vaš zadnji tisk. Ne slab.':'<strong>I saw</strong> your last print. Not bad.'},
+    // Attitude/annoyed (25%) — not mean, just sassy
+    {emotion:'annoyed',    line:curLang==='sl'?'<strong>Ja, ja.</strong> Kaj je?':'<strong>Yeah, yeah.</strong> What?'},
+    {emotion:'sarcastic',  line:curLang==='sl'?'<strong>O.</strong> Končno me opazite.':'<strong>Oh.</strong> You finally noticed me.'},
+    {emotion:'unimpressed',line:curLang==='sl'?'<strong>Mhm.</strong> Kliknili ste me. Čestitam.':'<strong>Mhm.</strong> You clicked me. Congrats.'},
+    {emotion:'sideeye',    line:curLang==='sl'?'<strong>…</strong> kaj?':'<strong>…</strong> what?'},
+    // Dramatic (10%)
+    {emotion:'dramatic',   line:curLang==='sl'?'<strong>O, ne!</strong> Klik! Kdo bi si mislil.':'<strong>Oh no!</strong> A click! Who would have thought.'},
+    {emotion:'surprised',  line:curLang==='sl'?'<strong>Nebo!</strong> Presenetili ste me.':'<strong>Heavens!</strong> You startled me.'},
+    // Sleepy (10%)
+    {emotion:'sleepy',     line:curLang==='sl'?'<strong>Mmmm.</strong> Skoraj zaspal.':'<strong>Mmmm.</strong> Almost dozed off.'},
+    {emotion:'content',    line:curLang==='sl'?'<strong>Zdravo.</strong> Kakšna novica?':'<strong>Hi.</strong> What\'s the news?'}
+  ];
+  const pick=reactions[Math.floor(Math.random()*reactions.length)];
+  setEmotion(pick.emotion);
   setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping&&!isGrumpyWaking)setEmotion('neutral')},2200);
-  // Use a greeting preset (with name + tone applied), fall back to a default if empty
-  const line=pickPreset('greetings')||(curLang==='sl'?'<strong>Pozdravljena!</strong>':'<strong>Hello!</strong>');
-  showSpeech('<strong>'+escapeHtml(line)+'</strong>');
+  showSpeech(pick.line);
 }
 function setAvatarState(state){
   const av=$('#avatar');
@@ -2922,7 +2459,6 @@ function wakeUp(){
   isSleeping=false;
   isGrumpyWaking=true;
   // v11: changed from 'grumpy' to 'annoyed' with attitude
-  // v12: use personality wake-up preset (cozy/formal/playful + user name)
   setEmotion('annoyed');
   setAvatarStatus(t('annoyed'));
   const av=$('#avatar');
@@ -2930,9 +2466,11 @@ function wakeUp(){
   setTimeout(()=>{
     av.classList.remove('waking-grumpy');
   },1200);
-  // v12: pick a wake-up line from the personality presets
-  const wakeLine=pickPreset('wakeups')||(curLang==='sl'?'<strong>Uf.</strong> Kaj pa tokrat?':'<strong>Ugh.</strong> What is it this time?');
-  showSpeech('<strong>'+escapeHtml(wakeLine)+'</strong>',false);
+  // Pick a random annoyed wake-up line with attitude
+  const wakeLines=curLang==='sl'?
+    ['<strong>Kaj?</strong> Spet vi?','<strong>Uf.</strong> Kaj pa tokrat?','<strong>Mmm.</strong> Sem raje spal.','<strong>Ajc.</strong> Pustite me spati.','<strong>Nič ne maram</strong> zgodnjega vstajanja.','<strong>Konec miru.</strong> Kaj je?']:
+    ['<strong>What?</strong> You again?','<strong>Ugh.</strong> What is it this time?','<strong>Mmm.</strong> I was sleeping, you know.','<strong>Ahem.</strong> Let me sleep.','<strong>I hate</strong> waking up early.','<strong>So much for peace.</strong> What?'];
+  showSpeech(wakeLines[Math.floor(Math.random()*wakeLines.length)],false);
   setTimeout(()=>{
     isGrumpyWaking=false;
     setEmotion('neutral');
@@ -3023,14 +2561,15 @@ function askSuggestion(i,el){
     setTimeout(()=>el.classList.remove('tapped'),400);
   }
   // v11: Printko reacts to the tap with an attitude emotion before answering
-  // v12: use personality quip preset (with user name + tone)
   if(!isSleeping&&!isGrumpyWaking){
     const reactEmotions=['listening','thinking','mischievous','smug','content'];
     const pick=reactEmotions[i%reactEmotions.length];
     setEmotion(pick);
-    // v12: use a quip preset instead of hardcoded lines
-    const quip=pickPreset('quips')||(curLang==='sl'?'Hm.':'Hm.');
-    showSpeech('<strong>'+escapeHtml(quip)+'</strong>',false);
+    // Quick reaction quip before processing the actual answer
+    const quips=curLang==='sl'?
+      ['<strong>Hm.</strong> Zanimivo vprašanje.','<strong>Okej.</strong> Povej več.','<strong>Nič lažjega.</strong>','<strong>Mhm.</strong> Pomislil sem.','<strong>Aja.</strong> To znam.','<strong>Zvedav.</strong> Bravo.']:
+      ['<strong>Hm.</strong> Interesting question.','<strong>Okay.</strong> Tell me more.','<strong>Easy.</strong>','<strong>Mhm.</strong> I thought so.','<strong>Ah.</strong> I know this one.','<strong>Curious.</strong> Good one.'];
+    showSpeech(quips[i],false);
   }
   $('#chat-in').value=text;
   // Process the actual answer after the brief reaction
@@ -3303,9 +2842,6 @@ function generateReply(text){
 function openSettings(){
   $('#modal-settings').classList.add('open');
   renderThemeGrid();
-  // v12: load personality UI + initial presets view
-  loadPersonality();
-  showPresets('greetings',document.querySelector('.panel-tab[data-preset="greetings"]'));
   // Update connection status
   const total=DB.prints.length+DB.projects.length+DB.news.length+DB.maintenance.length+DB.refills.length+DB.expenses.length+DB.materials.length;
   const status=localStorage.getItem('es-notion-key')?(curLang==='sl'?'Povezano · ':'Connected · ')+total+' zapisov':(curLang==='sl'?'Brez povezave · '+total+' lokalno':'Not connected · '+total+' local');
@@ -3352,19 +2888,14 @@ function boot(){
     $('#lang-label').textContent=curLang.toUpperCase();
     setAvatarStatus(t('ready'));
     loadKeysUI();
-    loadPersonality();           // v12: load user name, tone, shape, presets
     renderThemeGrid();
     renderSuggestions();
     renderQuickAccess();
     renderWeatherFx();
-    // Show welcome speech after a beat (v12: uses personality name if set)
+    // Show welcome speech after a beat
     setTimeout(()=>{
       $('#speech').classList.add('show');
-      const name=personality.name||'Lara';
-      const welcomeCustom=curLang==='sl'?
-        'Pozdravljena, <strong>'+escapeHtml(name)+'</strong>! Sem Printko. Vprašaj me karkoli o tiskih, črnilu, projektih ali financah.':
-        'Hello, <strong>'+escapeHtml(name)+'</strong>! I\'m Printko. Ask me anything about your prints, ink, projects, or finances.';
-      showSpeech(welcomeCustom);
+      showSpeech(t('welcomeSpeech'));
     },800);
     // Start blink cycle
     scheduleBlink();
@@ -3381,26 +2912,8 @@ function boot(){
       }
       resetIdle();
     },{passive:true});
-    // v12: Global click-to-look — any click anywhere makes Printko look at that point.
-    // This fixes the "can't get him to look in direction of tap" issue.
-    // Skip if clicking on the avatar itself (avatarClick handles that) or interactive controls.
-    document.addEventListener('click',e=>{
-      // Don't interfere with avatar clicks (they trigger avatarClick which has its own logic)
-      // or buttons/inputs/links
-      const target=e.target;
-      const isAvatar=target.closest('#avatar');
-      const isControl=target.closest('button,input,select,textarea,a,.sugg,.qa-pill,.panel-tab,.theme-card,.shape-card,.pi-del,.preset-add button,.panel-close,.tb-btn,.send-btn');
-      if(isAvatar||isControl){
-        resetIdle();
-        return;
-      }
-      // Make Printko look at the click point
-      if(!isSleeping&&!isGrumpyWaking){
-        focusEyesOn(e.clientX,e.clientY,EYE_FOCUS_DURATION*1.5);
-      }
-      resetIdle();
-    });
     // Idle reset on any user activity
+    document.addEventListener('click',resetIdle);
     document.addEventListener('keydown',resetIdle);
     document.addEventListener('scroll',resetIdle,{passive:true});
     // Start idle timer (sleep after IDLE_TIMEOUT)

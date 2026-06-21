@@ -13,6 +13,7 @@ The current version lives in `/index.html` at the project root.
 | `eufy-studio.html` | v8 | Centered Piko avatar, before rename to Printko |
 | `printko-v9.html` | v9 | Printko with weather themes, before emotion system |
 | `printko-v10.html` | v10 | Printko with 23-emotion system + iconic backgrounds, before attitude/pop-out pills |
+| `printko-v11.html` | v11 | Printko with 31 attitude emotions + pop-out pills, before personality system |
 
 ## Why they're here
 
