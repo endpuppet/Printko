@@ -1,3 +1,9 @@
+<!-- ════════════════════════════════════════════════════════════════
+     ⚠️  DEPRECATED — DO NOT USE
+     This file is from an older version of the Printko project.
+     The current version lives in /printko/index.html (v10+).
+     Kept in /archive/ for historical reference only.
+     ════════════════════════════════════════════════════════════════ -->
 <!DOCTYPE html>
 <html lang="sl" data-theme="trta" data-lang="sl">
 <head>
@@ -302,37 +308,6 @@ body{
 [data-theme="meglja"] .fog-cloud-3{animation-duration:50s;animation-delay:-20s}
 @keyframes fogDrift{0%{transform:translateX(-30%)}100%{transform:translateX(130%)}}
 
-/* ════ EXTRA AMBIENT ANIMATIONS (added v10) ════ */
-/* TRTA — butterfly fluttering across + wings flapping */
-[data-theme="trta"] .butterfly{animation:butterflyFly 20s ease-in-out infinite}
-[data-theme="trta"] .butterfly-wings{animation:butterflyWings .3s ease-in-out infinite;transform-origin:500px 320px}
-@keyframes butterflyFly{0%{transform:translate(0,0)}25%{transform:translate(150px,-50px)}50%{transform:translate(300px,30px)}75%{transform:translate(150px,80px)}100%{transform:translate(0,0)}}
-@keyframes butterflyWings{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.4)}}
-
-/* JELKA — birds flying across */
-[data-theme="jelka"] .bird-1{animation:birdFly1 25s linear infinite}
-[data-theme="jelka"] .bird-2{animation:birdFly2 30s linear infinite;animation-delay:-5s}
-[data-theme="jelka"] .bird-3{animation:birdFly3 35s linear infinite;animation-delay:-12s}
-@keyframes birdFly1{0%{transform:translate(-100px,0)}50%{transform:translate(500px,-30px)}100%{transform:translate(1100px,0)}}
-@keyframes birdFly2{0%{transform:translate(-100px,20px)}50%{transform:translate(500px,-20px)}100%{transform:translate(1100px,20px)}}
-@keyframes birdFly3{0%{transform:translate(-100px,-10px)}50%{transform:translate(500px,40px)}100%{transform:translate(1100px,-10px)}}
-
-/* MORJE — sailboat bobbing + fish swimming */
-[data-theme="morje"] .sailboat{animation:sailboatBob 4s ease-in-out infinite;transform-origin:700px 750px}
-@keyframes sailboatBob{0%,100%{transform:translate(700px,720px) rotate(-2deg)}50%{transform:translate(700px,725px) rotate(2deg)}}
-[data-theme="morje"] .fish-1{animation:fishSwim1 12s ease-in-out infinite}
-[data-theme="morje"] .fish-2{animation:fishSwim2 15s ease-in-out infinite;animation-delay:-3s}
-@keyframes fishSwim1{0%,100%{transform:translateX(0) scaleX(1)}45%{transform:translateX(400px) scaleX(1)}50%{transform:translateX(400px) scaleX(-1)}95%{transform:translateX(0) scaleX(-1)}}
-@keyframes fishSwim2{0%,100%{transform:translateX(0) scaleX(1)}40%{transform:translateX(-300px) scaleX(-1)}45%{transform:translateX(-300px) scaleX(-1)}90%{transform:translateX(0) scaleX(1)}}
-
-/* NOČ — moon gentle glow pulse */
-[data-theme="noc"] .moon{animation:moonGlow 8s ease-in-out infinite;transform-origin:850px 150px}
-@keyframes moonGlow{0%,100%{opacity:.85;filter:drop-shadow(0 0 8px rgba(240,234,216,.3))}50%{opacity:1;filter:drop-shadow(0 0 16px rgba(240,234,216,.5))}}
-
-/* SNEG — snowman subtle sway */
-[data-theme="sneg"] .snowman{animation:snowmanSway 5s ease-in-out infinite;transform-origin:820px 780px}
-@keyframes snowmanSway{0%,100%{transform:translate(820px,720px) rotate(-1deg)}50%{transform:translate(820px,720px) rotate(1deg)}}
-
 /* ════ TOPBAR ════ */
 .topbar{
   position:fixed;top:0;left:0;right:0;
@@ -446,121 +421,45 @@ body{
 .avatar.emotion-sleeping .piko .antenna-glow{animation-duration:3.5s;opacity:.25}
 .avatar.emotion-grumpy .piko .antenna-glow{animation-duration:1.6s;opacity:.5}
 
-/* Face direction switching — avatar occasionally turns left/right for motion */
-.piko .face-direction{
-  transition:transform .8s var(--ease);
-  transform-origin:120px 220px;
-}
-.avatar.facing-left .piko .face-direction{transform:rotateY(18deg) translateX(-4px)}
-.avatar.facing-right .piko .face-direction{transform:rotateY(-18deg) translateX(4px)}
+/* Side arms — gentle wave when speaking/happy */
+.piko .arm-l{animation:armWaveL 5s ease-in-out infinite;transform-origin:50px 132px}
+.piko .arm-r{animation:armWaveR 5s ease-in-out infinite;transform-origin:190px 132px}
+@keyframes armWaveL{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg)}}
+@keyframes armWaveR{0%,100%{transform:rotate(0)}50%{transform:rotate(6deg)}}
+.avatar.emotion-happy .piko .arm-l{animation:armWaveL 1.4s ease-in-out infinite}
+.avatar.emotion-happy .piko .arm-r{animation:armWaveR 1.4s ease-in-out infinite}
+.avatar.emotion-sleeping .piko .arm-l,
+.avatar.emotion-sleeping .piko .arm-r{animation:none;transform:rotate(0)}
 
 /* Pupil smoothing */
 .piko .pupil{transition:transform .15s var(--ease)}
 
-/* ═══ EYE/EYEBROW/MOUTH EMOTION VISIBILITY ═══ */
-/* All variants hidden by default */
+/* ═══ EYE/MOUTH EMOTION VISIBILITY ═══ */
+/* All eye/mouth variants hidden by default */
 .piko .eyes,
-.piko .eyebrows,
 .piko .mouth{display:none}
 
-/* EMOTION SYSTEM: each emotion maps to specific eye + eyebrow + mouth variants.
-   The EMOTIONS table in JS drives which combination shows. */
+/* Show only the matching emotion's eyes + mouth.
+   Higher-specificity rules — override the default hiding. */
 .avatar.emotion-neutral .piko .eyes-normal,
-.avatar.emotion-neutral .piko .eyebrows-neutral,
 .avatar.emotion-neutral .piko .mouth-neutral{display:block}
-
-.avatar.emotion-happy .piko .eyes-slanted-up,
-.avatar.emotion-happy .piko .eyebrows-raised,
-.avatar.emotion-happy .piko .mouth-big-smile{display:block}
-
-.avatar.emotion-joyful .piko .eyes-star,
-.avatar.emotion-joyful .piko .eyebrows-raised,
-.avatar.emotion-joyful .piko .mouth-open-tongue{display:block}
-
-.avatar.emotion-content .piko .eyes-half,
-.avatar.emotion-content .piko .eyebrows-neutral,
-.avatar.emotion-content .piko .mouth-smile{display:block}
-
-.avatar.emotion-smug .piko .eyes-wink,
-.avatar.emotion-smug .piko .eyebrows-smug,
-.avatar.emotion-smug .piko .mouth-smirk{display:block}
-
 .avatar.emotion-thinking .piko .eyes-normal,
-.avatar.emotion-thinking .piko .eyebrows-raised,
 .avatar.emotion-thinking .piko .mouth-thinking{display:block}
-
-.avatar.emotion-confused .piko .eyes-swirl,
-.avatar.emotion-confused .piko .eyebrows-furrowed,
-.avatar.emotion-confused .piko .mouth-wavy{display:block}
-
-.avatar.emotion-surprised .piko .eyes-wide,
-.avatar.emotion-surprised .piko .eyebrows-surprised,
-.avatar.emotion-surprised .piko .mouth-big-o{display:block}
-
-.avatar.emotion-shocked .piko .eyes-big,
-.avatar.emotion-shocked .piko .eyebrows-surprised,
-.avatar.emotion-shocked .piko .mouth-gasp{display:block}
-
-.avatar.emotion-sad .piko .eyes-small,
-.avatar.emotion-sad .piko .eyebrows-sad,
-.avatar.emotion-sad .piko .mouth-sad-frown{display:block}
-
-.avatar.emotion-crying .piko .eyes-closed,
-.avatar.emotion-crying .piko .eyebrows-sad,
-.avatar.emotion-crying .piko .mouth-sad-frown{display:block}
-
-.avatar.emotion-worried .piko .eyes-small,
-.avatar.emotion-worried .piko .eyebrows-worried,
-.avatar.emotion-worried .piko .mouth-frown{display:block}
-
-.avatar.emotion-grumpy .piko .eyes-squint,
-.avatar.emotion-grumpy .piko .eyebrows-furrowed,
-.avatar.emotion-grumpy .piko .mouth-grumpy{display:block}
-
-.avatar.emotion-angry .piko .eyes-squint,
-.avatar.emotion-angry .piko .eyebrows-furrowed,
-.avatar.emotion-angry .piko .mouth-flat{display:block}
-
 .avatar.emotion-speaking .piko .eyes-normal,
-.avatar.emotion-speaking .piko .eyebrows-neutral,
 .avatar.emotion-speaking .piko .mouth-speaking{display:block}
-
-.avatar.emotion-listening .piko .eyes-big,
-.avatar.emotion-listening .piko .eyebrows-raised,
-.avatar.emotion-listening .piko .mouth-flat{display:block}
-
-.avatar.emotion-sleeping .piko .eyes-closed,
-.avatar.emotion-sleeping .piko .eyebrows-sleeping,
+.avatar.emotion-happy .piko .eyes-happy,
+.avatar.emotion-happy .piko .mouth-happy{display:block}
+.avatar.emotion-sad .piko .eyes-sad,
+.avatar.emotion-sad .piko .mouth-sad{display:block}
+.avatar.emotion-surprised .piko .eyes-surprised,
+.avatar.emotion-surprised .piko .mouth-surprised{display:block}
+.avatar.emotion-sleeping .piko .eyes-sleeping,
 .avatar.emotion-sleeping .piko .mouth-sleeping{display:block}
-
-.avatar.emotion-dizzy .piko .eyes-dizzy,
-.avatar.emotion-dizzy .piko .eyebrows-worried,
-.avatar.emotion-dizzy .piko .mouth-wavy{display:block}
-
-.avatar.emotion-kiss .piko .eyes-slanted-up,
-.avatar.emotion-kiss .piko .eyebrows-raised,
-.avatar.emotion-kiss .piko .mouth-kiss{display:block}
-
-.avatar.emotion-grateful .psko .eyes-star,
-.avatar.emotion-grateful .piko .eyes-star,
-.avatar.emotion-grateful .piko .eyebrows-raised,
-.avatar.emotion-grateful .piko .mouth-smile{display:block}
-
-.avatar.emotion-proud .piko .eyes-half,
-.avatar.emotion-proud .piko .eyebrows-smug,
-.avatar.emotion-proud .piko .mouth-grin{display:block}
-
-.avatar.emotion-sleepy .piko .eyes-half,
-.avatar.emotion-sleepy .piko .eyebrows-sleeping,
-.avatar.emotion-sleepy .piko .mouth-flat{display:block}
-
-.avatar.emotion-embarrassed .piko .eyes-slanted-down,
-.avatar.emotion-embarrassed .piko .eyebrows-worried,
-.avatar.emotion-embarrassed .piko .mouth-smirk{display:block}
+.avatar.emotion-grumpy .piko .eyes-grumpy,
+.avatar.emotion-grumpy .piko .mouth-grumpy{display:block}
 
 /* Fallback: if no emotion class is set yet, show neutral */
 .avatar:not([class*="emotion-"]) .piko .eyes-normal,
-.avatar:not([class*="emotion-"]) .piko .eyebrows-neutral,
 .avatar:not([class*="emotion-"]) .piko .mouth-neutral{display:block}
 
 /* Speaking mouth animation */
@@ -618,17 +517,16 @@ body{
 .avatar-status{
   margin-top:.4rem;
   font-family:'Caveat',cursive;
-  font-size:1.15rem;
-  font-weight:500;
-  color:var(--tdim);
-  letter-spacing:.02em;
+  font-size:1.5rem;
+  font-weight:600;
+  color:var(--acc);
+  letter-spacing:.01em;
   text-align:center;
-  min-height:1.4rem;
-  transition:opacity var(--t-base),color var(--t-base);
-  opacity:.8;
+  min-height:1.6rem;
+  transition:opacity var(--t-base);
 }
 
-/* ════ SPEECH (flat text below avatar — no comic cloud; Caveat font for Printko's voice) ════ */
+/* ════ SPEECH BUBBLE (flat text below avatar — no comic cloud) ════ */
 .speech-wrap{
   width:100%;
   max-width:560px;
@@ -642,8 +540,8 @@ body{
   border:none;
   border-radius:0;
   padding:.4rem 1rem;
-  font-size:1.35rem;
-  line-height:1.45;
+  font-size:1rem;
+  line-height:1.55;
   color:var(--text);
   box-shadow:none;
   max-width:520px;
@@ -652,13 +550,13 @@ body{
   transform:translateY(4px);
   transition:opacity var(--t-base) var(--ease),transform var(--t-base) var(--ease);
   text-align:center;
-  font-family:'Caveat',cursive;
-  font-weight:600;
+  font-family:'Nunito',sans-serif;
+  font-weight:400;
 }
 .speech.show{opacity:1;transform:translateY(0)}
 /* Removed comic-cloud ::before triangle — text sits below avatar plainly */
 .speech strong{color:var(--acc);font-weight:700}
-.speech ul{padding-left:1.2rem;margin:.4rem 0;text-align:left;display:inline-block;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:400}
+.speech ul{padding-left:1.2rem;margin:.4rem 0;text-align:left;display:inline-block}
 .speech li{margin-bottom:.2rem}
 .speech code{font-family:'IBM Plex Mono',monospace;font-size:.82rem;background:var(--card-soft);padding:1px 6px;border-radius:4px;color:var(--acc)}
 .speech .typing-cursor{
@@ -724,39 +622,29 @@ body{
 /* ════ SUGGESTIONS ════ */
 .suggestions{
   display:flex;
-  gap:.5rem;
+  gap:.4rem;
   flex-wrap:wrap;
   justify-content:center;
   max-width:680px;
-  margin-bottom:1.2rem;
-  min-height:36px;
-  padding:0 .5rem;
+  margin-bottom:1.4rem;
+  min-height:32px;
 }
 .sugg{
-  font-size:.85rem;
-  padding:.5rem .95rem;
+  font-size:.78rem;
+  padding:.4rem .8rem;
   background:var(--card);
   border:1.5px solid var(--line);
   border-radius:99px;
   color:var(--tlo);
   transition:all var(--t-base) var(--ease);
-  font-weight:600;
+  font-weight:500;
   box-shadow:var(--shadow-soft);
-  display:inline-flex;
-  align-items:center;
 }
-.sugg:hover,.sugg:active{
+.sugg:hover{
   color:var(--acc);
   border-color:var(--acc);
   transform:translateY(-2px);
   box-shadow:var(--shadow);
-  background:var(--card);
-}
-.sugg::before{
-  content:'💬';
-  margin-right:.4rem;
-  font-size:.7rem;
-  opacity:.6;
 }
 
 /* ════ QUICK ACCESS PILLS ════ */
@@ -1050,102 +938,14 @@ body{
 .toast.info svg{color:var(--acc)}
 
 /* ════ RESPONSIVE ════ */
-/* ════ RESPONSIVE ════ */
-/* Tablet */
-@media(max-width:900px){
-  .avatar{width:180px;height:207px}
-  .speech{font-size:1.2rem}
-  .suggestions{max-width:90vw}
-  .quick-access{max-width:90vw}
-}
-
-/* Mobile */
 @media(max-width:640px){
-  .avatar{width:140px;height:161px}
-  .stage{
-    padding:68px .8rem 1rem;
-    justify-content:flex-start;
-    overflow-y:auto;
-  }
-  .avatar-wrap{margin-bottom:.6rem;margin-top:.5rem}
-  .speech{
-    font-size:1.15rem;
-    padding:.3rem .8rem;
-    line-height:1.4;
-  }
-  .speech ul{font-size:.85rem}
-  .suggestions{
-    gap:.35rem;
-    margin-bottom:1rem;
-  }
-  .sugg{
-    font-size:.72rem;
-    padding:.4rem .7rem;
-  }
-  .sugg::before{font-size:.6rem;margin-right:.3rem}
-  .qa-pill{
-    font-size:.7rem;
-    padding:.4rem .7rem;
-    gap:.3rem;
-  }
-  .qa-pill svg{width:12px;height:12px}
-  .qa-pill .badge{font-size:.55rem;padding:1px 5px}
-  .quick-access{gap:.3rem}
-  .brand{font-size:1rem}
+  .avatar{width:160px;height:184px}
+  .stage{padding:70px 1rem 1rem}
+  .speech{font-size:.88rem;padding:.8rem 1.1rem}
+  .qa-pill{font-size:.74rem;padding:.42rem .75rem}
+  .sugg{font-size:.72rem;padding:.35rem .65rem}
+  .brand{font-size:1.05rem}
   .tb-btn{width:34px;height:34px}
-  .tb-btn.wide{padding:0 .65rem}
-  .topbar{padding:0 .7rem;height:52px}
-  .chat-bar{gap:.4rem;margin-bottom:.7rem}
-  .chat-input-wrap{padding:.15rem .15rem .15rem .9rem}
-  .chat-in{font-size:.9rem;padding:.55rem 0}
-  .send-btn{width:38px;height:38px}
-  .send-btn svg{width:16px;height:16px}
-  .avatar-status{font-size:1rem}
-  .panel-slide{width:100vw}
-  .modal-card{border-radius:18px}
-  .modal-body{padding:1rem 1.1rem}
-  .theme-grid{grid-template-columns:repeat(3,1fr);gap:.45rem}
-  .theme-card{padding:.55rem .35rem .45rem}
-  .theme-preview{height:48px}
-  .theme-name{font-size:.7rem}
-  .theme-meta{font-size:.85rem}
-}
-
-/* Very small phones */
-@media(max-width:380px){
-  .avatar{width:120px;height:138px}
-  .speech{font-size:1.05rem}
-  .sugg{font-size:.66rem;padding:.35rem .6rem}
-  .qa-pill{font-size:.65rem;padding:.35rem .6rem}
-  .brand{font-size:.9rem}
-  .theme-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-/* Landscape on mobile */
-@media(max-height:500px) and (orientation:landscape){
-  .avatar{width:110px;height:127px}
-  .stage{padding:60px 1rem .8rem;justify-content:center}
-  .avatar-wrap{margin-bottom:.3rem}
-  .speech{font-size:1rem;margin-bottom:.3rem;min-height:40px}
-  .suggestions{margin-bottom:.5rem}
-  .quick-access{margin-top:.3rem}
-}
-
-/* Reduce motion for accessibility */
-@media(prefers-reduced-motion:reduce){
-  .piko .body-group,
-  .piko .body-sway,
-  .piko .body-breath,
-  .piko .shadow-ellipse,
-  .piko .antenna-glow,
-  .piko .status-light,
-  .piko .face-direction{
-    animation:none!important;
-    transition:none!important;
-  }
-  .leaf,.pine,.wave,.bubble,.star,.comet,.raindrop,.snowflake,.fog-cloud,.sun-rays,.sun-core{
-    animation:none!important;
-  }
 }
 </style>
 </head>
@@ -1154,7 +954,7 @@ body{
 <!-- AMBIENT BACKGROUND -->
 <div class="ambient">
   <div class="ambient-bg"></div>
-  <!-- TRTA: vine leaves (sway) + butterfly -->
+  <!-- TRTA: vine leaves (sway) -->
   <div class="ambient-deco trta-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <g fill="#8a4810" opacity="0.28">
       <path class="leaf" d="M50,150 Q80,120 110,150 Q140,180 110,210 Q80,180 50,150 Z"/>
@@ -1168,17 +968,8 @@ body{
       <path d="M150,100 Q160,150 170,200"/>
       <path d="M850,200 Q860,250 870,300"/>
     </g>
-    <!-- Butterfly fluttering -->
-    <g class="butterfly" fill="#c46a18" opacity="0.55">
-      <g class="butterfly-wings">
-        <ellipse cx="500" cy="320" rx="8" ry="6" opacity="0.8"/>
-        <ellipse cx="488" cy="318" rx="6" ry="4" opacity="0.7"/>
-        <ellipse cx="512" cy="318" rx="6" ry="4" opacity="0.7"/>
-      </g>
-      <ellipse cx="500" cy="320" rx="1" ry="5" fill="#3d2a14"/>
-    </g>
   </svg></div>
-  <!-- JELKA: pine trees (sway) + flying birds -->
+  <!-- JELKA: pine trees (sway) -->
   <div class="ambient-deco jelka-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <g fill="#2a4818" opacity="0.18">
       <path class="pine" d="M100,750 L80,750 L100,650 L85,650 L100,550 L115,650 L100,650 Z"/>
@@ -1187,18 +978,8 @@ body{
       <path class="pine" d="M50,850 L30,850 L50,780 L40,780 L50,720 L60,780 L50,780 Z"/>
       <path class="pine" d="M950,820 L935,820 L950,760 L940,760 L950,710 L960,760 L950,760 Z"/>
     </g>
-    <!-- Birds flying across -->
-    <g class="bird bird-1" stroke="#2a4818" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5">
-      <path d="M200,200 Q210,195 220,200 Q230,195 240,200"/>
-    </g>
-    <g class="bird bird-2" stroke="#2a4818" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.45">
-      <path d="M500,150 Q508,146 516,150 Q524,146 532,150"/>
-    </g>
-    <g class="bird bird-3" stroke="#2a4818" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.4">
-      <path d="M700,250 Q707,247 714,250 Q721,247 728,250"/>
-    </g>
   </svg></div>
-  <!-- MORJE: animated waves + bubbles + fish + sailboat -->
+  <!-- MORJE: animated waves + bubbles -->
   <div class="ambient-deco morje-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <g stroke="#1a3a5c" stroke-width="2.5" fill="none" opacity="0.35">
       <path class="wave" d="M-200,750 Q-50,720 100,750 T400,750 T700,750 T1000,750 T1300,750"/>
@@ -1210,23 +991,6 @@ body{
       <circle class="bubble bubble-2" cx="125" cy="800" r="3"/>
       <circle class="bubble" cx="850" cy="780" r="6"/>
       <circle class="bubble bubble-2" cx="855" cy="780" r="4"/>
-    </g>
-    <!-- Sailboat drifting -->
-    <g class="sailboat" opacity="0.4" transform="translate(700,720)">
-      <path d="M-20,30 L20,30 L12,38 L-12,38 Z" fill="#3a5c80"/>
-      <line x1="0" y1="30" x2="0" y2="-15" stroke="#3a5c80" stroke-width="2"/>
-      <path d="M0,-15 L0,20 L18,20 Z" fill="#a8c8dc" opacity="0.8"/>
-    </g>
-    <!-- Fish swimming -->
-    <g class="fish fish-1" fill="#3a78b8" opacity="0.5">
-      <ellipse cx="300" cy="820" rx="10" ry="5"/>
-      <path d="M290,820 L283,815 L283,825 Z"/>
-      <circle cx="305" cy="818" r="1.5" fill="#1a3a5c"/>
-    </g>
-    <g class="fish fish-2" fill="#5098d8" opacity="0.45">
-      <ellipse cx="600" cy="830" rx="8" ry="4"/>
-      <path d="M592,830 L586,826 L586,834 Z"/>
-      <circle cx="604" cy="828" r="1" fill="#1a3a5c"/>
     </g>
   </svg></div>
   <!-- SOLNCE: rotating sun rays + pulsing core -->
@@ -1242,32 +1006,26 @@ body{
     <circle class="sun-core" cx="880" cy="140" r="42" fill="#e89878" opacity="0.32"/>
     <circle class="sun-core" cx="880" cy="140" r="28" fill="#f8b894" opacity="0.4"/>
   </svg></div>
-  <!-- NOČ: twinkling stars + occasional comet + crescent moon -->
+  <!-- NOČ: twinkling stars + occasional comet -->
   <div class="ambient-deco noc-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-    <!-- Crescent moon -->
-    <g class="moon" opacity="0.85">
-      <circle cx="850" cy="150" r="48" fill="#f0ead8"/>
-      <circle cx="868" cy="142" r="44" fill="#241e48"/>
-    </g>
     <g fill="#e8e4f4">
       <circle class="star" cx="80" cy="100" r="2" opacity="0.95"/>
       <circle class="star" cx="200" cy="150" r="2.5" opacity="0.85"/>
       <circle class="star" cx="350" cy="80" r="1.5" opacity="0.9"/>
       <circle class="star" cx="500" cy="120" r="2" opacity="0.95"/>
       <circle class="star" cx="700" cy="100" r="2.5" opacity="0.8"/>
-      <circle class="star" cx="850" cy="280" r="1.5" opacity="0.9"/>
+      <circle class="star" cx="850" cy="180" r="1.5" opacity="0.9"/>
       <circle class="star" cx="920" cy="100" r="2" opacity="0.85"/>
       <circle class="star" cx="120" cy="250" r="1.5" opacity="0.75"/>
       <circle class="star" cx="450" cy="220" r="2" opacity="0.9"/>
-      <circle class="star" cx="780" cy="350" r="2.5" opacity="0.85"/>
+      <circle class="star" cx="780" cy="280" r="2.5" opacity="0.85"/>
       <circle class="star" cx="60" cy="400" r="1.5" opacity="0.7"/>
-      <circle class="star" cx="950" cy="450" r="2" opacity="0.85"/>
+      <circle class="star" cx="950" cy="350" r="2" opacity="0.85"/>
       <circle class="star" cx="280" cy="380" r="1.5" opacity="0.75"/>
       <circle class="star" cx="620" cy="450" r="2" opacity="0.85"/>
       <circle class="star" cx="180" cy="500" r="1.5" opacity="0.7"/>
       <circle class="star" cx="400" cy="600" r="2" opacity="0.8"/>
       <circle class="star" cx="720" cy="550" r="1.5" opacity="0.75"/>
-      <circle class="star" cx="550" cy="700" r="1.5" opacity="0.7"/>
     </g>
     <g class="comet" fill="#e8e4f4">
       <circle cx="100" cy="100" r="3" fill="#c8a8ff"/>
@@ -1275,7 +1033,7 @@ body{
     </g>
     <g fill="#a888e8" opacity="0.7">
       <path d="M150,180 L152,184 L156,186 L152,188 L150,192 L148,188 L144,186 L148,184 Z"/>
-      <path d="M820,420 L822,424 L826,426 L822,428 L820,432 L818,428 L814,426 L818,424 Z"/>
+      <path d="M820,120 L822,124 L826,126 L822,128 L820,132 L818,128 L814,126 L818,124 Z"/>
     </g>
   </svg></div>
   <!-- DEŽ: rain (raindrops handled by weather-fx layer) -->
@@ -1286,7 +1044,7 @@ body{
       <ellipse cx="850" cy="160" rx="90" ry="28"/>
     </g>
   </svg></div>
-  <!-- SNEG: snow (snowflakes handled by weather-fx layer) + snowman -->
+  <!-- SNEG: snow (snowflakes handled by weather-fx layer) -->
   <div class="ambient-deco sneg-deco"><svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
     <g fill="#5a78a0" opacity="0.22">
       <path d="M50,800 L150,780 L250,790 L350,775 L450,785 L550,780 L650,790 L750,775 L850,785 L950,780 L950,800 L50,800 Z"/>
@@ -1297,23 +1055,6 @@ body{
       <circle cx="800" cy="778" r="4"/>
       <circle cx="350" cy="775" r="3"/>
       <circle cx="650" cy="782" r="4"/>
-    </g>
-    <!-- Snowman -->
-    <g class="snowman" opacity="0.7" transform="translate(820,720)">
-      <circle cx="0" cy="60" r="28" fill="#ffffff" stroke="#5a78a0" stroke-width="1.5"/>
-      <circle cx="0" cy="20" r="22" fill="#ffffff" stroke="#5a78a0" stroke-width="1.5"/>
-      <circle cx="0" cy="-12" r="16" fill="#ffffff" stroke="#5a78a0" stroke-width="1.5"/>
-      <!-- eyes -->
-      <circle cx="-5" cy="-15" r="1.5" fill="#1a2638"/>
-      <circle cx="5" cy="-15" r="1.5" fill="#1a2638"/>
-      <!-- nose -->
-      <path d="M0,-10 L8,-8 L0,-6 Z" fill="#d8482a"/>
-      <!-- buttons -->
-      <circle cx="0" cy="15" r="2" fill="#1a2638"/>
-      <circle cx="0" cy="25" r="2" fill="#1a2638"/>
-      <!-- arms -->
-      <line x1="-22" y1="18" x2="-40" y2="5" stroke="#5a4838" stroke-width="2" stroke-linecap="round"/>
-      <line x1="22" y1="18" x2="40" y2="5" stroke="#5a4838" stroke-width="2" stroke-linecap="round"/>
     </g>
   </svg></div>
   <!-- MEGLJA: fog (drifting clouds handled here + weather-fx) -->
@@ -1374,212 +1115,122 @@ body{
         <circle class="antenna-glow" cx="120" cy="22" r="9" fill="var(--acc)"/>
         <circle cx="120" cy="22" r="5" fill="var(--acc-hi)" stroke="var(--avatar-stroke)" stroke-width="1"/>
         
-        <!-- body group (sway + breathe + float + face-direction) -->
+        <!-- body group (sway + breathe + float) -->
         <g class="body-group">
           <g class="body-sway">
-            <g class="face-direction" id="face-direction">
-              <!-- back shadow for depth -->
-              <rect x="56" y="68" width="130" height="160" rx="36" fill="var(--avatar-shadow)" opacity="0.5"/>
-              <!-- main body (breathes) -->
-              <g class="body-breath">
-                <rect x="50" y="62" width="130" height="160" rx="36" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
-                
-                <!-- face screen -->
-                <rect x="66" y="82" width="98" height="74" rx="22" fill="url(#screenGrad)" stroke="var(--avatar-stroke)" stroke-width="2"/>
-                
-                <!-- ═══ EYEBROW VARIANTS ═══ -->
-                <g class="eyebrows eyebrows-neutral">
-                  <path d="M84 104 Q95 102 106 104" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
-                  <path d="M134 104 Q145 102 156 104" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
-                </g>
-                <g class="eyebrows eyebrows-raised">
-                  <path d="M84 100 Q95 96 106 100" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                  <path d="M134 100 Q145 96 156 100" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyebrows eyebrows-furrowed">
-                  <path d="M84 106 L106 102" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M134 102 L156 106" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyebrows eyebrows-sad">
-                  <path d="M84 102 Q95 108 106 106" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                  <path d="M134 106 Q145 108 156 102" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyebrows eyebrows-surprised">
-                  <path d="M84 98 Q95 94 106 98" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                  <path d="M134 98 Q145 94 156 98" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyebrows eyebrows-worried">
-                  <path d="M84 104 Q92 108 106 106" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                  <path d="M134 106 Q148 108 156 104" stroke="var(--avatar-stroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyebrows eyebrows-smug">
-                  <path d="M84 102 L106 105" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
-                  <path d="M134 105 L156 102" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".8"/>
-                </g>
-                <g class="eyebrows eyebrows-sleeping">
-                  <path d="M84 104 L106 104" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".3"/>
-                  <path d="M134 104 L156 104" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".3"/>
-                </g>
-                
-                <!-- ═══ EYE VARIANTS ═══ -->
-                <g class="eyes eyes-normal">
-                  <circle cx="95" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-l" cx="95" cy="118" r="5.5" fill="#1a1a1a"/>
-                  <circle cx="145" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-r" cx="145" cy="118" r="5.5" fill="#1a1a1a"/>
-                  <circle cx="98" cy="115" r="1.5" fill="white"/>
-                  <circle cx="148" cy="115" r="1.5" fill="white"/>
-                </g>
-                <g class="eyes eyes-big">
-                  <circle cx="95" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-l" cx="95" cy="118" r="7" fill="#1a1a1a"/>
-                  <circle cx="145" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-r" cx="145" cy="118" r="7" fill="#1a1a1a"/>
-                  <circle cx="99" cy="114" r="2" fill="white"/>
-                  <circle cx="149" cy="114" r="2" fill="white"/>
-                </g>
-                <g class="eyes eyes-small">
-                  <circle cx="95" cy="118" r="6" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-l" cx="95" cy="118" r="3" fill="#1a1a1a"/>
-                  <circle cx="145" cy="118" r="6" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-r" cx="145" cy="118" r="3" fill="#1a1a1a"/>
-                </g>
-                <g class="eyes eyes-closed">
-                  <path d="M84 119 Q95 125 106 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M134 119 Q145 125 156 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-half">
-                  <path d="M84 118 Q95 122 106 118" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <circle cx="95" cy="119" r="4" fill="#1a1a1a"/>
-                  <path d="M134 118 Q145 122 156 118" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <circle cx="145" cy="119" r="4" fill="#1a1a1a"/>
-                </g>
-                <g class="eyes eyes-slanted-up">
-                  <path d="M84 122 Q95 110 106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M134 122 Q145 110 156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-slanted-down">
-                  <path d="M84 114 Q95 126 106 114" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M134 114 Q145 126 156 114" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-wide">
-                  <circle cx="95" cy="118" r="14" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-l" cx="95" cy="120" r="4" fill="#1a1a1a"/>
-                  <circle cx="145" cy="118" r="14" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-r" cx="145" cy="120" r="4" fill="#1a1a1a"/>
-                </g>
-                <g class="eyes eyes-squint">
-                  <path d="M84 116 L106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M84 122 Q95 119 106 122" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".4"/>
-                  <path d="M134 116 L156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M134 122 Q145 119 156 122" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".4"/>
-                </g>
-                <g class="eyes eyes-x">
-                  <path d="M88 112 L102 124 M102 112 L88 124" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M138 112 L152 124 M152 112 L138 124" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-star">
-                  <path d="M95 110 L97 116 L103 116 L98 120 L100 126 L95 122 L90 126 L92 120 L87 116 L93 116 Z" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <path d="M145 110 L147 116 L153 116 L148 120 L150 126 L145 122 L140 126 L142 120 L137 116 L143 116 Z" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                </g>
-                <g class="eyes eyes-swirl">
-                  <path d="M95 118 Q95 112 101 112 Q107 112 107 118 Q107 122 103 122 Q99 122 99 118 Q99 116 101 116" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round"/>
-                  <path d="M145 118 Q145 112 151 112 Q157 112 157 118 Q157 122 153 122 Q149 122 149 118 Q149 116 151 116" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-wink">
-                  <circle cx="95" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <circle class="pupil pupil-l" cx="95" cy="118" r="5.5" fill="#1a1a1a"/>
-                  <circle cx="98" cy="115" r="1.5" fill="white"/>
-                  <path d="M134 119 Q145 113 156 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="eyes eyes-dizzy">
-                  <circle cx="95" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <path d="M90 118 Q95 113 100 118 Q95 123 90 118" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none"/>
-                  <circle cx="145" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                  <path d="M140 118 Q145 113 150 118 Q145 123 140 118" stroke="var(--avatar-stroke)" stroke-width="1.5" fill="none"/>
-                </g>
-                
-                <!-- tear drop (for sad/crying) -->
-                <ellipse cx="85" cy="130" rx="2" ry="3" fill="#7ab8d8" opacity="0" class="tear-drop"/>
-                
-                <!-- eyelids for blink (only normal eyes) -->
-                <rect class="lid lid-l" x="84" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
-                <rect class="lid lid-r" x="134" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
-                
-                <!-- ═══ MOUTH VARIANTS ═══ -->
-                <g class="mouth mouth-neutral">
-                  <path d="M111 142 Q120 146 129 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-smile">
-                  <path d="M107 140 Q120 152 133 140" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-big-smile">
-                  <path d="M103 138 Q120 158 137 138" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="var(--acc)" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-                <g class="mouth mouth-grin">
-                  <path d="M104 140 L136 140" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M104 140 Q120 148 136 140" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="var(--acc)" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-frown">
-                  <path d="M108 148 Q120 142 132 148" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-sad-frown">
-                  <path d="M106 150 Q120 140 134 150" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-o">
-                  <ellipse cx="120" cy="143" rx="5" ry="7" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
-                </g>
-                <g class="mouth mouth-big-o">
-                  <ellipse cx="120" cy="143" rx="8" ry="10" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
-                </g>
-                <g class="mouth mouth-smirk">
-                  <path d="M112 144 Q120 142 130 144" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <path d="M126 143 L132 141" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-flat">
-                  <path d="M112 143 L128 143" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-open-tongue">
-                  <path d="M108 140 Q120 154 132 140" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="var(--acc)" stroke-linecap="round" stroke-linejoin="round"/>
-                  <ellipse cx="120" cy="150" rx="6" ry="3" fill="#e07a7a" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                </g>
-                <g class="mouth mouth-kiss">
-                  <ellipse cx="120" cy="143" rx="3" ry="4" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
-                </g>
-                <g class="mouth mouth-wavy">
-                  <path d="M108 143 Q114 140 120 143 Q126 146 132 143" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-gasp">
-                  <path d="M110 141 Q120 138 130 141 L128 148 Q120 150 112 148 Z" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
-                </g>
-                <g class="mouth mouth-thinking">
-                  <path d="M114 144 L126 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                <g class="mouth mouth-speaking">
-                  <ellipse cx="120" cy="143" rx="7" ry="3" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
-                </g>
-                <g class="mouth mouth-sleeping">
-                  <path d="M114 143 L126 143" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                  <text class="zzz zzz-1" x="158" y="105" font-family="Caveat,cursive" font-size="14" fill="var(--acc)" font-weight="700">z</text>
-                  <text class="zzz zzz-2" x="168" y="88" font-family="Caveat,cursive" font-size="18" fill="var(--acc)" font-weight="700">z</text>
-                  <text class="zzz zzz-3" x="178" y="68" font-family="Caveat,cursive" font-size="24" fill="var(--acc)" font-weight="700">Z</text>
-                </g>
-                <g class="mouth mouth-grumpy">
-                  <path d="M108 148 Q118 145 128 147 Q132 148 134 146" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                </g>
-                
-                <!-- printer slot decoration -->
-                <rect x="72" y="172" width="86" height="6" rx="3" fill="var(--avatar-stroke)" opacity="0.35"/>
-                <rect x="82" y="180" width="66" height="3" rx="1.5" fill="var(--avatar-stroke)" opacity="0.25"/>
-                
-                <!-- status light -->
-                <circle class="status-light" cx="120" cy="200" r="3.5" fill="var(--pos)" stroke="var(--avatar-stroke)" stroke-width="1"/>
-                
-                <!-- small detail dots -->
-                <circle cx="78" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
-                <circle cx="120" cy="210" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
-                <circle cx="162" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+            <!-- back shadow for depth -->
+            <rect x="56" y="68" width="130" height="160" rx="36" fill="var(--avatar-shadow)" opacity="0.5"/>
+            <!-- main body (breathes) -->
+            <g class="body-breath">
+              <rect x="50" y="62" width="130" height="160" rx="36" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              
+              <!-- face screen -->
+              <rect x="66" y="82" width="98" height="74" rx="22" fill="url(#screenGrad)" stroke="var(--avatar-stroke)" stroke-width="2"/>
+              
+              <!-- ═══ EYE VARIANTS (CSS controls which shows) ═══ -->
+              <!-- Normal eyes -->
+              <g class="eyes eyes-normal">
+                <circle cx="95" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="118" r="5.5" fill="#1a1a1a"/>
+                <circle cx="145" cy="118" r="11" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="118" r="5.5" fill="#1a1a1a"/>
+                <circle cx="98" cy="115" r="1.5" fill="white"/>
+                <circle cx="148" cy="115" r="1.5" fill="white"/>
               </g>
+              <!-- Sleeping eyes (closed arcs) -->
+              <g class="eyes eyes-sleeping">
+                <path d="M84 119 Q95 125 106 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 119 Q145 125 156 119" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Grumpy eyes (half-closed, slanted) -->
+              <g class="eyes eyes-grumpy">
+                <path d="M84 116 L106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M84 122 Q95 118 106 122" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+                <path d="M134 116 L156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 122 Q145 118 156 122" stroke="var(--avatar-stroke)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+              </g>
+              <!-- Surprised eyes (bigger) -->
+              <g class="eyes eyes-surprised">
+                <circle cx="95" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="118" r="7" fill="#1a1a1a"/>
+                <circle cx="145" cy="118" r="13" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="118" r="7" fill="#1a1a1a"/>
+              </g>
+              <!-- Happy eyes (upside-down arcs ^_^) -->
+              <g class="eyes eyes-happy">
+                <path d="M84 122 Q95 112 106 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <path d="M134 122 Q145 112 156 122" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Sad eyes (downturned with small pupil) -->
+              <g class="eyes eyes-sad">
+                <circle cx="95" cy="120" r="9" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-l" cx="95" cy="123" r="4" fill="#1a1a1a"/>
+                <circle cx="145" cy="120" r="9" fill="white" stroke="var(--avatar-stroke)" stroke-width="1"/>
+                <circle class="pupil pupil-r" cx="145" cy="123" r="4" fill="#1a1a1a"/>
+                <!-- tear drop -->
+                <ellipse cx="85" cy="130" rx="2" ry="3" fill="#7ab8d8" opacity=".8" class="tear-drop"/>
+              </g>
+              
+              <!-- eyelids for blink (only used in normal mode) -->
+              <rect class="lid lid-l" x="84" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
+              <rect class="lid lid-r" x="134" y="108" width="22" height="0" rx="3" fill="var(--screen-d)"/>
+              
+              <!-- ═══ MOUTH VARIANTS (CSS controls which shows) ═══ -->
+              <!-- Neutral slight smile -->
+              <g class="mouth mouth-neutral">
+                <path d="M111 142 Q120 147 129 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Happy big smile -->
+              <g class="mouth mouth-happy">
+                <path d="M103 138 Q120 158 137 138" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="var(--acc)" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+              <!-- Sad frown -->
+              <g class="mouth mouth-sad">
+                <path d="M108 148 Q120 142 132 148" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Surprised O -->
+              <g class="mouth mouth-surprised">
+                <ellipse cx="120" cy="143" rx="6" ry="8" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
+              </g>
+              <!-- Thinking (small offset line) -->
+              <g class="mouth mouth-thinking">
+                <path d="M114 144 L126 142" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              <!-- Speaking (animated ellipse) -->
+              <g class="mouth mouth-speaking">
+                <ellipse cx="120" cy="143" rx="7" ry="3" fill="var(--acc)" stroke="var(--avatar-stroke)" stroke-width="1.5"/>
+              </g>
+              <!-- Sleeping (flat line + Zzz) -->
+              <g class="mouth mouth-sleeping">
+                <path d="M114 143 L126 143" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <text class="zzz zzz-1" x="158" y="105" font-family="Caveat,cursive" font-size="14" fill="var(--acc)" font-weight="700">z</text>
+                <text class="zzz zzz-2" x="168" y="88" font-family="Caveat,cursive" font-size="18" fill="var(--acc)" font-weight="700">z</text>
+                <text class="zzz zzz-3" x="178" y="68" font-family="Caveat,cursive" font-size="24" fill="var(--acc)" font-weight="700">Z</text>
+              </g>
+              <!-- Grumpy (curved down, asymmetrical) -->
+              <g class="mouth mouth-grumpy">
+                <path d="M108 148 Q118 145 128 147 Q132 148 134 146" stroke="var(--avatar-stroke)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              </g>
+              
+              <!-- printer slot decoration -->
+              <rect x="72" y="172" width="86" height="6" rx="3" fill="var(--avatar-stroke)" opacity="0.35"/>
+              <rect x="82" y="180" width="66" height="3" rx="1.5" fill="var(--avatar-stroke)" opacity="0.25"/>
+              
+              <!-- status light -->
+              <circle class="status-light" cx="120" cy="200" r="3.5" fill="var(--pos)" stroke="var(--avatar-stroke)" stroke-width="1"/>
+              
+              <!-- side arms (gentle wave) -->
+              <g class="arm arm-l">
+                <circle cx="44" cy="132" r="11" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              </g>
+              <g class="arm arm-r">
+                <circle cx="196" cy="132" r="11" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
+              </g>
+              
+              <!-- small detail dots -->
+              <circle cx="78" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+              <circle cx="120" cy="210" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
+              <circle cx="162" cy="208" r="2" fill="var(--avatar-stroke)" opacity="0.4"/>
             </g>
           </g>
         </g>
@@ -1724,7 +1375,7 @@ body{
       </button>
 
       <div class="section-lbl" id="lbl-about">O programu · About</div>
-      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v10.0 · Printko</span></div>
+      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v9.0 · Printko</span></div>
       <div class="about-row"><span class="l" id="lbl-printer">Tiskalnik</span><span class="v">eufy E1 UV</span></div>
       <div class="about-row"><span class="l" id="lbl-status">Stanje</span><span class="v" id="conn-status">— povezave</span></div>
     </div>
@@ -2097,34 +1748,6 @@ function updateUIText(){
 }
 
 /* ─── AVATAR ─── */
-/* EMOTION SYSTEM: each emotion maps to (eyes, eyebrows, mouth) variants.
-   CSS rules in the style block handle visibility based on .emotion-<name> class. */
-const EMOTIONS={
-  neutral:    {eyes:'normal',       eyebrows:'neutral',    mouth:'neutral',     statusKey:'ready'},
-  happy:      {eyes:'slanted-up',   eyebrows:'raised',     mouth:'big-smile',   statusKey:'ready'},
-  joyful:     {eyes:'star',         eyebrows:'raised',     mouth:'open-tongue', statusKey:'speaking'},
-  content:    {eyes:'half',         eyebrows:'neutral',    mouth:'smile',       statusKey:'ready'},
-  smug:       {eyes:'wink',         eyebrows:'smug',       mouth:'smirk',       statusKey:'ready'},
-  thinking:   {eyes:'normal',       eyebrows:'raised',     mouth:'thinking',    statusKey:'thinking'},
-  confused:   {eyes:'swirl',        eyebrows:'furrowed',   mouth:'wavy',        statusKey:'thinking'},
-  surprised:  {eyes:'wide',         eyebrows:'surprised',  mouth:'big-o',       statusKey:'listening'},
-  shocked:    {eyes:'big',          eyebrows:'surprised',  mouth:'gasp',        statusKey:'listening'},
-  sad:        {eyes:'small',        eyebrows:'sad',        mouth:'sad-frown',   statusKey:'ready'},
-  crying:     {eyes:'closed',       eyebrows:'sad',        mouth:'sad-frown',   statusKey:'ready'},
-  worried:    {eyes:'small',        eyebrows:'worried',    mouth:'frown',       statusKey:'ready'},
-  grumpy:     {eyes:'squint',       eyebrows:'furrowed',   mouth:'grumpy',      statusKey:'grumpy'},
-  angry:      {eyes:'squint',       eyebrows:'furrowed',   mouth:'flat',        statusKey:'grumpy'},
-  speaking:   {eyes:'normal',       eyebrows:'neutral',    mouth:'speaking',    statusKey:'speaking'},
-  listening:  {eyes:'big',          eyebrows:'raised',     mouth:'flat',        statusKey:'listening'},
-  sleeping:   {eyes:'closed',       eyebrows:'sleeping',   mouth:'sleeping',    statusKey:'sleeping'},
-  dizzy:      {eyes:'dizzy',        eyebrows:'worried',    mouth:'wavy',        statusKey:'grumpy'},
-  kiss:       {eyes:'slanted-up',   eyebrows:'raised',     mouth:'kiss',        statusKey:'ready'},
-  grateful:   {eyes:'star',         eyebrows:'raised',     mouth:'smile',       statusKey:'ready'},
-  proud:      {eyes:'half',         eyebrows:'smug',       mouth:'grin',        statusKey:'ready'},
-  sleepy:     {eyes:'half',         eyebrows:'sleeping',   mouth:'flat',        statusKey:'sleeping'},
-  embarrassed:{eyes:'slanted-down', eyebrows:'worried',    mouth:'smirk',       statusKey:'ready'}
-};
-
 function setAvatarStatus(text){
   const el=$('#avatar-status');
   if(el)el.textContent=text;
@@ -2137,17 +1760,12 @@ function setEmotion(emotion){
   classes.forEach(c=>av.classList.remove(c));
   av.classList.add('emotion-'+emotion);
   curEmotion=emotion;
-  // Show tear drop for crying/sad emotions
-  const tear=$('.tear-drop');
-  if(tear){
-    tear.style.opacity=(emotion==='crying'||emotion==='sad')?'0.9':'0';
-  }
 }
 function blink(){
   const av=$('#avatar');
   if(!av||av.classList.contains('blinking'))return;
-  // Only blink in eye-open emotions (those with circle-based eyes)
-  const blinkable=['neutral','thinking','speaking','listening','happy','content','smug','proud','sleepy'];
+  // Only blink in eye-open emotions
+  const blinkable=['neutral','thinking','speaking'];
   if(!blinkable.includes(curEmotion))return;
   av.classList.add('blinking');
   setTimeout(()=>av.classList.remove('blinking'),150);
@@ -2157,9 +1775,8 @@ function scheduleBlink(){
   if(blinkTimer)clearTimeout(blinkTimer);
   blinkTimer=setTimeout(blink,3000+Math.random()*3500);
 }
-/* Eye tracking: smooth follow when mouse is near avatar,
-   look in direction of motion, occasional focus lock on click/tap. */
-let lastMouseX=0,lastMouseY=0,lastMouseTime=0;
+/* Eye exploration: every few seconds, look at a random spot.
+   Occasionally (when mouse moves or user taps), focus-lock on that point. */
 function lookAt(x,y){
   const av=$('#avatar');
   if(!av)return;
@@ -2169,13 +1786,12 @@ function lookAt(x,y){
   const dx=x-cx;
   const dy=y-cy;
   const dist=Math.sqrt(dx*dx+dy*dy);
-  // Max pupil movement scales with proximity — more movement when closer
-  const maxMove=dist<300?6:3;
-  const moveX=(dx/Math.max(dist,1))*Math.min(maxMove,dist/50);
-  const moveY=(dy/Math.max(dist,1))*Math.min(maxMove,dist/50);
+  const maxMove=4;
+  const moveX=(dx/Math.max(dist,1))*Math.min(maxMove,dist/60);
+  const moveY=(dy/Math.max(dist,1))*Math.min(maxMove,dist/60);
   const pl=$('.pupil-l'),pr=$('.pupil-r');
-  if(pl)pl.setAttribute('transform',`translate(${moveX.toFixed(2)} ${moveY.toFixed(2)})`);
-  if(pr)pr.setAttribute('transform',`translate(${moveX.toFixed(2)} ${moveY.toFixed(2)})`);
+  if(pl)pl.setAttribute('transform',`translate(${moveX} ${moveY})`);
+  if(pr)pr.setAttribute('transform',`translate(${moveX} ${moveY})`);
 }
 function exploreEyes(){
   // Look at a random point within the viewport
@@ -2202,36 +1818,11 @@ function focusEyesOn(x,y,duration){
 }
 function trackEyes(e){
   if(isSleeping)return;
-  const x=e.clientX,y=e.clientY;
-  const now=Date.now();
-  // Compute mouse velocity/direction
-  const dt=now-lastMouseTime;
-  let vx=0,vy=0;
-  if(dt>0&&dt<200){
-    vx=(x-lastMouseX)/dt;
-    vy=(y-lastMouseY)/dt;
-  }
-  lastMouseX=x;lastMouseY=y;lastMouseTime=now;
-  const av=$('#avatar');
-  if(!av)return;
-  const rect=av.getBoundingClientRect();
-  const cx=rect.left+rect.width/2;
-  const cy=rect.top+rect.height/2;
-  const dx=x-cx,dy=y-cy;
-  const dist=Math.sqrt(dx*dx+dy*dy);
-  // When mouse is near (<350px), track smoothly. When far, occasionally look.
-  if(dist<350){
-    if(Math.random()<0.12){ // 12% chance to focus-lock when near
-      focusEyesOn(x,y,EYE_FOCUS_DURATION);
-    }else if(!isEyeFocused){
-      // Look in direction of motion (extrapolate)
-      const lookX=x+vx*50;
-      const lookY=y+vy*50;
-      lookAt(lookX,lookY);
-    }
-  }else if(!isEyeFocused&&Math.random()<0.05){
-    // Mouse far — 5% chance per move to glance at it
-    lookAt(x,y);
+  // Throttle: only focus-lock occasionally, otherwise just explore
+  if(Math.random()<0.15){ // 15% of mouse moves trigger a focus lock
+    focusEyesOn(e.clientX,e.clientY,EYE_FOCUS_DURATION);
+  }else if(!isEyeFocused){
+    lookAt(e.clientX,e.clientY);
   }
 }
 function avatarTapFocus(x,y){
@@ -2245,13 +1836,13 @@ function avatarClick(){
   if(isSpeaking||isThinking)return;
   blink();
   // Cycle through a few friendly emotions on click
-  const emotions=['happy','surprised','joyful','content','grateful'];
+  const emotions=['happy','surprised','happy','neutral'];
   const pick=emotions[Math.floor(Math.random()*emotions.length)];
   setEmotion(pick);
-  setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping)setEmotion('neutral')},1800);
+  setTimeout(()=>{if(!isSpeaking&&!isThinking&&!isSleeping)setEmotion('neutral')},1500);
   const greetings=curLang==='sl'?
-    ['Pozdravljeni!','Kako vam lahko pomagam?','Vaš tiskalnik je pripravljen.','Vprašajte me karkoli!','Zdravo!']:
-    ['Hello!','How can I help?','Your printer is ready.','Ask me anything!','Hi there!'];
+    ['Pozdravljeni!','Kako vam lahko pomagam?','Vaš tiskalnik je pripravljen.','Vprašajte me karkoli!']:
+    ['Hello!','How can I help?','Your printer is ready.','Ask me anything!'];
   showSpeech('<strong>'+(greetings[Math.floor(Math.random()*greetings.length)])+'</strong>');
 }
 function setAvatarState(state){
@@ -2267,22 +1858,6 @@ function setAvatarState(state){
     setAvatarStatus(t('ready'));
   }
 }
-/* Face direction switching — occasionally turn L/R for more motion */
-let faceDirectionTimer=null;
-function scheduleFaceDirection(){
-  if(faceDirectionTimer)clearTimeout(faceDirectionTimer);
-  faceDirectionTimer=setTimeout(()=>{
-    const av=$('#avatar');
-    if(av&&!isSleeping&&!isSpeaking){
-      av.classList.remove('facing-left','facing-right');
-      const r=Math.random();
-      if(r<0.3)av.classList.add('facing-left');
-      else if(r<0.6)av.classList.add('facing-right');
-      // 40% chance: face forward (no class)
-    }
-    scheduleFaceDirection();
-  },5000+Math.random()*4000); // every 5-9s
-}
 /* Sleep / wake cycle */
 function resetIdle(){
   if(isSleeping)return; // wakeUp handles its own reset
@@ -2294,12 +1869,9 @@ function goToSleep(){
   isSleeping=true;
   setEmotion('sleeping');
   setAvatarStatus(t('sleeping'));
-  // Stop blink/exploration/face-direction while sleeping
+  // Stop blink/exploration while sleeping
   if(blinkTimer)clearTimeout(blinkTimer);
   if(eyeExploreTimer)clearTimeout(eyeExploreTimer);
-  if(faceDirectionTimer)clearTimeout(faceDirectionTimer);
-  const av=$('#avatar');
-  av.classList.remove('facing-left','facing-right');
   // Reset pupils to center
   const pl=$('.pupil-l'),pr=$('.pupil-r');
   if(pl)pl.setAttribute('transform','translate(0 0)');
@@ -2322,7 +1894,6 @@ function wakeUp(){
     setAvatarStatus(t('ready'));
     scheduleBlink();
     scheduleEyeExplore();
-    scheduleFaceDirection();
     resetIdle();
   },GRUMPY_DURATION);
 }
@@ -2726,8 +2297,6 @@ function boot(){
     scheduleBlink();
     // Start eye exploration
     scheduleEyeExplore();
-    // Start face direction switching
-    scheduleFaceDirection();
     // Eye tracking (throttled)
     document.addEventListener('mousemove',e=>{trackEyes(e);resetIdle()});
     // Tap focus on touch devices

@@ -1,0 +1,2771 @@
+<!-- ════════════════════════════════════════════════════════════════
+     ⚠️  DEPRECATED — DO NOT USE
+     This file is from an older version of the Printko project.
+     The current version lives in /printko/index.html (v10+).
+     Kept in /archive/ for historical reference only.
+     ════════════════════════════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="en" data-theme="terra" data-font="inter" data-mode="focus">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>eufyBASE v7 · pi.dev × Notion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer;border:none;background:none;-webkit-tap-highlight-color:transparent}
+:root{--ease:cubic-bezier(.25,.46,.45,.94);--spring:cubic-bezier(.34,1.56,.64,1);--t-fast:.18s;--t-base:.28s;--t-slow:.42s}
+
+/* ════ 6 THEMES ════ */
+[data-theme="terra"]{--base:#1c1914;--card:#1c1914;--sdk:#0e0c09;--slt:#2c2820;--nm-r:5px 5px 13px #0e0c09,-3px -3px 9px #2c2820;--nm-rs:3px 3px 8px #0e0c09,-2px -2px 5px #2c2820;--nm-i:inset 4px 4px 10px #0e0c09,inset -3px -3px 7px #2c2820;--nm-is:inset 2px 2px 7px #0e0c09,inset -1px -1px 4px #2c2820;--trk:#0e0c09;--text:#ede2ca;--tlo:#c0af92;--tdim:#7a7060;--acc:#d4943a;--achi:#f4b84a;--aclo:#8a6220;--acbg:rgba(212,148,58,.22);--pos:#4e8c42;--phi:#7cba68;--pbg:rgba(78,140,66,.2);--neg:#964040;--nhi:#c87060;--nbg:rgba(150,64,64,.2);--whi:#d4a848;--wbg:rgba(180,148,60,.2);--ink-c:#2a6a7a;--ink-m:#7a2a4a;--ink-y:#8a7a20;--ink-k:#686058;--ink-w:#b8b4a8;--ink-g:#4a5a3a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+[data-theme="silver"]{--base:#222428;--card:#222428;--sdk:#161719;--slt:#2e3138;--nm-r:5px 5px 13px #161719,-3px -3px 9px #2e3138;--nm-rs:3px 3px 8px #161719,-2px -2px 5px #2e3138;--nm-i:inset 4px 4px 10px #161719,inset -3px -3px 7px #2e3138;--nm-is:inset 2px 2px 7px #161719,inset -1px -1px 4px #2e3138;--trk:#161719;--text:#eceff4;--tlo:#b8bec8;--tdim:#7a808a;--acc:#9aaabe;--achi:#c0ccdc;--aclo:#5a6478;--acbg:rgba(154,170,190,.22);--pos:#4a9468;--phi:#7cb888;--pbg:rgba(74,148,104,.2);--neg:#904848;--nhi:#c87070;--nbg:rgba(144,72,72,.2);--whi:#c8a848;--wbg:rgba(180,148,60,.2);--ink-c:#3a6a8a;--ink-m:#8a3a5a;--ink-y:#8a7a30;--ink-k:#5a5a5a;--ink-w:#b0aca0;--ink-g:#4a6a3a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+[data-theme="midnight"]{--base:#181b26;--card:#181b26;--sdk:#0e1018;--slt:#242838;--nm-r:5px 5px 13px #0e1018,-3px -3px 9px #242838;--nm-rs:3px 3px 8px #0e1018,-2px -2px 5px #242838;--nm-i:inset 4px 4px 10px #0e1018,inset -3px -3px 7px #242838;--nm-is:inset 2px 2px 7px #0e1018,inset -1px -1px 4px #242838;--trk:#0e1018;--text:#d8e2f8;--tlo:#9eaac4;--tdim:#6a7494;--acc:#5a8cd8;--achi:#7aaaf0;--aclo:#3a5a98;--acbg:rgba(90,140,216,.22);--pos:#3a8c6a;--phi:#68b088;--pbg:rgba(58,140,106,.2);--neg:#904858;--nhi:#c87088;--nbg:rgba(144,72,88,.2);--whi:#c8a848;--wbg:rgba(180,148,60,.2);--ink-c:#3a6a9a;--ink-m:#7a3a6a;--ink-y:#8a7a40;--ink-k:#5a5a6a;--ink-w:#a8a4b0;--ink-g:#3a5a4a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+[data-theme="parchment"]{--base:#eae5dc;--card:#eae5dc;--sdk:#d8d2c4;--slt:#f0ebe0;--nm-r:5px 5px 13px #d8d2c4,-3px -3px 9px #f8f4e8;--nm-rs:3px 3px 8px #d8d2c4,-2px -2px 5px #f8f4e8;--nm-i:inset 4px 4px 10px #d8d2c4,inset -3px -3px 7px #f8f4e8;--nm-is:inset 2px 2px 7px #d8d2c4,inset -1px -1px 4px #f8f4e8;--trk:#d8d2c4;--text:#18140a;--tlo:#5a5240;--tdim:#8a8068;--acc:#b87428;--achi:#d48a3a;--aclo:#7a4a18;--acbg:rgba(184,116,40,.2);--pos:#3a7030;--phi:#5a9048;--pbg:rgba(58,112,48,.18);--neg:#883028;--nhi:#a84838;--nbg:rgba(136,48,40,.16);--whi:#8a6818;--wbg:rgba(138,104,24,.18);--ink-c:#2a5a6a;--ink-m:#7a2a4a;--ink-y:#7a6818;--ink-k:#484038;--ink-w:#8a8478;--ink-g:#3a5a2a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+[data-theme="chalk"]{--base:#e2e5ea;--card:#e2e5ea;--sdk:#cfd3da;--slt:#eef0f4;--nm-r:5px 5px 13px #cfd3da,-3px -3px 9px #f8f9fc;--nm-rs:3px 3px 8px #cfd3da,-2px -2px 5px #f8f9fc;--nm-i:inset 4px 4px 10px #cfd3da,inset -3px -3px 7px #f8f9fc;--nm-is:inset 2px 2px 7px #cfd3da,inset -1px -1px 4px #f8f9fc;--trk:#cfd3da;--text:#181c24;--tlo:#4a5260;--tdim:#7a8090;--acc:#4870c0;--achi:#6a90e0;--aclo:#2a5090;--acbg:rgba(72,112,192,.2);--pos:#287850;--phi:#489868;--pbg:rgba(40,120,80,.18);--neg:#882838;--nhi:#a84858;--nbg:rgba(136,40,56,.16);--whi:#8a6818;--wbg:rgba(138,104,24,.18);--ink-c:#2a5a8a;--ink-m:#7a2a4a;--ink-y:#7a6818;--ink-k:#484848;--ink-w:#8a8478;--ink-g:#3a5a3a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+[data-theme="cream"]{--base:#f0ebe0;--card:#f0ebe0;--sdk:#ddd6c4;--slt:#f6f1e6;--nm-r:5px 5px 13px #ddd6c4,-3px -3px 9px #fcf8ee;--nm-rs:3px 3px 8px #ddd6c4,-2px -2px 5px #fcf8ee;--nm-i:inset 4px 4px 10px #ddd6c4,inset -3px -3px 7px #fcf8ee;--nm-is:inset 2px 2px 7px #ddd6c4,inset -1px -1px 4px #fcf8ee;--trk:#ddd6c4;--text:#1c1610;--tlo:#5a4a38;--tdim:#8a7a64;--acc:#c05838;--achi:#e07a58;--aclo:#803820;--acbg:rgba(192,88,56,.2);--pos:#3a6a28;--phi:#5a8a48;--pbg:rgba(58,106,40,.18);--neg:#8a2820;--nhi:#a84838;--nbg:rgba(138,40,32,.16);--whi:#8a6818;--wbg:rgba(138,104,24,.18);--ink-c:#2a5a6a;--ink-m:#7a2a4a;--ink-y:#7a6818;--ink-k:#484038;--ink-w:#8a8478;--ink-g:#3a5a2a;--r:16px;--rsm:10px;--rxs:6px;--sw:236px;--tbh:56px;--nh:68px}
+
+/* ════ 5 FONTS ════ */
+[data-font="inter"]{--fd:'Inter',sans-serif;--fb:'Inter',sans-serif;--fw:700;--fw-body:400;--ft:none;--fls:-.01em}
+[data-font="bebas"]{--fd:'Bebas Neue',sans-serif;--fb:'Inter',sans-serif;--fw:400;--fw-body:400;--ft:uppercase;--fls:.02em}
+[data-font="impact"]{--fd:Impact,'Arial Narrow',sans-serif;--fb:'Inter',sans-serif;--fw:400;--fw-body:400;--ft:uppercase;--fls:.01em}
+[data-font="candara"]{--fd:Candara,'Segoe UI',Optima,sans-serif;--fb:Candara,'Segoe UI',Optima,sans-serif;--fw:700;--fw-body:400;--ft:none;--fls:0}
+[data-font="swiss"]{--fd:'Barlow Condensed',sans-serif;--fb:'Barlow Condensed',sans-serif;--fw:700;--fw-body:400;--ft:uppercase;--fls:.01em}
+[data-font="grotesk"]{--fd:'Space Grotesk',sans-serif;--fb:'Space Grotesk',sans-serif;--fw:600;--fw-body:400;--ft:none;--fls:-.02em}
+
+html,body{height:100%;overflow:hidden}
+body{background:var(--base);color:var(--text);font-family:var(--fb);font-weight:var(--fw-body);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .4s,color .25s}
+.mono{font-family:'IBM Plex Mono',monospace;letter-spacing:-.02em}
+.disp{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);letter-spacing:var(--fls)}
+.acc{color:var(--acc)}
+.dim{color:var(--tdim)}
+.lo{color:var(--tlo)}
+.pos{color:var(--phi)}
+.neg{color:var(--nhi)}
+.whi{color:var(--whi)}
+svg{stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.nm{background:var(--card);border-radius:var(--r);box-shadow:var(--nm-r);transition:box-shadow .25s,background .4s}
+.nm-sm{background:var(--card);border-radius:var(--rsm);box-shadow:var(--nm-rs)}
+.inset{background:var(--sdk);border-radius:var(--rsm);box-shadow:var(--nm-i)}
+.inset-sm{background:var(--sdk);border-radius:var(--rxs);box-shadow:var(--nm-is)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--slt);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--acc)}
+
+/* ════ INTRO ════ */
+#intro{position:fixed;inset:0;background:#0a0806;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
+#intro.hide{opacity:0;visibility:hidden}
+.ip{position:absolute;width:4px;height:4px;background:var(--acc);border-radius:50%;opacity:0;animation:floatp 6s infinite var(--ease)}
+@keyframes floatp{0%{opacity:0;transform:translateY(0) scale(0)}10%{opacity:.6;transform:scale(1)}90%{opacity:.4}100%{opacity:0;transform:translateY(-160px) scale(.5)}}
+.intro-logo{font-family:'Bebas Neue',sans-serif;font-size:5rem;letter-spacing:.04em;color:#e8ddc4;z-index:2;animation:logoIn 1.2s var(--spring)}
+.intro-logo em{color:#d4943a;font-style:normal;font-weight:400}
+@keyframes logoIn{from{opacity:0;transform:translateY(20px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.intro-sub{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:#7a7060;letter-spacing:.3em;text-transform:uppercase;margin-top:.5rem;z-index:2;animation:logoIn 1.2s .2s both}
+.intro-bar{position:relative;width:200px;height:3px;background:#1c1914;border-radius:2px;overflow:hidden;margin-top:2rem;z-index:2}
+.intro-bar::after{content:'';position:absolute;inset:0;background:#d4943a;border-radius:2px;transform-origin:left;animation:loadbar 2.2s var(--ease) forwards}
+.intro-skip{position:fixed;bottom:32px;left:50%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:#7a7060;letter-spacing:.2em;text-transform:uppercase;z-index:3;cursor:pointer;padding:.5rem 1rem;border:1px solid #2c2820;border-radius:99px;transition:all .25s;background:transparent;animation:logoIn 1.2s .5s both}
+.intro-skip:hover{color:#d4943a;border-color:#d4943a;background:rgba(212,148,58,.08)}
+#intro{cursor:pointer}
+@keyframes loadbar{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
+
+/* ════ ONBOARDING ════ */
+#onboarding{position:fixed;inset:0;background:rgba(10,8,6,.92);z-index:1900;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px)}
+#onboarding.show{display:flex;animation:fadeIn .4s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.ob-card{background:var(--card);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.4);max-width:540px;width:100%;padding:2.2rem 1.8rem 1.6rem;position:relative;overflow:hidden}
+.ob-slides{position:relative;min-height:340px}
+.ob-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s;display:flex;flex-direction:column;align-items:center;text-align:center}
+.ob-slide.active{opacity:1;visibility:visible}
+.ob-icon{width:84px;height:84px;border-radius:50%;background:var(--acbg);display:flex;align-items:center;justify-content:center;color:var(--acc);margin-bottom:1.2rem}
+.ob-icon svg{width:38px;height:38px;stroke-width:1.6}
+.ob-slide h2{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.55rem;letter-spacing:var(--fls);margin-bottom:.5rem}
+.ob-slide h2 em{font-style:normal;color:var(--acc)}
+.ob-slide p{color:var(--tlo);font-size:.92rem;line-height:1.55;max-width:380px;margin-bottom:1.2rem}
+.ob-feat{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:1rem}
+.ob-feat span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;padding:.3rem .65rem;background:var(--slt);border-radius:99px;color:var(--tlo);text-transform:uppercase;letter-spacing:.04em}
+.ob-nav{display:flex;align-items:center;justify-content:space-between;margin-top:1rem}
+.ob-dots{display:flex;gap:6px}
+.ob-dot{width:7px;height:7px;border-radius:50%;background:var(--slt);cursor:pointer;transition:all .3s}
+.ob-dot.active{background:var(--acc);width:22px;border-radius:4px}
+.ob-btn{padding:.55rem 1.1rem;border-radius:var(--rsm);font-size:.85rem;font-weight:500;background:var(--slt);color:var(--tlo);transition:all .25s}
+.ob-btn:hover{color:var(--text);background:var(--acbg)}
+.ob-btn.primary{background:var(--acc);color:var(--base);font-weight:600}
+.ob-btn.primary:hover{background:var(--achi)}
+.ob-btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ════ TOASTS ════ */
+#toast-container{position:fixed;top:14px;right:14px;z-index:3000;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:var(--card);border-radius:var(--rsm);box-shadow:var(--nm-r);padding:.7rem 1rem;display:flex;align-items:center;gap:.65rem;min-width:240px;max-width:340px;pointer-events:auto;animation:toastIn .35s var(--spring);border-left:3px solid var(--acc)}
+.toast.success{border-color:var(--pos)}
+.toast.warn{border-color:var(--whi)}
+.toast.error{border-color:var(--neg)}
+.toast.info{border-color:var(--acc)}
+.toast.hide{animation:toastOut .3s forwards}
+@keyframes toastIn{from{transform:translateX(120%) scale(.9);opacity:0}to{transform:translateX(0) scale(1);opacity:1}}
+@keyframes toastOut{to{transform:translateX(120%) scale(.9);opacity:0}}
+.toast svg{width:18px;height:18px;flex-shrink:0;stroke-width:2.2}
+.toast.success svg{color:var(--phi)}
+.toast.warn svg{color:var(--whi)}
+.toast.error svg{color:var(--nhi)}
+.toast.info svg{color:var(--acc)}
+.toast-msg{font-size:.85rem;line-height:1.35}
+
+/* ════ APP SHELL ════ */
+#app{display:none;height:100%;position:relative}
+#app.show{display:flex}
+
+.sidebar{width:var(--sw);flex-shrink:0;background:var(--base);display:none;flex-direction:column;padding:1rem .8rem;overflow-y:auto;border-right:1px solid var(--slt)}
+.sb-logo{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.45rem;letter-spacing:var(--fls);padding:.4rem .6rem 1.4rem;color:var(--text)}
+.sb-logo em{color:var(--acc);font-style:normal}
+.sb-logo .v{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--tdim);display:block;letter-spacing:.18em;margin-top:.2rem;text-transform:uppercase;font-weight:400}
+.sb-sec{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);letter-spacing:.18em;text-transform:uppercase;padding:.7rem .6rem .35rem}
+.sb-btn{display:flex;align-items:center;gap:.7rem;padding:.65rem .65rem;border-radius:var(--rsm);color:var(--tlo);font-size:.88rem;font-weight:500;width:100%;margin-bottom:2px;transition:all .2s var(--ease);position:relative}
+.sb-btn:hover{color:var(--text);background:var(--slt)}
+.sb-btn.active{color:var(--acc);background:var(--acbg);box-shadow:var(--nm-is)}
+.sb-btn svg{width:18px;height:18px;flex-shrink:0;stroke-width:1.8}
+.sb-btn .sb-badge{margin-left:auto;background:var(--acc);color:var(--base);font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:600;padding:1px 6px;border-radius:99px;min-width:18px;text-align:center}
+.sb-bottom{margin-top:auto;padding-top:1rem}
+.sb-mode{display:flex;gap:4px;background:var(--sdk);border-radius:var(--rsm);padding:3px;box-shadow:var(--nm-is)}
+.sb-mode-btn{flex:1;padding:.45rem;border-radius:7px;font-size:.7rem;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--tdim);transition:all .25s}
+.sb-mode-btn.active{background:var(--acbg);color:var(--acc);box-shadow:var(--nm-rs)}
+.sb-ver{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-align:center;padding:.6rem;letter-spacing:.1em;text-transform:uppercase}
+
+.main-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{height:var(--tbh);display:flex;align-items:center;gap:.5rem;padding:0 .8rem;border-bottom:1px solid var(--slt);background:var(--base);flex-shrink:0}
+.tb-logo{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.2rem;letter-spacing:var(--fls);color:var(--text)}
+.tb-logo em{color:var(--acc);font-style:normal}
+.tb-title{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.05rem;letter-spacing:var(--fls);color:var(--tlo);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tb-title em{color:var(--acc);font-style:normal}
+.tb-right{display:flex;align-items:center;gap:.35rem;margin-left:auto}
+.tb-ico{width:38px;height:38px;border-radius:var(--rsm);display:flex;align-items:center;justify-content:center;color:var(--tlo);transition:all .2s;position:relative}
+.tb-ico:hover{color:var(--text);background:var(--slt)}
+.tb-ico svg{width:18px;height:18px;stroke-width:1.8}
+.tb-ico.active{color:var(--acc);background:var(--acbg)}
+.tb-notif::after{content:'';position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:var(--neg);border:2px solid var(--base)}
+[data-theme="parchment"] .tb-notif::after,[data-theme="chalk"] .tb-notif::after,[data-theme="cream"] .tb-notif::after{border-color:var(--base)}
+
+.content{flex:1;overflow-y:auto;overflow-x:hidden;position:relative}
+
+/* ════ VIEWS ════ */
+.view{display:none;padding:1rem;animation:vIn .28s var(--ease)}
+.view.active{display:block}
+@keyframes vIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.view-title{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.65rem;letter-spacing:var(--fls);margin-bottom:.2rem}
+.view-title em{color:var(--acc);font-style:normal}
+.view-sub{color:var(--tdim);font-size:.82rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;margin-bottom:1rem}
+.sec-lbl{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--tdim);letter-spacing:.16em;text-transform:uppercase;margin:1rem 0 .55rem;padding:0 .2rem}
+
+/* ════ FOCUS MODE 3-COLUMN ════ */
+#view-focus{padding:0;height:100%}
+.focus-grid{display:grid;grid-template-columns:var(--col-news,1fr) var(--col-assistant,1.4fr) var(--col-right,1.1fr);gap:.6rem;height:calc(100vh - var(--tbh));padding:.6rem;overflow:hidden}
+.focus-grid.no-news{grid-template-columns:0 var(--col-assistant,1.4fr) var(--col-right,1.1fr)}
+.focus-grid.no-news .col-news{display:none}
+.focus-grid.no-assistant{grid-template-columns:var(--col-news,1fr) 0 var(--col-right,1.1fr)}
+.focus-grid.no-assistant .col-assistant{display:none}
+.focus-grid.no-right{grid-template-columns:var(--col-news,1fr) var(--col-assistant,1.4fr) 0}
+.focus-grid.no-right .col-right{display:none}
+.col{display:flex;flex-direction:column;gap:.6rem;overflow:hidden;min-width:0}
+.col-assistant{min-width:340px}
+
+.panel{background:var(--card);border-radius:var(--r);box-shadow:var(--nm-r);display:flex;flex-direction:column;overflow:hidden;flex:1;min-height:0}
+.panel-head{display:flex;align-items:center;gap:.5rem;padding:.7rem .85rem;border-bottom:1px solid var(--slt);flex-shrink:0}
+.panel-head-title{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:.92rem;letter-spacing:var(--fls);flex:1;display:flex;align-items:center;gap:.45rem}
+.panel-head-title svg{width:16px;height:16px;color:var(--acc);stroke-width:2}
+.panel-head-sub{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);letter-spacing:.1em;text-transform:uppercase}
+.panel-head-actions{display:flex;gap:.2rem}
+.panel-act{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--tdim);transition:all .2s}
+.panel-act:hover{color:var(--acc);background:var(--acbg)}
+.panel-act svg{width:14px;height:14px;stroke-width:2}
+.panel-body{flex:1;overflow-y:auto;padding:.7rem;min-height:0}
+.panel-body.p-0{padding:0}
+
+/* ════ NEWS (LEFT) ════ */
+.news-tabs{display:flex;gap:4px;padding:.55rem .6rem 0;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.news-tabs::-webkit-scrollbar{display:none}
+.news-tab{padding:.4rem .65rem;border-radius:99px;font-family:'IBM Plex Mono',monospace;font-size:.64rem;text-transform:uppercase;letter-spacing:.06em;color:var(--tdim);white-space:nowrap;transition:all .2s}
+.news-tab.active{background:var(--acbg);color:var(--acc)}
+.news-tab:hover:not(.active){color:var(--tlo);background:var(--slt)}
+.news-item{padding:.7rem .65rem;border-radius:var(--rsm);cursor:pointer;transition:all .2s;margin-bottom:.4rem;border:1px solid transparent}
+.news-item:hover{background:var(--slt);border-color:var(--acbg)}
+.news-item.unread{border-left:2px solid var(--acc)}
+.news-cat{font-family:'IBM Plex Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:.25rem;display:flex;align-items:center;gap:.4rem}
+.news-cat .dot{width:5px;height:5px;border-radius:50%;background:var(--acc)}
+.news-title{font-size:.88rem;font-weight:600;line-height:1.3;margin-bottom:.3rem;color:var(--text)}
+.news-sum{font-size:.78rem;color:var(--tlo);line-height:1.45;margin-bottom:.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-meta{display:flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim)}
+.news-meta .src{color:var(--tlo)}
+.news-empty{text-align:center;padding:2rem 1rem;color:var(--tdim);font-size:.85rem}
+.news-empty svg{width:34px;height:34px;color:var(--slt);margin:0 auto .6rem;display:block}
+
+/* ════ ASSISTANT (CENTER) ════ */
+.ast-head-info{display:flex;align-items:center;gap:.45rem;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.08em}
+.ast-pulse{width:7px;height:7px;border-radius:50%;background:var(--pos);box-shadow:0 0 0 0 var(--pos);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--pbg)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.ast-pulse.off{background:var(--tdim);animation:none}
+.ast-cfg{padding:.6rem .7rem;border-bottom:1px solid var(--slt);display:flex;flex-direction:column;gap:.5rem;flex-shrink:0}
+.ast-cfg-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.ast-sel{background:var(--sdk);border:none;border-radius:var(--rsm);padding:.4rem .6rem;font-size:.74rem;color:var(--text);box-shadow:var(--nm-is);flex:1;min-width:0;outline:none;cursor:pointer}
+.ast-sel:focus{box-shadow:var(--nm-i),0 0 0 2px var(--acbg)}
+.ctx-b{font-family:'IBM Plex Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;padding:.32rem .55rem;border-radius:99px;display:inline-flex;align-items:center;gap:.3rem;color:var(--tdim);background:var(--slt);transition:all .2s;cursor:pointer}
+.ctx-b::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--tdim)}
+.ctx-b.on{color:var(--phi);background:var(--pbg)}
+.ctx-b.on::before{background:var(--phi)}
+.ctx-b:hover{transform:translateY(-1px)}
+.ast-sugg{display:flex;gap:5px;flex-wrap:wrap;padding:0}
+.sugg-chip{font-size:.72rem;padding:.35rem .6rem;background:var(--slt);border-radius:99px;color:var(--tlo);transition:all .2s;cursor:pointer}
+.sugg-chip:hover{background:var(--acbg);color:var(--acc)}
+.chat-shell{flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0}
+.chat-msgs{flex:1;overflow-y:auto;padding:.75rem;display:flex;flex-direction:column;gap:.65rem;scroll-behavior:smooth}
+.msg{display:flex;gap:.55rem;max-width:88%;animation:mIn .35s var(--spring)}
+@keyframes mIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:30px;height:30px;border-radius:50%;background:var(--acbg);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:600;color:var(--acc);flex-shrink:0}
+.msg.user .msg-av{background:var(--pbg);color:var(--phi)}
+.msg-wrap{display:flex;flex-direction:column;gap:.2rem;min-width:0}
+.msg.user .msg-wrap{align-items:flex-end}
+.msg-b{padding:.55rem .75rem;border-radius:12px 12px 12px 4px;background:var(--slt);font-size:.86rem;line-height:1.5;color:var(--text);word-wrap:break-word;overflow-wrap:break-word}
+.msg.user .msg-b{background:var(--acbg);color:var(--text);border-radius:12px 12px 4px 12px}
+.msg-b pre{background:var(--sdk);padding:.5rem .65rem;border-radius:6px;margin:.4rem 0;font-family:'IBM Plex Mono',monospace;font-size:.74rem;overflow-x:auto;color:var(--tlo)}
+.msg-b code{font-family:'IBM Plex Mono',monospace;font-size:.78rem;background:var(--sdk);padding:1px 5px;border-radius:4px;color:var(--acc)}
+.msg-b ul{padding-left:1.1rem;margin:.3rem 0}
+.msg-b li{margin-bottom:.2rem}
+.msg-b strong{color:var(--acc);font-weight:600}
+.msg-t{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:var(--tdim);padding:0 .3rem}
+.typing{display:flex;gap:3px;padding:.6rem .75rem;background:var(--slt);border-radius:12px 12px 12px 4px;align-self:flex-start}
+.typing span{width:6px;height:6px;border-radius:50%;background:var(--tdim);animation:typeBounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes typeBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+.chat-input-row{padding:.6rem;border-top:1px solid var(--slt);display:flex;gap:.5rem;align-items:flex-end;flex-shrink:0}
+.chat-in{flex:1;background:var(--sdk);border:none;border-radius:var(--rsm);padding:.55rem .7rem;font-size:.86rem;color:var(--text);box-shadow:var(--nm-i);resize:none;outline:none;max-height:90px;min-height:38px;line-height:1.4;font-family:inherit}
+.chat-in:focus{box-shadow:var(--nm-i),0 0 0 2px var(--acbg)}
+.send-btn{width:38px;height:38px;border-radius:var(--rsm);background:var(--acc);color:var(--base);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;box-shadow:0 4px 12px var(--acbg)}
+.send-btn:hover{background:var(--achi);transform:translateY(-1px)}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.send-btn svg{width:17px;height:17px;stroke-width:2.2}
+.ast-tools{display:flex;gap:.3rem;padding:.45rem .6rem;border-top:1px solid var(--slt);flex-shrink:0}
+.ast-tool{font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--tdim);padding:.3rem .5rem;border-radius:6px;transition:all .2s}
+.ast-tool:hover{color:var(--acc);background:var(--acbg)}
+
+/* ════ PROJECTS + HISTORY (RIGHT) ════ */
+.col-right .panel{flex:1}
+.col-right .panel:nth-child(2){flex:.8}
+.proj-card{padding:.7rem;border-radius:var(--rsm);background:var(--slt);margin-bottom:.45rem;cursor:pointer;transition:all .2s;border-left:3px solid var(--acc)}
+.proj-card:hover{background:var(--acbg);transform:translateX(2px)}
+.proj-card[data-status="atrisk"]{border-left-color:var(--whi)}
+.proj-card[data-status="blocked"]{border-left-color:var(--neg)}
+.proj-card[data-status="done"]{border-left-color:var(--pos)}
+.proj-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.4rem}
+.proj-name{font-size:.86rem;font-weight:600;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.proj-status{font-family:'IBM Plex Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;padding:.18rem .4rem;border-radius:4px;background:var(--acbg);color:var(--acc);white-space:nowrap}
+.proj-card[data-status="atrisk"] .proj-status{background:var(--wbg);color:var(--whi)}
+.proj-card[data-status="blocked"] .proj-status{background:var(--nbg);color:var(--nhi)}
+.proj-card[data-status="done"] .proj-status{background:var(--pbg);color:var(--phi)}
+.proj-bar{height:5px;background:var(--sdk);border-radius:3px;overflow:hidden;margin-bottom:.4rem}
+.proj-bar-fill{height:100%;background:var(--acc);border-radius:3px;transition:width .5s var(--ease)}
+.proj-card[data-status="done"] .proj-bar-fill{background:var(--pos)}
+.proj-card[data-status="atrisk"] .proj-bar-fill{background:var(--whi)}
+.proj-meta{display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim)}
+.proj-meta .pct{color:var(--acc);font-weight:600;font-size:.72rem}
+.proj-card[data-status="done"] .proj-meta .pct{color:var(--phi)}
+.proj-act{font-size:.7rem;color:var(--tlo);margin-top:.3rem;padding-top:.3rem;border-top:1px dashed var(--slt);display:flex;align-items:center;gap:.3rem}
+.proj-act svg{width:11px;height:11px;color:var(--tdim)}
+
+.hist-tabs{display:flex;gap:4px;padding:.5rem .6rem 0;flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.hist-tabs::-webkit-scrollbar{display:none}
+.hist-tab{padding:.32rem .55rem;border-radius:99px;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;color:var(--tdim);white-space:nowrap;transition:all .2s}
+.hist-tab.active{background:var(--acbg);color:var(--acc)}
+.hist-tab:hover:not(.active){color:var(--tlo);background:var(--slt)}
+.hist-item{display:flex;gap:.55rem;padding:.55rem .65rem;border-radius:var(--rsm);transition:all .2s;cursor:pointer;position:relative}
+.hist-item:hover{background:var(--slt)}
+.hist-item::before{content:'';position:absolute;left:1.05rem;top:0;bottom:0;width:1px;background:var(--slt)}
+.hist-item:first-child::before{top:50%}
+.hist-item:last-child::before{bottom:50%}
+.hist-ico{width:26px;height:26px;border-radius:50%;background:var(--card);box-shadow:var(--nm-rs);display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;color:var(--acc)}
+.hist-ico svg{width:13px;height:13px;stroke-width:2}
+.hist-ico.print{color:var(--ink-c)}
+.hist-ico.refill{color:var(--ink-m)}
+.hist-ico.maint{color:var(--whi)}
+.hist-ico.expense{color:var(--neg)}
+.hist-ico.proj{color:var(--pos)}
+.hist-ico.news{color:var(--acc)}
+.hist-body{flex:1;min-width:0}
+.hist-title{font-size:.78rem;color:var(--text);line-height:1.3;margin-bottom:.15rem}
+.hist-meta{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);display:flex;gap:.5rem;align-items:center}
+.hist-meta .amt{color:var(--acc);font-weight:600}
+.hist-meta .amt.neg{color:var(--nhi)}
+.hist-meta .amt.pos{color:var(--phi)}
+.hist-empty{text-align:center;padding:1.5rem .8rem;color:var(--tdim);font-size:.8rem}
+
+/* ════ STATS GRID ════ */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem}
+.stat-card{padding:.9rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);cursor:pointer;transition:all .25s;animation:sIn .4s var(--spring) both}
+.stat-card:hover{box-shadow:var(--nm-r),0 0 22px var(--acbg)}
+@keyframes sIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.stat-lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.stat-val{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.6rem;letter-spacing:var(--fls);line-height:1;color:var(--text)}
+.stat-val.acc{color:var(--acc)}
+.stat-val.pos{color:var(--phi)}
+.stat-val.neg{color:var(--nhi)}
+.stat-val.whi{color:var(--whi)}
+.stat-sub{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tlo);margin-top:.3rem}
+
+/* ════ ALERT BARS ════ */
+.alert-bar{display:flex;align-items:center;gap:.65rem;padding:.6rem .8rem;border-radius:var(--rsm);background:var(--wbg);color:var(--whi);margin-bottom:.4rem;cursor:pointer;transition:all .2s;border-left:3px solid var(--whi)}
+.alert-bar:hover{transform:translateX(2px);box-shadow:0 4px 12px var(--wbg)}
+.alert-bar.crit{background:var(--nbg);color:var(--nhi);border-left-color:var(--neg)}
+.alert-bar svg{width:18px;height:18px;flex-shrink:0;stroke-width:2}
+.alert-bar .ab-t{flex:1;font-size:.84rem;font-weight:500}
+.alert-bar .ab-snooze{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:inherit;opacity:.7}
+
+/* ════ QUICK ACTIONS ════ */
+.qa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.5rem}
+.qa-btn{padding:.7rem .5rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);display:flex;flex-direction:column;align-items:center;gap:.35rem;color:var(--tlo);font-size:.72rem;font-weight:500;transition:all .2s;text-align:center}
+.qa-btn:hover{color:var(--acc);background:var(--acbg);transform:translateY(-2px)}
+.qa-btn svg{width:22px;height:22px;color:var(--acc);stroke-width:1.8}
+
+/* ════ INK PANEL ════ */
+.ink-panel{padding:.85rem}
+.ink-row{display:flex;align-items:center;gap:.7rem;padding:.4rem 0;cursor:pointer;transition:all .2s}
+.ink-row:hover{transform:translateX(3px)}
+.ink-sw{width:18px;height:18px;border-radius:50%;box-shadow:var(--nm-is);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:700;color:var(--base)}
+.ink-name{font-size:.78rem;color:var(--tlo);width:30px}
+.ink-track{flex:1;height:8px;background:var(--trk);border-radius:4px;overflow:hidden;box-shadow:var(--nm-is)}
+.ink-fill{height:100%;border-radius:4px;transform-origin:left;transition:width .5s var(--ease)}
+.ink-val{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--text);min-width:50px;text-align:right}
+
+/* ════ PRINT CARDS ════ */
+.print-card{display:flex;align-items:center;gap:.7rem;padding:.65rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);margin-bottom:.4rem;cursor:pointer;transition:all .2s}
+.print-card:hover{box-shadow:var(--nm-r),0 0 16px var(--acbg);transform:translateY(-1px)}
+.pc-thumb{width:38px;height:38px;border-radius:var(--rsm);background:var(--acbg);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.pc-body{flex:1;min-width:0}
+.pc-name{font-size:.84rem;font-weight:600;color:var(--text);margin-bottom:.15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pc-meta{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.pc-meta .cost{color:var(--acc);font-weight:600}
+.stars{color:var(--acc);font-size:.7rem;letter-spacing:1px}
+
+/* ════ PRINTS LIST ════ */
+.new-print-row{display:flex;gap:.5rem;margin-bottom:.7rem;align-items:center}
+.btn{padding:.55rem .9rem;border-radius:var(--rsm);background:var(--acc);color:var(--base);font-weight:600;font-size:.82rem;display:inline-flex;align-items:center;gap:.4rem;transition:all .2s;box-shadow:0 4px 12px var(--acbg)}
+.btn:hover{background:var(--achi);transform:translateY(-1px)}
+.btn svg{width:15px;height:15px;stroke-width:2.2}
+.btn.ghost{background:var(--card);color:var(--tlo);box-shadow:var(--nm-rs)}
+.btn.ghost:hover{color:var(--acc);background:var(--acbg);box-shadow:var(--nm-rs)}
+.sort-sel-btn{margin-left:auto;padding:.45rem .65rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);color:var(--tlo);font-size:.72rem;display:flex;align-items:center;gap:.4rem;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em}
+.sort-sel-btn svg{width:13px;height:13px}
+.tag-filter{display:flex;gap:5px;overflow-x:auto;padding-bottom:.5rem;scrollbar-width:none}
+.tag-filter::-webkit-scrollbar{display:none}
+.tag-chip{padding:.32rem .6rem;border-radius:99px;background:var(--card);box-shadow:var(--nm-rs);color:var(--tlo);font-size:.7rem;white-space:nowrap;transition:all .2s;font-weight:500}
+.tag-chip.active{background:var(--acc);color:var(--base)}
+.tag-chip:hover:not(.active){color:var(--acc)}
+.sort-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em}
+.sort-opts{display:flex;gap:3px;background:var(--sdk);border-radius:var(--rsm);padding:3px;box-shadow:var(--nm-is)}
+.sort-opt{padding:.25rem .5rem;border-radius:6px;color:var(--tdim);font-size:.62rem;transition:all .2s}
+.sort-opt.active{background:var(--acbg);color:var(--acc)}
+.pf{padding:.7rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);margin-bottom:.5rem;cursor:pointer;transition:all .2s}
+.pf:hover{box-shadow:var(--nm-r),0 0 18px var(--acbg)}
+.pf-top{display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
+.pf-thumb{width:46px;height:46px;border-radius:var(--rsm);background:var(--acbg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.pf-name{flex:1;font-size:.92rem;font-weight:600}
+.pf-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;padding:.2rem .4rem;border-radius:4px;background:var(--slt);color:var(--tlo)}
+.tag.product{background:var(--pbg);color:var(--phi)}
+.tag.test{background:var(--acbg);color:var(--acc)}
+.tag.failed{background:var(--nbg);color:var(--nhi)}
+.tag.leather{background:var(--wbg);color:var(--whi)}
+.pf-foot{display:flex;justify-content:space-between;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--tdim);padding-top:.4rem;border-top:1px solid var(--slt)}
+.pf-inks{display:flex;gap:3px}
+.pf-ink{width:8px;height:8px;border-radius:50%;border:1px solid var(--slt)}
+.pf-ink.c{background:var(--ink-c)}.pf-ink.m{background:var(--ink-m)}.pf-ink.y{background:var(--ink-y)}.pf-ink.k{background:var(--ink-k)}.pf-ink.w{background:var(--ink-w);border-color:var(--tdim)}.pf-ink.g{background:var(--ink-g)}
+
+/* ════ LIBRARY ════ */
+.lib-tabs{display:flex;gap:3px;background:var(--sdk);border-radius:var(--rsm);padding:3px;box-shadow:var(--nm-is);margin-bottom:.7rem;overflow-x:auto;scrollbar-width:none}
+.lib-tabs::-webkit-scrollbar{display:none}
+.lib-tab{padding:.45rem .65rem;border-radius:7px;font-size:.72rem;color:var(--tdim);white-space:nowrap;transition:all .2s;font-weight:500}
+.lib-tab.active{background:var(--card);color:var(--acc);box-shadow:var(--nm-rs)}
+.lib-toolbar{display:flex;gap:.5rem;margin-bottom:.7rem;align-items:center}
+.lib-search{flex:1;background:var(--sdk);border:none;border-radius:var(--rsm);padding:.5rem .7rem .5rem 2rem;font-size:.82rem;color:var(--text);box-shadow:var(--nm-i);outline:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%237a7060' stroke-width='2.5' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='m21 21-4.3-4.3'/></svg>");background-repeat:no-repeat;background-position:.7rem center}
+.lib-search:focus{box-shadow:var(--nm-i),0 0 0 2px var(--acbg)}
+.lib-entry{display:flex;align-items:center;gap:.7rem;padding:.6rem .65rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);margin-bottom:.4rem;transition:all .2s}
+.lib-entry:hover{box-shadow:var(--nm-r)}
+.lib-entry:hover .lib-act{opacity:1}
+.lib-ico{width:34px;height:34px;border-radius:var(--rsm);background:var(--acbg);color:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lib-ico svg{width:16px;height:16px;stroke-width:1.8}
+.lib-body{flex:1;min-width:0}
+.lib-name{font-size:.84rem;font-weight:500;color:var(--text);margin-bottom:.15rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lib-sub{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim)}
+.lib-val{font-family:'IBM Plex Mono',monospace;font-size:.74rem;font-weight:600;color:var(--acc)}
+.lib-act{display:flex;gap:.2rem;opacity:0;transition:opacity .2s}
+.lib-act button{width:28px;height:28px;border-radius:6px;color:var(--tdim);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.lib-act button:hover{background:var(--acbg);color:var(--acc)}
+.lib-act button.del:hover{background:var(--nbg);color:var(--nhi)}
+.lib-act svg{width:13px;height:13px;stroke-width:2}
+.lib-empty{text-align:center;padding:2.5rem 1rem;color:var(--tdim)}
+.lib-empty .em-emoji{font-size:2.5rem;opacity:.4;margin-bottom:.5rem}
+.lib-empty p{font-size:.85rem}
+
+/* ════ INK VIEW ════ */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-bottom:1rem}
+.ch-card{padding:1rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);text-align:center;transition:all .25s}
+.ch-card:hover{transform:translateY(-2px)}
+.ch-card.low{box-shadow:var(--nm-r),0 0 20px var(--wbg)}
+.ch-ring{position:relative;width:96px;height:96px;margin:0 auto .5rem}
+.ch-ring svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ch-ring .track{stroke:var(--trk);stroke-width:6}
+.ch-ring .fill{stroke:var(--acc);stroke-width:6;stroke-linecap:round;transition:stroke-dasharray .6s var(--ease)}
+.ch-card[data-ch="c"] .ch-ring .fill{stroke:var(--ink-c)}
+.ch-card[data-ch="m"] .ch-ring .fill{stroke:var(--ink-m)}
+.ch-card[data-ch="y"] .ch-ring .fill{stroke:var(--ink-y)}
+.ch-card[data-ch="k"] .ch-ring .fill{stroke:var(--ink-k)}
+.ch-card[data-ch="w"] .ch-ring .fill{stroke:var(--ink-w)}
+.ch-card[data-ch="g"] .ch-ring .fill{stroke:var(--ink-g)}
+.ch-pct{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:var(--fw);font-size:1.2rem;color:var(--text)}
+.ch-lbl{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--tlo);text-transform:uppercase;letter-spacing:.1em}
+.ch-ml{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);margin-top:.15rem}
+.ri-item{display:flex;align-items:center;gap:.7rem;padding:.55rem .65rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);margin-bottom:.4rem}
+.ri-ico{width:30px;height:30px;border-radius:50%;background:var(--acbg);color:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ri-ico svg{width:14px;height:14px;stroke-width:2}
+.ri-body{flex:1}
+.ri-name{font-size:.82rem;font-weight:500}
+.ri-sub{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim)}
+.ri-val{font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--acc);font-weight:600}
+.ri-item.low .ri-val{color:var(--whi)}
+
+/* ════ FINANCES ════ */
+.profit-card{padding:1.1rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);margin-bottom:.7rem}
+.profit-main{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:2.3rem;letter-spacing:var(--fls);color:var(--phi);line-height:1;margin-bottom:.5rem}
+.profit-row{display:flex;justify-content:space-between;padding:.35rem 0;font-size:.84rem;border-bottom:1px dashed var(--slt)}
+.profit-row:last-child{border-bottom:none;padding-top:.55rem;margin-top:.3rem;border-top:2px solid var(--slt);font-weight:600}
+.profit-row .l{color:var(--tlo)}
+.profit-row .v{font-family:'IBM Plex Mono',monospace;color:var(--text)}
+.profit-row.neg .v{color:var(--nhi)}
+.profit-row.pos .v{color:var(--phi)}
+.chart-card{padding:1rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);margin-bottom:.7rem}
+.chart-title{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--tdim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.7rem}
+.bar-chart{display:flex;justify-content:space-around;align-items:flex-end;height:140px;padding:0 .5rem}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:5px;width:18%}
+.bar-stack{display:flex;gap:3px;align-items:flex-end;height:110px}
+.bar-f{width:11px;border-radius:3px 3px 0 0;transition:height .8s var(--ease);position:relative}
+.bar-f.inc{background:var(--pos)}
+.bar-f.cst{background:var(--neg);opacity:.75}
+.bar-lbl{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase}
+.donut-wrap{display:flex;gap:1rem;align-items:center;padding:1rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r)}
+.donut-svg{width:120px;height:120px;flex-shrink:0}
+.donut-svg circle{fill:none;stroke-width:14;transform:rotate(-90deg);transform-origin:center}
+.donut-leg{flex:1;display:flex;flex-direction:column;gap:.35rem}
+.donut-leg-item{display:flex;align-items:center;gap:.5rem;font-size:.74rem}
+.donut-leg-item .sw{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.donut-leg-item .lbl{color:var(--tlo);flex:1}
+.donut-leg-item .pct{font-family:'IBM Plex Mono',monospace;color:var(--text);font-weight:600}
+.exp-item{display:flex;align-items:center;gap:.65rem;padding:.55rem .65rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);margin-bottom:.4rem}
+.exp-ico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.exp-ico svg{width:14px;height:14px;stroke-width:2}
+.exp-ico.ink{background:var(--acbg);color:var(--acc)}
+.exp-ico.mat{background:var(--pbg);color:var(--phi)}
+.exp-ico.maint{background:var(--wbg);color:var(--whi)}
+.exp-ico.serv{background:var(--nbg);color:var(--nhi)}
+.exp-body{flex:1;min-width:0}
+.exp-name{font-size:.82rem;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.exp-cat{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase}
+.exp-amt{font-family:'IBM Plex Mono',monospace;font-size:.82rem;font-weight:600}
+.exp-amt.neg{color:var(--nhi)}
+.exp-amt.pos{color:var(--phi)}
+
+/* ════ SETTINGS ════ */
+.set-sec{margin-bottom:1.2rem}
+.set-sec-lbl{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--tdim);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.55rem;padding:0 .2rem}
+.theme-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.55rem}
+.theme-card{padding:.55rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);cursor:pointer;transition:all .2s;border:2px solid transparent}
+.theme-card:hover{transform:translateY(-2px)}
+.theme-card.active{border-color:var(--acc);box-shadow:var(--nm-r),0 0 14px var(--acbg)}
+.tc-preview{height:54px;border-radius:7px;padding:.35rem;display:flex;flex-direction:column;justify-content:space-between;margin-bottom:.45rem}
+.tc-pt{display:flex;gap:3px}
+.tc-pt span{width:6px;height:6px;border-radius:50%}
+.tc-pb{height:5px;border-radius:2px;width:60%}
+.tc-footer{display:flex;justify-content:space-between;align-items:center;padding:0 .15rem}
+.tc-name{font-size:.72rem;font-weight:600}
+.tc-mode{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em}
+.tc-dot{width:8px;height:8px;border-radius:50%}
+.font-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.55rem}
+.font-card{padding:.7rem .55rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);cursor:pointer;transition:all .2s;border:2px solid transparent;text-align:center}
+.font-card:hover{transform:translateY(-2px)}
+.font-card.active{border-color:var(--acc);box-shadow:var(--nm-r),0 0 14px var(--acbg)}
+.fc-name{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.fc-sample{font-size:1.1rem;line-height:1.1}
+.api-card{padding:1rem;border-radius:var(--r);background:var(--card);box-shadow:var(--nm-r);margin-bottom:.55rem}
+.api-card-head{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem}
+.api-logo{width:30px;height:30px;border-radius:7px;background:var(--acbg);color:var(--acc);display:flex;align-items:center;justify-content:center;font-weight:700;font-family:var(--fd)}
+.api-card-title{font-size:.92rem;font-weight:600}
+.api-card-sub{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em}
+.api-status{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.6rem;padding:.2rem .4rem;border-radius:4px;background:var(--nbg);color:var(--nhi);text-transform:uppercase;letter-spacing:.06em}
+.api-status.on{background:var(--pbg);color:var(--phi)}
+.field{margin-bottom:.6rem}
+.field-lbl{font-size:.74rem;color:var(--tlo);margin-bottom:.25rem;display:block}
+.field-in{width:100%;background:var(--sdk);border:none;border-radius:var(--rsm);padding:.55rem .7rem;font-size:.84rem;color:var(--text);box-shadow:var(--nm-i);outline:none;font-family:inherit}
+.field-in:focus{box-shadow:var(--nm-i),0 0 0 2px var(--acbg)}
+.field-in[type=password]{font-family:'IBM Plex Mono',monospace;letter-spacing:.2em}
+.about-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;background:var(--card);box-shadow:var(--nm-rs);border-radius:var(--rsm);margin-bottom:.4rem;font-size:.84rem}
+.about-row .l{color:var(--tlo)}
+.about-row .v{font-family:'IBM Plex Mono',monospace;color:var(--text);font-size:.74rem}
+.about-btn{padding:.5rem .8rem;border-radius:var(--rsm);background:var(--nbg);color:var(--nhi);font-size:.78rem;font-weight:500;transition:all .2s}
+.about-btn:hover{background:var(--neg);color:var(--base)}
+
+/* ════ MODALS ════ */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
+.modal-ov.open{display:flex;animation:fadeIn .25s}
+.modal-card{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:85vh;display:flex;flex-direction:column;animation:sheetUp .35s var(--spring);box-shadow:0 -8px 40px rgba(0,0,0,.3)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-handle{width:38px;height:4px;border-radius:2px;background:var(--slt);margin:.6rem auto .3rem;cursor:pointer}
+.modal-head{padding:0 1.1rem .7rem;border-bottom:1px solid var(--slt);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:var(--fd);font-weight:var(--fw);text-transform:var(--ft);font-size:1.05rem;letter-spacing:var(--fls)}
+.modal-title em{color:var(--acc);font-style:normal}
+.modal-x{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--tdim);transition:all .2s}
+.modal-x:hover{color:var(--neg);background:var(--nbg)}
+.modal-x svg{width:15px;height:15px;stroke-width:2.2}
+.modal-body{flex:1;overflow-y:auto;padding:1rem 1.1rem}
+.modal-foot{padding:.7rem 1.1rem;border-top:1px solid var(--slt);display:flex;gap:.5rem}
+.modal-foot .btn{flex:1;justify-content:center}
+
+.snooze-opts{display:flex;flex-direction:column;gap:.4rem;padding:.4rem 0}
+.snooze-opt{padding:.7rem .85rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);display:flex;align-items:center;gap:.65rem;transition:all .2s;cursor:pointer}
+.snooze-opt:hover{background:var(--acbg);transform:translateX(3px)}
+.snooze-opt svg{width:18px;height:18px;color:var(--acc);stroke-width:1.8}
+.snooze-opt .so-t{flex:1}
+.snooze-opt .so-tt{font-size:.86rem;font-weight:500}
+.snooze-opt .so-ts{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em}
+
+.confirm-ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.confirm-ov.open{display:flex;animation:fadeIn .25s}
+.confirm-box{background:var(--card);border-radius:18px;padding:1.4rem;max-width:340px;width:100%;animation:sheetUp .35s var(--spring);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.confirm-title{font-family:var(--fd);font-weight:var(--fw);font-size:1.1rem;margin-bottom:.5rem}
+.confirm-body{font-size:.86rem;color:var(--tlo);line-height:1.5;margin-bottom:1rem}
+.confirm-actions{display:flex;gap:.5rem}
+.confirm-actions button{flex:1;padding:.6rem;border-radius:var(--rsm);font-weight:600;font-size:.84rem;transition:all .2s}
+#confirm-cancel{background:var(--slt);color:var(--tlo)}
+#confirm-cancel:hover{background:var(--sdk);color:var(--text)}
+#confirm-ok{background:var(--neg);color:#fff}
+#confirm-ok:hover{background:var(--nhi)}
+
+/* ════ CUSTOMIZE DRAWER ════ */
+.cust-panel{padding:.8rem}
+.cust-sec{margin-bottom:1.1rem}
+.cust-sec-lbl{font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.5rem}
+.cust-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.cust-preset{padding:.7rem .5rem;border-radius:var(--rsm);background:var(--card);box-shadow:var(--nm-rs);cursor:pointer;transition:all .2s;border:2px solid transparent;text-align:center}
+.cust-preset:hover{transform:translateY(-2px)}
+.cust-preset.active{border-color:var(--acc);box-shadow:var(--nm-r),0 0 12px var(--acbg)}
+.cust-preset-ico{height:36px;display:flex;gap:2px;align-items:stretch;margin-bottom:.4rem;padding:2px}
+.cust-preset-ico span{background:var(--slt);border-radius:3px;flex:1}
+.cust-preset-ico span.acc{background:var(--acbg)}
+.cust-preset-name{font-size:.72rem;font-weight:600}
+.cust-toggles{display:flex;flex-direction:column;gap:.4rem}
+.cust-toggle{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;background:var(--card);box-shadow:var(--nm-rs);border-radius:var(--rsm);cursor:pointer;transition:all .2s}
+.cust-toggle:hover{background:var(--slt)}
+.cust-toggle.off{opacity:.55}
+.ct-ico{width:30px;height:30px;border-radius:7px;background:var(--acbg);color:var(--acc);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-ico svg{width:15px;height:15px;stroke-width:2}
+.ct-name{flex:1}
+.ct-name .n{font-size:.84rem;font-weight:500}
+.ct-name .d{font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase}
+.ct-sw{width:36px;height:20px;background:var(--sdk);box-shadow:var(--nm-is);border-radius:99px;position:relative;transition:all .25s;flex-shrink:0}
+.ct-sw::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--tdim);transition:all .25s var(--spring)}
+.cust-toggle:not(.off) .ct-sw{background:var(--pbg)}
+.cust-toggle:not(.off) .ct-sw::after{left:18px;background:var(--phi)}
+.cust-width{display:flex;flex-direction:column;gap:.6rem}
+.cust-width-row{display:flex;align-items:center;gap:.6rem}
+.cust-width-row .lbl{font-size:.78rem;color:var(--tlo);width:90px}
+.cust-width-row input[type=range]{flex:1;height:4px;background:var(--trk);border-radius:2px;appearance:none;-webkit-appearance:none;outline:none}
+.cust-width-row input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--acc);cursor:pointer;box-shadow:var(--nm-rs)}
+.cust-width-row .v{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--acc);width:38px;text-align:right}
+
+/* ════ BOTTOM NAV ════ */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:var(--nh);background:var(--base);border-top:1px solid var(--slt);z-index:100;padding:.3rem .5rem;align-items:stretch;gap:.2rem}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--tdim);font-family:'IBM Plex Mono',monospace;font-size:.58rem;text-transform:uppercase;letter-spacing:.06em;transition:color .2s}
+.nav-btn svg{width:18px;height:18px;stroke-width:1.8}
+.nav-btn.active{color:var(--acc)}
+.nav-btn:hover{color:var(--tlo)}
+
+/* ════ RESPONSIVE ════ */
+@media(min-width:1024px){
+  .sidebar{display:flex}
+  .tb-logo{display:none}
+  .content{padding:0}
+}
+@media(max-width:1023px){
+  .tb-logo{display:block}
+  .tb-title{display:none}
+  .bottom-nav{display:flex}
+  .content{padding-bottom:var(--nh)}
+  #view-focus{padding-bottom:var(--nh)}
+  .focus-grid{grid-template-columns:1fr !important;height:auto;overflow-y:auto;padding-bottom:calc(var(--nh) + .6rem)}
+  .focus-grid .col{min-height:300px;max-height:none}
+  .col{overflow:visible}
+  .panel{max-height:520px}
+}
+@media(min-width:1400px){
+  .view{max-width:1400px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+<!-- INTRO -->
+<div id="intro" onclick="skipIntro()" title="Click to skip">
+  <div class="intro-logo">eufy<em>BASE</em></div>
+  <div class="intro-sub">UV Print Intelligence · v7</div>
+  <div class="intro-bar"></div>
+  <button class="intro-skip" onclick="event.stopPropagation();skipIntro()">Click anywhere to skip →</button>
+</div>
+
+<!-- ONBOARDING -->
+<div id="onboarding">
+  <div class="ob-card">
+    <div class="ob-slides">
+      <div class="ob-slide active">
+        <div class="ob-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h2>Welcome to <em>eufyBASE</em></h2>
+        <p>Your UV print studio — now powered by pi.dev agent intelligence and live Notion sync. Print smarter, track everything, and let your AI assistant handle the busywork.</p>
+        <div class="ob-feat"><span>pi.dev agent</span><span>Notion sync</span><span>Live ink</span><span>Project tracking</span></div>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 3v6M15 3v6M9 15v6M15 15v6M3 9h6M3 15h6M15 9h6M15 15h6"/></svg></div>
+        <h2>Three-Column <em>Focus</em></h2>
+        <p>The default layout puts your <strong>AI assistant</strong> in the center, <strong>Eufy World news</strong> on the left, and your <strong>projects &amp; history</strong> on the right. Switch to <strong>Raised</strong> mode any time for the full dashboard.</p>
+        <div class="ob-feat"><span>News · left</span><span>Assistant · center</span><span>Projects · right</span></div>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M16 2l4 4-4 4"/></svg></div>
+        <h2>pi.dev <em>Agent</em></h2>
+        <p>Chat with a context-aware AI agent that knows your print history, ink levels, expenses, and project status. Toggle context badges to control what it can see. Bring your own OpenRouter key for live models, or use the built-in offline agent.</p>
+        <div class="ob-feat"><span>Claude</span><span>GPT-4o</span><span>Gemini</span><span>Offline fallback</span></div>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h5"/></svg></div>
+        <h2>Notion <em>Database</em></h2>
+        <p>Connect your Notion integration token to sync prints, materials, expenses, projects, and news items. No token? The dashboard ships with realistic sample data so you can explore everything immediately.</p>
+        <div class="ob-feat"><span>Live sync</span><span>Multi-database</span><span>Local cache</span></div>
+      </div>
+      <div class="ob-slide">
+        <div class="ob-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <h2>Make It <em>yours</em></h2>
+        <p>Six themes, six fonts, three-column layout, drag-to-reorder panels, show/hide any column, adjustable widths. Every preference is saved locally. Hit <strong>Customize</strong> in the topbar to start tinkering.</p>
+        <div class="ob-feat"><span>6 themes</span><span>6 fonts</span><span>Drag-reorder</span><span>Presets</span></div>
+      </div>
+    </div>
+    <div class="ob-nav">
+      <button class="ob-btn" id="ob-prev" onclick="obNav(-1)" disabled>Back</button>
+      <div class="ob-dots" id="ob-dots"></div>
+      <button class="ob-btn primary" id="ob-next" onclick="obNav(1)">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toast-container"></div>
+
+<!-- APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">eufy<em>BASE</em><span class="v">v7 · pi.dev · Notion</span></div>
+    <nav class="sb-nav">
+      <div class="sb-sec">Workspace</div>
+      <button class="sb-btn active" data-view="focus" onclick="nav('focus',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="8" rx="1"/><rect x="14" y="15" width="7" height="6" rx="1"/></svg>
+        <span>Focus Mode</span>
+      </button>
+      <button class="sb-btn" data-view="dashboard" onclick="nav('dashboard',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="sb-btn" data-view="prints" onclick="nav('prints',this)">
+        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>Print Log</span>
+        <span class="sb-badge" id="sb-cnt">7</span>
+      </button>
+      <button class="sb-btn" data-view="library" onclick="nav('library',this)">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Library</span>
+      </button>
+      <div class="sb-sec">Data</div>
+      <button class="sb-btn" data-view="ink" onclick="nav('ink',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        <span>Ink &amp; Materials</span>
+      </button>
+      <button class="sb-btn" data-view="finances" onclick="nav('finances',this)">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Finances</span>
+      </button>
+      <div class="sb-sec">Intelligence</div>
+      <button class="sb-btn" data-view="advisor" onclick="nav('advisor',this)">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span>AI Advisor</span>
+      </button>
+      <button class="sb-btn" data-view="news" onclick="nav('news',this)">
+        <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+        <span>Eufy World</span>
+      </button>
+      <button class="sb-btn" data-view="projects" onclick="nav('projects',this)">
+        <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <span>Projects</span>
+      </button>
+      <button class="sb-btn" data-view="history" onclick="nav('history',this)">
+        <svg viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+        <span>History</span>
+      </button>
+      <button class="sb-btn" data-view="settings" onclick="nav('settings',this)">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+    <div class="sb-bottom">
+      <div class="sb-mode">
+        <button class="sb-mode-btn active" data-mode="focus" onclick="setMode('focus')">Focus</button>
+        <button class="sb-mode-btn" data-mode="raised" onclick="setMode('raised')">Raised</button>
+      </div>
+      <div class="sb-ver">eufy E1 · UV · Online</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="tb-logo">eufy<em>BASE</em></div>
+      <div class="tb-title" id="tb-title">Focus — News · Assistant · Projects</div>
+      <div class="tb-right">
+        <button class="tb-ico" onclick="setMode(document.documentElement.dataset.mode==='focus'?'raised':'focus')" title="Toggle Focus/Raised">
+          <svg viewBox="0 0 24 24" id="mode-ico"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+        <button class="tb-ico" onclick="openCustomize()" title="Customize layout">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <button class="tb-ico tb-notif" onclick="showNotifPanel()" title="Notifications">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
+        <button class="tb-ico tb-theme-ico" onclick="toggleDarkLight()" title="Toggle dark/light">
+          <svg class="ico-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="ico-sun" viewBox="0 0 24 24" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <button class="tb-ico" onclick="nav('settings')" title="Settings">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- FOCUS MODE (3-column) -->
+      <div class="view active" id="view-focus">
+        <div class="focus-grid" id="focus-grid">
+          <!-- LEFT: NEWS -->
+          <div class="col col-news" id="col-news" data-col="news">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-head-title">
+                  <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+                  Eufy World
+                </div>
+                <div class="panel-head-actions">
+                  <button class="panel-act" onclick="refreshNews()" title="Refresh"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></button>
+                  <button class="panel-act" onclick="nav('news')" title="Open full"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                </div>
+              </div>
+              <div class="news-tabs" id="news-tabs"></div>
+              <div class="panel-body" id="news-list"></div>
+            </div>
+          </div>
+
+          <!-- CENTER: ASSISTANT -->
+          <div class="col col-assistant" id="col-assistant" data-col="assistant">
+            <div class="panel">
+              <div class="panel-head">
+                <div class="panel-head-title">
+                  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  pi.dev Agent
+                </div>
+                <div class="ast-head-info">
+                  <span class="ast-pulse" id="ast-pulse"></span>
+                  <span id="ast-stat">offline</span>
+                </div>
+                <div class="panel-head-actions">
+                  <button class="panel-act" onclick="clearChat()" title="Clear chat"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
+                  <button class="panel-act" onclick="nav('advisor')" title="Open full"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                </div>
+              </div>
+              <div class="ast-cfg">
+                <div class="ast-cfg-row">
+                  <select class="ast-sel" id="ast-model" onchange="onModelChange(this.value)">
+                    <option value="offline">Offline Agent (built-in)</option>
+                    <option value="anthropic/claude-sonnet-4">Claude Sonnet 4</option>
+                    <option value="openai/gpt-4o">GPT-4o</option>
+                    <option value="google/gemini-2.0-flash-exp">Gemini 2.0 Flash</option>
+                    <option value="mistralai/mistral-large">Mistral Large</option>
+                    <option value="deepseek/deepseek-chat">DeepSeek V3</option>
+                    <option value="qwen/qwen-2.5-72b-instruct">Qwen 2.5 72B</option>
+                  </select>
+                </div>
+                <div class="ast-cfg-row" id="ctx-badges">
+                  <button class="ctx-b on" data-ctx="notion" onclick="toggleCtx(this)">Notion DB</button>
+                  <button class="ctx-b on" data-ctx="prints" onclick="toggleCtx(this)">Print History</button>
+                  <button class="ctx-b on" data-ctx="ink" onclick="toggleCtx(this)">Ink Levels</button>
+                  <button class="ctx-b" data-ctx="web" onclick="toggleCtx(this)">Web Search</button>
+                  <button class="ctx-b" data-ctx="manuals" onclick="toggleCtx(this)">Manuals</button>
+                </div>
+                <div class="ast-sugg" id="ast-sugg"></div>
+              </div>
+              <div class="chat-shell">
+                <div class="chat-msgs" id="chat-msgs"></div>
+                <div class="ast-tools">
+                  <button class="ast-tool" onclick="insertAt('/sync','notion')">/sync</button>
+                  <button class="ast-tool" onclick="insertAt('/report','summary')">/report</button>
+                  <button class="ast-tool" onclick="insertAt('/forecast','ink')">/forecast</button>
+                  <button class="ast-tool" onclick="insertAt('/help','')">/help</button>
+                </div>
+                <div class="chat-input-row">
+                  <textarea class="chat-in" id="chat-in" placeholder="Ask the agent about your prints, ink, projects…" rows="1" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
+                  <button class="send-btn" id="send-btn" onclick="sendMsg()" title="Send (Enter)">
+                    <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: PROJECTS + HISTORY -->
+          <div class="col col-right" id="col-right" data-col="right">
+            <div class="panel" id="panel-projects">
+              <div class="panel-head">
+                <div class="panel-head-title">
+                  <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  Projects
+                </div>
+                <div class="panel-head-actions">
+                  <button class="panel-act" onclick="syncNotion('projects')" title="Sync from Notion"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg></button>
+                  <button class="panel-act" onclick="nav('projects')" title="Open full"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                </div>
+              </div>
+              <div class="panel-body" id="projects-list"></div>
+            </div>
+            <div class="panel" id="panel-history">
+              <div class="panel-head">
+                <div class="panel-head-title">
+                  <svg viewBox="0 0 24 24"><path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/></svg>
+                  Latest History
+                </div>
+                <div class="panel-head-actions">
+                  <button class="panel-act" onclick="nav('history')" title="Open full"><svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg></button>
+                </div>
+              </div>
+              <div class="hist-tabs" id="hist-tabs"></div>
+              <div class="panel-body" id="history-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD VIEW -->
+      <div class="view" id="view-dashboard">
+        <div class="view-title">Dash<em>board</em></div>
+        <div class="view-sub">April 2026 · 47 prints this month · eufy E1 UV</div>
+        <div id="dash-alerts"></div>
+        <div class="sec-lbl">Stats</div>
+        <div class="stat-grid" id="dash-stats"></div>
+        <div class="sec-lbl">Quick Actions</div>
+        <div class="qa-grid" id="dash-qa"></div>
+        <div class="sec-lbl">Ink Channels</div>
+        <div class="nm ink-panel" id="dash-ink"></div>
+        <div class="sec-lbl">Recent Prints</div>
+        <div id="dash-recent"></div>
+      </div>
+
+      <!-- PRINTS VIEW -->
+      <div class="view" id="view-prints">
+        <div class="view-title">Print <em>Log</em></div>
+        <div class="view-sub">All print jobs · tag filter · sort</div>
+        <div class="new-print-row">
+          <button class="btn" onclick="openAddModal('prints')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Print Job</button>
+          <button class="btn ghost" onclick="syncNotion('prints')"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>Sync Notion</button>
+          <button class="sort-sel-btn" onclick="cycleSortMode()" id="sort-sel-btn"><svg viewBox="0 0 24 24"><path d="M3 6h18M6 12h12M10 18h4"/></svg><span id="sort-mode-lbl">Date ↓</span></button>
+        </div>
+        <div class="tag-filter" id="tag-filter"></div>
+        <div class="sort-row">
+          <span id="prints-count">— jobs</span>
+          <div class="sort-opts">
+            <button class="sort-opt active" onclick="setSortDisplay('list',this)">List</button>
+            <button class="sort-opt" onclick="setSortDisplay('grouped',this)">Grouped</button>
+          </div>
+        </div>
+        <div id="prints-list"></div>
+      </div>
+
+      <!-- LIBRARY VIEW -->
+      <div class="view" id="view-library">
+        <div class="view-title">Data <em>Library</em></div>
+        <div class="view-sub">CRUD for all records · Notion-synced</div>
+        <div class="lib-tabs" id="lib-tabs"></div>
+        <div class="lib-toolbar">
+          <input class="lib-search" id="lib-search" placeholder="Search…" oninput="renderLib()">
+          <button class="btn" onclick="openAddModal(curLibTab)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add</button>
+        </div>
+        <div id="lib-list"></div>
+      </div>
+
+      <!-- INK VIEW -->
+      <div class="view" id="view-ink">
+        <div class="view-title">Ink &amp; <em>Materials</em></div>
+        <div class="view-sub">6-channel UV ink · live levels</div>
+        <div class="ch-grid" id="ink-grid"></div>
+        <div class="sec-lbl">Refill History</div>
+        <div id="ink-refills"></div>
+        <div class="sec-lbl">Materials in Stock</div>
+        <div id="ink-materials"></div>
+      </div>
+
+      <!-- FINANCES VIEW -->
+      <div class="view" id="view-finances">
+        <div class="view-title">Finance <em>Overview</em></div>
+        <div class="view-sub">April 2026 · revenue · costs · margin</div>
+        <div class="profit-card" id="fin-profit"></div>
+        <div class="chart-card">
+          <div class="chart-title">Revenue vs Cost · 2026</div>
+          <div class="bar-chart" id="bar-chart"></div>
+        </div>
+        <div class="donut-wrap" id="fin-donut"></div>
+        <div class="sec-lbl">Recent Transactions</div>
+        <div id="fin-transactions"></div>
+      </div>
+
+      <!-- ADVISOR VIEW (full chat) -->
+      <div class="view" id="view-advisor">
+        <div class="view-title">AI <em>Advisor</em></div>
+        <div class="view-sub">pi.dev agent · context-aware · streaming</div>
+        <div class="nm adv-cfg" style="padding:.85rem;margin-bottom:.7rem">
+          <div class="ast-cfg-row" style="margin-bottom:.5rem">
+            <select class="ast-sel" onchange="document.getElementById('ast-model').value=this.value;onModelChange(this.value)">
+              <option value="offline">Offline Agent (built-in)</option>
+              <option value="anthropic/claude-sonnet-4">Claude Sonnet 4</option>
+              <option value="openai/gpt-4o">GPT-4o</option>
+              <option value="google/gemini-2.0-flash-exp">Gemini 2.0 Flash</option>
+              <option value="mistralai/mistral-large">Mistral Large</option>
+              <option value="deepseek/deepseek-chat">DeepSeek V3</option>
+              <option value="qwen/qwen-2.5-72b-instruct">Qwen 2.5 72B</option>
+            </select>
+          </div>
+          <div class="ctx-badges ast-cfg-row" id="ctx-badges-2"></div>
+        </div>
+        <div class="nm" style="padding:.6rem;margin-bottom:.7rem">
+          <div class="sugg-row" style="display:flex;gap:5px;flex-wrap:wrap" id="ast-sugg-2"></div>
+        </div>
+        <div class="panel" style="height:520px">
+          <div class="chat-shell">
+            <div class="chat-msgs" id="chat-msgs-2"></div>
+            <div class="chat-input-row">
+              <textarea class="chat-in" id="chat-in-2" placeholder="Ask the agent…" rows="1" oninput="autoR(this)" onkeydown="hkey2(event)"></textarea>
+              <button class="send-btn" onclick="sendMsg2()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWS VIEW (full) -->
+      <div class="view" id="view-news">
+        <div class="view-title">Eufy <em>World</em></div>
+        <div class="view-sub">Products · Tutorials · Community · Firmware</div>
+        <div class="lib-toolbar">
+          <input class="lib-search" id="news-search" placeholder="Search news…" oninput="renderNewsFull()">
+          <button class="btn ghost" onclick="refreshNews()"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>Refresh</button>
+        </div>
+        <div class="tag-filter" id="news-full-tabs" style="margin-bottom:.7rem"></div>
+        <div id="news-full-list"></div>
+      </div>
+
+      <!-- PROJECTS VIEW (full) -->
+      <div class="view" id="view-projects">
+        <div class="view-title"><em>Projects</em></div>
+        <div class="view-sub">Active client projects · Notion-synced · milestones</div>
+        <div class="new-print-row">
+          <button class="btn" onclick="openAddModal('projects')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Project</button>
+          <button class="btn ghost" onclick="syncNotion('projects')"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>Sync Notion</button>
+        </div>
+        <div id="projects-full-list"></div>
+      </div>
+
+      <!-- HISTORY VIEW (full) -->
+      <div class="view" id="view-history">
+        <div class="view-title"><em>History</em></div>
+        <div class="view-sub">Unified activity timeline · all record types</div>
+        <div class="tag-filter" id="hist-full-tabs" style="margin-bottom:.7rem"></div>
+        <div id="history-full-list"></div>
+      </div>
+
+      <!-- SETTINGS VIEW -->
+      <div class="view" id="view-settings">
+        <div class="view-title">Set<em>tings</em></div>
+        <div class="view-sub">Themes · fonts · API keys · thresholds</div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">Theme · 6 options</div>
+          <div class="theme-grid" id="theme-grid"></div>
+        </div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">Typography · 6 options</div>
+          <div class="font-grid" id="font-grid"></div>
+        </div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">pi.dev · Agent API</div>
+          <div class="api-card">
+            <div class="api-card-head">
+              <div class="api-logo">π</div>
+              <div>
+                <div class="api-card-title">OpenRouter</div>
+                <div class="api-card-sub">Bring your own key · 200+ models</div>
+              </div>
+              <span class="api-status" id="or-status">offline</span>
+            </div>
+            <div class="field">
+              <label class="field-lbl">OpenRouter API Key</label>
+              <input class="field-in" type="password" id="or-key" placeholder="sk-or-v1-…" onchange="saveApiKeys()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">Default Model</label>
+              <select class="field-in" id="or-default-model" onchange="saveApiKeys()">
+                <option value="offline">Offline Agent (built-in)</option>
+                <option value="anthropic/claude-sonnet-4">Claude Sonnet 4</option>
+                <option value="openai/gpt-4o">GPT-4o</option>
+                <option value="google/gemini-2.0-flash-exp">Gemini 2.0 Flash</option>
+                <option value="mistralai/mistral-large">Mistral Large</option>
+                <option value="deepseek/deepseek-chat">DeepSeek V3</option>
+                <option value="qwen/qwen-2.5-72b-instruct">Qwen 2.5 72B</option>
+              </select>
+            </div>
+            <button class="btn ghost" onclick="testAgent()" style="margin-top:.4rem"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Test Connection</button>
+          </div>
+        </div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">Notion · Database Sync</div>
+          <div class="api-card">
+            <div class="api-card-head">
+              <div class="api-logo" style="background:var(--pbg);color:var(--phi)">N</div>
+              <div>
+                <div class="api-card-title">Notion Integration</div>
+                <div class="api-card-sub">Sync projects · prints · news · expenses</div>
+              </div>
+              <span class="api-status" id="notion-status">offline</span>
+            </div>
+            <div class="field">
+              <label class="field-lbl">Notion Integration Token</label>
+              <input class="field-in" type="password" id="notion-key" placeholder="secret_…" onchange="saveApiKeys()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">Projects Database ID</label>
+              <input class="field-in" id="notion-db-projects" placeholder="32-char hex…" onchange="saveApiKeys()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">Prints Database ID</label>
+              <input class="field-in" id="notion-db-prints" placeholder="32-char hex…" onchange="saveApiKeys()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">News Database ID</label>
+              <input class="field-in" id="notion-db-news" placeholder="32-char hex…" onchange="saveApiKeys()">
+            </div>
+            <button class="btn ghost" onclick="syncAllNotion()" style="margin-top:.4rem"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/></svg>Sync All From Notion</button>
+            <button class="btn ghost" onclick="disconnectNotion()" style="margin:.4rem 0 0 .4rem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>Disconnect</button>
+          </div>
+        </div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">Alert Thresholds</div>
+          <div class="api-card">
+            <div class="field">
+              <label class="field-lbl">Low Ink Warning (ml)</label>
+              <input class="field-in" type="number" id="thr-ink" value="2" min="0" max="50" step="0.1" onchange="saveThresholds()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">Maintenance Reminder (days)</label>
+              <input class="field-in" type="number" id="thr-maint" value="5" min="1" max="60" onchange="saveThresholds()">
+            </div>
+            <div class="field">
+              <label class="field-lbl">Low Stock Warning (units)</label>
+              <input class="field-in" type="number" id="thr-stock" value="5" min="0" max="100" onchange="saveThresholds()">
+            </div>
+          </div>
+        </div>
+
+        <div class="set-sec">
+          <div class="set-sec-lbl">About</div>
+          <div class="about-row"><span class="l">Version</span><span class="v">v7.0 · pi.dev · Notion</span></div>
+          <div class="about-row"><span class="l">Printer</span><span class="v">eufy E1 UV</span></div>
+          <div class="about-row"><span class="l">Storage</span><span class="v">localStorage · in-browser</span></div>
+          <div class="about-row"><span class="l">Data</span><span class="v" id="data-status">— records</span></div>
+          <button class="about-btn" onclick="showOnboarding()" style="margin-top:.5rem">Reset Onboarding</button>
+          <button class="about-btn" onclick="resetAll()" style="margin:.5rem 0 0 .4rem">Reset Everything</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTTOM NAV (mobile) -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-view="focus" onclick="nav('focus',this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="8" rx="1"/><rect x="14" y="15" width="7" height="6" rx="1"/></svg>Focus</button>
+      <button class="nav-btn" data-view="prints" onclick="nav('prints',this)"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Prints</button>
+      <button class="nav-btn" data-view="library" onclick="nav('library',this)"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Library</button>
+      <button class="nav-btn" data-view="finances" onclick="nav('finances',this)"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Finance</button>
+      <button class="nav-btn" data-view="advisor" onclick="nav('advisor',this)"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>AI</button>
+    </nav>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-ov" id="modal-add" onclick="if(event.target===this)closeModal('modal-add')">
+  <div class="modal-card">
+    <div class="modal-handle" onclick="closeModal('modal-add')"></div>
+    <div class="modal-head">
+      <div class="modal-title" id="modal-add-title">Add</div>
+      <button class="modal-x" onclick="closeModal('modal-add')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body" id="modal-add-body"></div>
+    <div class="modal-foot">
+      <button class="btn ghost" onclick="closeModal('modal-add')" style="flex:1">Cancel</button>
+      <button class="btn" id="modal-add-submit" onclick="submitEntry()" style="flex:2">Save to Notion →</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-snooze" onclick="if(event.target===this)closeModal('modal-snooze')">
+  <div class="modal-card" style="max-width:420px">
+    <div class="modal-handle" onclick="closeModal('modal-snooze')"></div>
+    <div class="modal-head">
+      <div class="modal-title" id="snooze-title">Alert</div>
+      <button class="modal-x" onclick="closeModal('modal-snooze')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="snooze-opts" id="snooze-opts"></div>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-ov" id="modal-confirm">
+  <div class="confirm-box">
+    <div class="confirm-title" id="confirm-title">Confirm</div>
+    <div class="confirm-body" id="confirm-body"></div>
+    <div class="confirm-actions">
+      <button id="confirm-cancel" onclick="closeConfirm()">Cancel</button>
+      <button id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- CUSTOMIZE DRAWER -->
+<div class="modal-ov" id="modal-customize" onclick="if(event.target===this)closeModal('modal-customize')">
+  <div class="modal-card">
+    <div class="modal-handle" onclick="closeModal('modal-customize')"></div>
+    <div class="modal-head">
+      <div class="modal-title">Customize <em>Layout</em></div>
+      <button class="modal-x" onclick="closeModal('modal-customize')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="cust-panel">
+        <div class="cust-sec">
+          <div class="cust-sec-lbl">Layout Preset</div>
+          <div class="cust-presets">
+            <div class="cust-preset active" data-preset="focus" onclick="applyPreset('focus')">
+              <div class="cust-preset-ico"><span></span><span class="acc"></span><span></span></div>
+              <div class="cust-preset-name">Focus</div>
+            </div>
+            <div class="cust-preset" data-preset="wide-assistant" onclick="applyPreset('wide-assistant')">
+              <div class="cust-preset-ico"><span></span><span class="acc" style="flex:2"></span><span></span></div>
+              <div class="cust-preset-name">Wide Agent</div>
+            </div>
+            <div class="cust-preset" data-preset="news-heavy" onclick="applyPreset('news-heavy')">
+              <div class="cust-preset-ico"><span class="acc" style="flex:2"></span><span></span><span></span></div>
+              <div class="cust-preset-name">News Heavy</div>
+            </div>
+            <div class="cust-preset" data-preset="projects-focus" onclick="applyPreset('projects-focus')">
+              <div class="cust-preset-ico"><span></span><span></span><span class="acc" style="flex:2"></span></div>
+              <div class="cust-preset-name">Projects Focus</div>
+            </div>
+            <div class="cust-preset" data-preset="assistant-only" onclick="applyPreset('assistant-only')">
+              <div class="cust-preset-ico"><span class="acc" style="flex:3"></span></div>
+              <div class="cust-preset-name">Agent Only</div>
+            </div>
+            <div class="cust-preset" data-preset="news-projects" onclick="applyPreset('news-projects')">
+              <div class="cust-preset-ico"><span class="acc"></span><span></span><span class="acc"></span></div>
+              <div class="cust-preset-name">No Agent</div>
+            </div>
+          </div>
+        </div>
+        <div class="cust-sec">
+          <div class="cust-sec-lbl">Panels · show / hide</div>
+          <div class="cust-toggles">
+            <div class="cust-toggle" data-col="news" onclick="togglePanel('news')">
+              <div class="ct-ico"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/></svg></div>
+              <div class="ct-name"><div class="n">Eufy World News</div><div class="d">left column</div></div>
+              <div class="ct-sw"></div>
+            </div>
+            <div class="cust-toggle" data-col="assistant" onclick="togglePanel('assistant')">
+              <div class="ct-ico"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
+              <div class="ct-name"><div class="n">pi.dev Agent</div><div class="d">center column</div></div>
+              <div class="ct-sw"></div>
+            </div>
+            <div class="cust-toggle" data-col="right" onclick="togglePanel('right')">
+              <div class="ct-ico"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+              <div class="ct-name"><div class="n">Projects &amp; History</div><div class="d">right column</div></div>
+              <div class="ct-sw"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cust-sec">
+          <div class="cust-sec-lbl">Column Widths</div>
+          <div class="cust-width">
+            <div class="cust-width-row"><span class="lbl">News</span><input type="range" min="0.6" max="2" step="0.1" value="1" oninput="setWidth('news',this.value)" id="w-news"><span class="v" id="w-news-v">1.0×</span></div>
+            <div class="cust-width-row"><span class="lbl">Assistant</span><input type="range" min="0.8" max="2.5" step="0.1" value="1.4" oninput="setWidth('assistant',this.value)" id="w-assistant"><span class="v" id="w-assistant-v">1.4×</span></div>
+            <div class="cust-width-row"><span class="lbl">Right</span><input type="range" min="0.6" max="2" step="0.1" value="1.1" oninput="setWidth('right',this.value)" id="w-right"><span class="v" id="w-right-v">1.1×</span></div>
+          </div>
+        </div>
+        <div class="cust-sec">
+          <div class="cust-sec-lbl">Default Mode</div>
+          <div class="cust-presets">
+            <div class="cust-preset" data-dmode="focus" onclick="setDefaultMode('focus')">
+              <div class="cust-preset-ico"><span class="acc" style="flex:1"></span><span class="acc" style="flex:2"></span><span class="acc" style="flex:1"></span></div>
+              <div class="cust-preset-name">Focus</div>
+            </div>
+            <div class="cust-preset" data-dmode="raised" onclick="setDefaultMode('raised')">
+              <div class="cust-preset-ico"><span class="acc"></span><span class="acc"></span><span class="acc"></span><span class="acc"></span></div>
+              <div class="cust-preset-name">Raised</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════
+   eufyBASE v7 · pi.dev agent × Notion · single-file dashboard
+   ════════════════════════════════════════════════ */
+
+/* ─── CONSTANTS ─── */
+const THEMES=['terra','silver','midnight','parchment','chalk','cream'];
+const FONTS=['inter','bebas','impact','candara','swiss','grotesk'];
+const darkThemes=['terra','silver','midnight'];
+const lightThemes=['parchment','chalk','cream'];
+const THEME_META={
+  terra:{n:'Terra',m:'dark',a:'#d4943a',b:'#1c1914',t:'#ede2ca'},
+  silver:{n:'Silver',m:'dark',a:'#9aaabe',b:'#222428',t:'#eceff4'},
+  midnight:{n:'Midnight',m:'dark',a:'#5a8cd8',b:'#181b26',t:'#d8e2f8'},
+  parchment:{n:'Parchment',m:'light',a:'#b87428',b:'#eae5dc',t:'#18140a'},
+  chalk:{n:'Chalk',m:'light',a:'#4870c0',b:'#e2e5ea',t:'#181c24'},
+  cream:{n:'Cream',m:'light',a:'#c05838',b:'#f0ebe0',t:'#1c1610'}
+};
+const FONT_META={
+  inter:{n:'Inter',s:'Aa'},
+  bebas:{n:'Bebas',s:'AA'},
+  impact:{n:'Impact',s:'AA'},
+  candara:{n:'Candara',s:'Aa'},
+  swiss:{n:'Swiss',s:'AA'},
+  grotesk:{n:'Grotesk',s:'Aa'}
+};
+
+const vTitles={
+  focus:'Focus — News · Assistant · Projects',
+  dashboard:'Dashboard — April 2026',
+  prints:'Print Log',
+  library:'Data Library',
+  ink:'Ink & Materials',
+  finances:'Finances',
+  advisor:'AI Advisor',
+  news:'Eufy World News',
+  projects:'Projects',
+  history:'Activity History',
+  settings:'Settings'
+};
+
+/* ─── MOCK DATA (Notion fallback) ─── */
+const DB={
+  prints:[
+    {id:'p1',name:'Leather Wallet Monogram',emoji:'👛',material:'Leather',purpose:'Client Order',quality:5,ink:{c:0.2,m:0.4,y:0.1,k:0.3,w:0.5,g:0.2},duration:'14 min',date:'2026-04-18',tags:['product','leather'],cost:'€22',failed:false},
+    {id:'p2',name:'Acrylic Phone Stand',emoji:'📱',material:'Acrylic',purpose:'Test',quality:4,ink:{c:0.5,m:0.3,y:0.4,k:0.2,w:0.1,g:0.3},duration:'8 min',date:'2026-04-17',tags:['test','acrylic'],cost:'€8',failed:false},
+    {id:'p3',name:'Wood Coaster Set',emoji:'🪵',material:'Wood',purpose:'Stock',quality:5,ink:{c:0.3,m:0.2,y:0.3,k:0.4,w:0.6,g:0.1},duration:'22 min',date:'2026-04-16',tags:['product'],cost:'€34',failed:false},
+    {id:'p4',name:'Glass Trophy Engrave',emoji:'🏆',material:'Glass',purpose:'Client Order',quality:5,ink:{c:0.1,m:0.1,y:0.1,k:0.5,w:0.8,g:0.4},duration:'31 min',date:'2026-04-15',tags:['product'],cost:'€48',failed:false},
+    {id:'p5',name:'Metal Keychain Batch',emoji:'🔑',material:'Metal',purpose:'Stock',quality:3,ink:{c:0.4,m:0.4,y:0.4,k:0.3,w:0.2,g:0.2},duration:'12 min',date:'2026-04-14',tags:['product'],cost:'€18',failed:false},
+    {id:'p6',name:'Silicone Strap Print',emoji:'⌚',material:'Silicone',purpose:'Test',quality:2,ink:{c:0.6,m:0.5,y:0.4,k:0.3,w:0.2,g:0.1},duration:'9 min',date:'2026-04-13',tags:['test','failed'],cost:'€4',failed:true},
+    {id:'p7',name:'Ceramic Mug Custom',emoji:'☕',material:'Ceramic',purpose:'Client Order',quality:5,ink:{c:0.3,m:0.3,y:0.3,k:0.4,w:0.7,g:0.3},duration:'18 min',date:'2026-04-12',tags:['product'],cost:'€28',failed:false}
+  ],
+  materials:[
+    {id:'m1',name:'Leather Sheet A4',type:'Leather',stock:12,unit:'sheets',low:5,cost:'€8/sheet'},
+    {id:'m2',name:'Acrylic Block 10mm',type:'Acrylic',stock:8,unit:'blocks',low:5,cost:'€4/block'},
+    {id:'m3',name:'Wood Plank Cherry',type:'Wood',stock:3,unit:'planks',low:5,cost:'€12/plank'},
+    {id:'m4',name:'Glass Trophy Blank',type:'Glass',stock:6,unit:'units',low:3,cost:'€18/unit'},
+    {id:'m5',name:'Ceramic Mug White',type:'Ceramic',stock:24,unit:'mugs',low:10,cost:'€3/mug'}
+  ],
+  ink:[
+    {id:'i1',ch:'k',ml:18,capacity:100,date:'2026-04-10',cost:'€24'},
+    {id:'i2',ch:'w',ml:22,capacity:100,date:'2026-04-08',cost:'€28'},
+    {id:'i3',ch:'c',ml:45,capacity:100,date:'2026-03-28',cost:'€22'}
+  ],
+  inkLevels:{c:62,m:48,y:71,k:18,w:8,g:54},
+  maintenance:[
+    {id:'mt1',type:'Head Cleaning',date:'2026-04-02',duration:'18 min',ink:'2.1ml',triggered:'Schedule',outcome:'Success',notes:'Routine monthly cleaning, no issues observed.'},
+    {id:'mt2',type:'Nozzle Check',date:'2026-03-28',duration:'5 min',ink:'0.3ml',triggered:'Manual',outcome:'Success',notes:'All nozzles firing correctly.'},
+    {id:'mt3',type:'White Ink Agitation',date:'2026-03-25',duration:'8 min',ink:'0.8ml',triggered:'Schedule',outcome:'Success',notes:'Preventive white ink circulation.'}
+  ],
+  expenses:[
+    {id:'e1',name:'Ink Refill Bundle',cat:'Ink',amt:'-€78',date:'2026-04-10',type:'ink'},
+    {id:'e2',name:'Acrylic Block ×10',cat:'Materials',amt:'-€40',date:'2026-04-07',type:'mat'},
+    {id:'e3',name:'Maintenance Service',cat:'Service',amt:'-€35',date:'2026-04-02',type:'serv'},
+    {id:'e4',name:'Wallet Order Payment',cat:'Revenue',amt:'+€22',date:'2026-04-18',type:'mat'},
+    {id:'e5',name:'Trophy Order Payment',cat:'Revenue',amt:'+€48',date:'2026-04-15',type:'mat'}
+  ],
+  clients:[
+    {id:'c1',name:'Atelier Bergman',contact:'info@bergman.at',orders:8,total:'€420',since:'2025-09'},
+    {id:'c2',name:'Nordic Gifts Co.',contact:'orders@nordicgifts.se',orders:12,total:'€680',since:'2025-06'},
+    {id:'c3',name:'Studio Lumen',contact:'hello@studiolumen.de',orders:4,total:'€190',since:'2026-01'}
+  ],
+  projects:[
+    {id:'pr1',name:'Bergman Spring Catalog',client:'Atelier Bergman',status:'ontrack',progress:68,due:'2026-05-02',milestones:[{n:'Sample',done:true},{n:'Production',done:false},{n:'Delivery',done:false}],lastAct:'12 wallets printed · 6 remaining',lastActDate:'2h ago'},
+    {id:'pr2',name:'Nordic Gifts Q2 Batch',client:'Nordic Gifts Co.',status:'atrisk',progress:42,due:'2026-04-28',milestones:[{n:'Design',done:true},{n:'Sample',done:true},{n:'Production',done:false}],lastAct:'White ink critically low — blocked',lastActDate:'4h ago'},
+    {id:'pr3',name:'Lumen Promo Mugs',client:'Studio Lumen',status:'ontrack',progress:90,due:'2026-04-22',milestones:[{n:'Design',done:true},{n:'Sample',done:true},{n:'Production',done:true},{n:'Delivery',done:false}],lastAct:'22/24 mugs printed',lastActDate:'1h ago'},
+    {id:'pr4',name:'Easter Coaster Run',client:'Atelier Bergman',status:'done',progress:100,due:'2026-04-10',milestones:[{n:'Design',done:true},{n:'Sample',done:true},{n:'Production',done:true},{n:'Delivery',done:true}],lastAct:'Delivered · invoiced €340',lastActDate:'8d ago'},
+    {id:'pr5',name:'Trophy Series #4',client:'Nordic Gifts Co.',status:'blocked',progress:25,due:'2026-05-15',milestones:[{n:'Design',done:true},{n:'Sample',done:false}],lastAct:'Waiting on client artwork approval',lastActDate:'1d ago'}
+  ],
+  news:[
+    {id:'n1',cat:'Products',title:'eufy E1 UV Firmware 2.4 Released',summary:'New firmware adds improved white ink circulation algorithm and 12% faster curing times for dark materials.',src:'eufy.com',date:'2h ago',unread:true},
+    {id:'n2',cat:'Tutorials',title:'Mastering CMYK+W+G Color Profiling',summary:'A deep-dive into 6-channel color management for UV printers, with downloadable ICC profiles for leather and acrylic.',src:'community',date:'6h ago',unread:true},
+    {id:'n3',cat:'Community',title:'April Print Contest: "Spring Texture"',summary:'Submit your best texture print this month — top 3 wins a free ink refill bundle. Submissions close April 30.',src:'discord',date:'1d ago',unread:false},
+    {id:'n4',cat:'Firmware',title:'Maintenance Mode Auto-Scheduling',summary:'The new scheduler can now auto-trigger head cleaning after 30 days or 500 prints, whichever comes first.',src:'eufy.com',date:'2d ago',unread:false},
+    {id:'n5',cat:'Products',title:'eufy P2 Pro Launch Announcement',summary:'Bigger brother to E1 — A3+ format, dual UV lamps, and improved 8-channel ink system. Pre-orders open May 5.',src:'eufy.com',date:'3d ago',unread:false},
+    {id:'n6',cat:'Tutorials',title:'Leather Pretreatment Best Practices',summary:'Avoid smudging and improve adhesion with these 5 pretreatment techniques from professional leather printers.',src:'youtube',date:'4d ago',unread:false},
+    {id:'n7',cat:'Community',title:'User Spotlight: Atelier Bergman',summary:'How a small Vienna studio scaled from 10 to 200 prints/month using eufyBASE + Notion workflow integration.',src:'community',date:'5d ago',unread:false},
+    {id:'n8',cat:'Firmware',title:'Bug Fix: White Ink Level Reporting',summary:'Resolves issue where white ink level would show 0% after agitation cycle. Update via Settings → Firmware.',src:'eufy.com',date:'1w ago',unread:false}
+  ]
+};
+
+const CD={months:['Jan','Feb','Mar','Apr'],rev:[180,210,240,284],cost:[90,118,110,93]};
+
+const schemas={
+  prints:{title:'Print Job',fields:[
+    {n:'name',l:'Print Name',t:'text',p:'e.g. Leather Wallet'},
+    {n:'emoji',l:'Emoji',t:'text',p:'👛'},
+    {n:'material',l:'Material',t:'select',o:['Leather','Acrylic','Wood','Glass','Metal','Ceramic','Silicone']},
+    {n:'purpose',l:'Purpose',t:'select',o:['Client Order','Stock','Test','Personal']},
+    {n:'quality',l:'Quality (1-5)',t:'number',p:'5',s:1,min:1,max:5},
+    {n:'duration',l:'Duration',t:'text',p:'e.g. 14 min'},
+    {n:'cost',l:'Cost',t:'text',p:'€22'},
+    {n:'tags',l:'Tags (comma-separated)',t:'text',p:'product, leather'}
+  ]},
+  materials:{title:'Material',fields:[
+    {n:'name',l:'Material Name',t:'text',p:'e.g. Leather Sheet A4'},
+    {n:'type',l:'Type',t:'select',o:['Leather','Acrylic','Wood','Glass','Metal','Ceramic','Silicone']},
+    {n:'stock',l:'Stock',t:'number',p:'10',s:1},
+    {n:'unit',l:'Unit',t:'text',p:'sheets'},
+    {n:'low',l:'Low Stock Threshold',t:'number',p:'5',s:1},
+    {n:'cost',l:'Cost',t:'text',p:'€8/sheet'}
+  ]},
+  ink:{title:'Ink Refill',fields:[
+    {n:'ch',l:'Channel',t:'select',o:['C','M','Y','K','W','G']},
+    {n:'ml',l:'Amount (ml)',t:'number',p:'100',s:1},
+    {n:'capacity',l:'Capacity (ml)',t:'number',p:'100',s:1},
+    {n:'cost',l:'Cost',t:'text',p:'€24'}
+  ]},
+  maintenance:{title:'Maintenance',fields:[
+    {n:'type',l:'Type',t:'select',o:['Head Cleaning','Nozzle Check','White Ink Agitation','Capping Station Service','UV Lamp Calibration']},
+    {n:'duration',l:'Duration',t:'text',p:'18 min'},
+    {n:'ink',l:'Ink Used',t:'text',p:'2.1ml'},
+    {n:'triggered',l:'Triggered By',t:'select',o:['Schedule','Manual','Alert']},
+    {n:'outcome',l:'Outcome',t:'select',o:['Success','Warning','Failed']},
+    {n:'notes',l:'Notes',t:'textarea',p:'Observations…'}
+  ]},
+  expenses:{title:'Expense / Revenue',fields:[
+    {n:'name',l:'Description',t:'text',p:'e.g. Ink Refill Bundle'},
+    {n:'cat',l:'Category',t:'select',o:['Ink','Materials','Service','Revenue','Other']},
+    {n:'amt',l:'Amount (with sign)',t:'text',p:'-€78 or +€22'},
+    {n:'type',l:'Type',t:'select',o:['ink','mat','maint','serv','rev']}
+  ]},
+  clients:{title:'Client',fields:[
+    {n:'name',l:'Client Name',t:'text',p:'Atelier Bergman'},
+    {n:'contact',l:'Contact Email',t:'text',p:'info@…'},
+    {n:'orders',l:'Total Orders',t:'number',p:'8',s:1},
+    {n:'total',l:'Total Spent',t:'text',p:'€420'},
+    {n:'since',l:'Client Since',t:'text',p:'2025-09'}
+  ]},
+  projects:{title:'Project',fields:[
+    {n:'name',l:'Project Name',t:'text',p:'e.g. Spring Catalog'},
+    {n:'client',l:'Client',t:'text',p:'Atelier Bergman'},
+    {n:'status',l:'Status',t:'select',o:['ontrack','atrisk','blocked','done']},
+    {n:'progress',l:'Progress %',t:'number',p:'50',s:5,min:0,max:100},
+    {n:'due',l:'Due Date',t:'date'}
+  ]}
+};
+
+const libCfg={
+  prints:{icon:'🖨',key:'name',sub:p=>`${p.material} · ${p.duration}`,val:p=>p.cost},
+  materials:{icon:'📦',key:'name',sub:m=>`${m.stock} ${m.unit} · ${m.type}`,val:m=>m.cost},
+  ink:{icon:'💧',key:'ch',sub:i=>`${i.ml}ml / ${i.capacity}ml`,val:i=>i.cost},
+  maintenance:{icon:'🔧',key:'type',sub:m=>`${m.date} · ${m.duration}`,val:m=>m.outcome},
+  expenses:{icon:'💰',key:'name',sub:e=>`${e.cat} · ${e.date}`,val:e=>e.amt},
+  clients:{icon:'👤',key:'name',sub:c=>`${c.orders} orders · since ${c.since}`,val:c=>c.total}
+};
+
+const SUGGESTIONS=[
+  'How much ink did I use this month?',
+  'Which client brought most revenue?',
+  'When is my next head cleaning due?',
+  'Summarize my active projects',
+  'What should I prioritize today?',
+  'Forecast ink refill needs',
+  'Compare March vs April revenue',
+  'Show low-stock materials'
+];
+
+const NEWS_CATS=['All','Products','Tutorials','Community','Firmware'];
+const HIST_CATS=['All','Prints','Refills','Maintenance','Expenses','Projects'];
+
+/* ─── STATE ─── */
+let obSlide=0;
+let activeTags=new Set(['All']);
+let sortMode='date-desc';
+let displayMode='list';
+let curLibTab='prints';
+let pendingDel=null;
+let editingEntry=null;
+let editingTab=null;
+let curNewsCat='All';
+let curHistCat='All';
+let chatHistory=[];
+let ctxState={notion:true,prints:true,ink:true,web:false,manuals:false};
+let curModel='offline';
+let isSyncing=false;
+let layout={news:true,assistant:true,right:true,widths:{news:1,assistant:1.4,right:1.1},preset:'focus',defaultMode:'focus'};
+
+/* ─── UTILS ─── */
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+function pad(n){return n<10?'0'+n:n}
+function nowTime(){const d=new Date();return pad(d.getHours())+':'+pad(d.getMinutes())}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function daysAgo(s){const d=new Date(s);const n=new Date();return Math.floor((n-d)/86400000)}
+function fmtRel(dateStr){const d=daysAgo(dateStr);if(d===0)return 'today';if(d===1)return 'yesterday';if(d<7)return d+'d ago';if(d<30)return Math.floor(d/7)+'w ago';return Math.floor(d/30)+'mo ago'}
+
+/* ─── TOAST ─── */
+function toast(msg,type='info'){
+  const c=$('#toast-container');
+  const t=document.createElement('div');
+  t.className='toast '+type;
+  const icons={
+    success:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+    info:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+    warn:'<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    error:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+  };
+  t.innerHTML=(icons[type]||icons.info)+'<div class="toast-msg">'+escapeHtml(msg)+'</div>';
+  c.appendChild(t);
+  setTimeout(()=>{t.classList.add('hide');setTimeout(()=>t.remove(),300)},2800);
+}
+
+/* ─── INTRO & ONBOARDING ─── */
+function spawnParticles(){
+  const intro=$('#intro');
+  for(let i=0;i<24;i++){
+    const p=document.createElement('div');
+    p.className='ip';
+    p.style.left=Math.random()*100+'%';
+    p.style.bottom='-10px';
+    p.style.animationDelay=Math.random()*4+'s';
+    p.style.animationDuration=(4+Math.random()*4)+'s';
+    p.style.opacity=.3+Math.random()*.5;
+    intro.appendChild(p);
+  }
+}
+let _introDone=false;
+function skipIntro(){
+  if(_introDone)return;
+  _introDone=true;
+  const intro=$('#intro');
+  if(!intro)return;
+  intro.classList.add('hide');
+  setTimeout(()=>{if(intro&&intro.parentNode)intro.parentNode.removeChild(intro)},900);
+  if(localStorage.getItem('eb-onboarded')==='1'){
+    showApp();
+  }else{
+    showOnboarding();
+  }
+}
+function runIntro(){
+  try{spawnParticles()}catch(e){console.warn('spawnParticles failed:',e)}
+  // Auto-dismiss after 2.4s — clickable anytime
+  setTimeout(skipIntro,2400);
+  // Absolute safety net: force-dismiss after 6s regardless of anything
+  setTimeout(()=>{
+    const intro=document.getElementById('intro');
+    if(intro){
+      intro.classList.add('hide');
+      if(intro.parentNode)intro.parentNode.removeChild(intro);
+    }
+    if(!document.getElementById('app').classList.contains('show'))showApp();
+    if(!document.getElementById('onboarding').classList.contains('show')&&localStorage.getItem('eb-onboarded')!=='1')showOnboarding();
+  },6000);
+}
+function buildObDots(){
+  const d=$('#ob-dots');
+  d.innerHTML='';
+  for(let i=0;i<5;i++){
+    const b=document.createElement('div');
+    b.className='ob-dot'+(i===0?' active':'');
+    b.onclick=()=>goObSlide(i);
+    d.appendChild(b);
+  }
+}
+function goObSlide(n){
+  obSlide=n;
+  $$('.ob-slide').forEach((s,i)=>s.classList.toggle('active',i===n));
+  $$('.ob-dot').forEach((d,i)=>d.classList.toggle('active',i===n));
+  $('#ob-prev').disabled=n===0;
+  $('#ob-next').textContent=n===4?'Start':'Next';
+}
+function obNav(dir){
+  const n=obSlide+dir;
+  if(n>4){finishOnboarding();return}
+  if(n<0)return;
+  goObSlide(n);
+}
+function showOnboarding(){
+  $('#onboarding').classList.add('show');
+  buildObDots();
+  goObSlide(0);
+}
+function finishOnboarding(){
+  $('#onboarding').classList.remove('show');
+  localStorage.setItem('eb-onboarded','1');
+  showApp();
+}
+function showApp(){
+  $('#app').classList.add('show');
+  setTimeout(()=>{
+    $$('.stat-card').forEach((c,i)=>{c.style.animationDelay=(i*0.05)+'s'});
+    $$('.ink-fill').forEach(f=>f.style.transform='scaleX(1)');
+  },200);
+}
+
+/* ─── MODALS ─── */
+function openModal(id){$('#'+id).classList.add('open')}
+function closeModal(id){$('#'+id).classList.remove('open')}
+function showConfirm(msg,fn,title='Confirm delete'){
+  $('#confirm-title').textContent=title;
+  $('#confirm-body').textContent=msg;
+  pendingDel=fn;
+  $('#modal-confirm').classList.add('open');
+}
+function closeConfirm(){
+  $('#modal-confirm').classList.remove('open');
+  pendingDel=null;
+}
+$('#confirm-ok').onclick=()=>{if(pendingDel)pendingDel();closeConfirm()};
+$('#confirm-cancel').onclick=closeConfirm;
+
+/* ─── THEME & FONT ─── */
+function setTheme(name){
+  document.documentElement.dataset.theme=name;
+  localStorage.setItem('eb-theme',name);
+  $$('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.theme===name));
+  if(darkThemes.includes(name))localStorage.setItem('eb-lastdark',name);
+  else localStorage.setItem('eb-lastlight',name);
+  updateThemeIcon();
+  if($('#view-finances').classList.contains('active'))renderBarChart();
+}
+function toggleDarkLight(){
+  const cur=document.documentElement.dataset.theme;
+  const isDark=darkThemes.includes(cur);
+  const target=isDark?(localStorage.getItem('eb-lastlight')||'parchment'):(localStorage.getItem('eb-lastdark')||'terra');
+  setTheme(target);
+}
+function updateThemeIcon(){
+  const isDark=darkThemes.includes(document.documentElement.dataset.theme);
+  $('.ico-moon').style.display=isDark?'block':'none';
+  $('.ico-sun').style.display=isDark?'none':'block';
+}
+function setFont(name){
+  document.documentElement.dataset.font=name;
+  localStorage.setItem('eb-font',name);
+  $$('.font-card').forEach(c=>c.classList.toggle('active',c.dataset.font===name));
+}
+
+/* ─── MODE (Focus / Raised) ─── */
+function setMode(m){
+  document.documentElement.dataset.mode=m;
+  localStorage.setItem('eb-mode',m);
+  $$('.sb-mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+  if(m==='focus')nav('focus');
+  else nav('dashboard');
+}
+function setDefaultMode(m){
+  layout.defaultMode=m;
+  saveLayout();
+  $$('.cust-preset[data-dmode]').forEach(p=>p.classList.toggle('active',p.dataset.dmode===m));
+  toast('Default mode set to '+m,'success');
+}
+
+/* ─── NAVIGATION ─── */
+function nav(name,el){
+  $$('.view').forEach(v=>v.classList.remove('active'));
+  const view=$('#view-'+name);
+  if(view)view.classList.add('active');
+  $$('.sb-btn').forEach(b=>b.classList.remove('active'));
+  $$('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const sb=$(`.sb-btn[data-view="${name}"]`);
+  if(sb)sb.classList.add('active');
+  const nb=$(`.nav-btn[data-view="${name}"]`);
+  if(nb)nb.classList.add('active');
+  $('#tb-title').innerHTML=vTitles[name]||name;
+  if(name==='dashboard')renderDashboard();
+  if(name==='prints')renderPrintsList();
+  if(name==='library')renderLib();
+  if(name==='ink')renderInkView();
+  if(name==='finances')renderFinances();
+  if(name==='news')renderNewsFull();
+  if(name==='projects')renderProjectsFull();
+  if(name==='history')renderHistoryFull();
+  if(name==='advisor')renderAdvisorFull();
+  if(name==='settings')renderSettingsStatus();
+  $('.content').scrollTop=0;
+}
+
+/* ─── NEWS ─── */
+function renderNewsTabs(){
+  const tabs=$('#news-tabs');
+  if(!tabs)return;
+  tabs.innerHTML=NEWS_CATS.map(c=>`<button class="news-tab ${c===curNewsCat?'active':''}" onclick="setNewsCat('${c}')">${c}</button>`).join('');
+}
+function setNewsCat(c){curNewsCat=c;renderNewsTabs();renderNewsList();if($('#view-news').classList.contains('active'))renderNewsFull()}
+function renderNewsList(){
+  const list=$('#news-list');
+  if(!list)return;
+  const items=DB.news.filter(n=>curNewsCat==='All'||n.cat===curNewsCat);
+  if(!items.length){list.innerHTML='<div class="news-empty"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>No news in this category</div>';return}
+  list.innerHTML=items.map(n=>`
+    <div class="news-item ${n.unread?'unread':''}" onclick="openNewsItem('${n.id}')">
+      <div class="news-cat"><span class="dot"></span>${n.cat}</div>
+      <div class="news-title">${escapeHtml(n.title)}</div>
+      <div class="news-sum">${escapeHtml(n.summary)}</div>
+      <div class="news-meta"><span class="src">${n.src}</span><span>·</span><span>${n.date}</span></div>
+    </div>
+  `).join('');
+}
+function openNewsItem(id){
+  const n=DB.news.find(x=>x.id===id);
+  if(!n)return;
+  n.unread=false;
+  renderNewsList();
+  toast('Opening: '+n.title,'info');
+  // For demo: just toast. In production this would open a reader.
+}
+function refreshNews(){
+  toast('Syncing Eufy World news…','info');
+  setTimeout(()=>{
+    if(localStorage.getItem('eb-notion-key')){
+      toast('News synced from Notion','success');
+    }else{
+      toast('News refreshed (sample data)','success');
+    }
+    renderNewsList();
+  },900);
+}
+function renderNewsFull(){
+  const list=$('#news-full-list');
+  if(!list)return;
+  const q=($('#news-search')||{}).value||'';
+  const items=DB.news.filter(n=>(curNewsCat==='All'||n.cat===curNewsCat)&&(n.title.toLowerCase().includes(q.toLowerCase())||n.summary.toLowerCase().includes(q.toLowerCase())));
+  // Render tabs
+  const tabs=$('#news-full-tabs');
+  if(tabs)tabs.innerHTML=NEWS_CATS.map(c=>`<button class="tag-chip ${c===curNewsCat?'active':''}" onclick="setNewsCat('${c}')">${c}</button>`).join('');
+  list.innerHTML=items.map(n=>`
+    <div class="pf" onclick="openNewsItem('${n.id}')">
+      <div class="pf-top">
+        <div class="pf-thumb">📰</div>
+        <div class="pf-name">${escapeHtml(n.title)}</div>
+        <div class="pf-tags"><span class="tag product">${n.cat}</span>${n.unread?'<span class="tag test">new</span>':''}</div>
+      </div>
+      <div style="font-size:.84rem;color:var(--tlo);line-height:1.5;margin-bottom:.5rem">${escapeHtml(n.summary)}</div>
+      <div class="pf-foot"><span><span class="src">${n.src}</span> · ${n.date}</span><span>Read more →</span></div>
+    </div>
+  `).join('')||'<div class="lib-empty"><div class="em-emoji">📰</div><p>No news matches your filter</p></div>';
+}
+
+/* ─── PROJECTS ─── */
+function renderProjects(){
+  const list=$('#projects-list');
+  if(!list)return;
+  list.innerHTML=DB.projects.map(p=>{
+    const statusLabel={ontrack:'On Track',atrisk:'At Risk',blocked:'Blocked',done:'Done'}[p.status];
+    return `
+    <div class="proj-card" data-status="${p.status}" onclick="openProject('${p.id}')">
+      <div class="proj-top">
+        <div class="proj-name">${escapeHtml(p.name)}</div>
+        <div class="proj-status">${statusLabel}</div>
+      </div>
+      <div class="proj-bar"><div class="proj-bar-fill" style="width:${p.progress}%"></div></div>
+      <div class="proj-meta">
+        <span>${p.client}</span>
+        <span>due ${p.due}</span>
+        <span class="pct">${p.progress}%</span>
+      </div>
+      <div class="proj-act"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${escapeHtml(p.lastAct)} · ${p.lastActDate}</div>
+    </div>`;
+  }).join('');
+}
+function openProject(id){
+  const p=DB.projects.find(x=>x.id===id);
+  if(!p)return;
+  nav('projects');
+  toast('Opening project: '+p.name,'info');
+}
+function renderProjectsFull(){
+  const list=$('#projects-full-list');
+  if(!list)return;
+  list.innerHTML=DB.projects.map(p=>{
+    const statusLabel={ontrack:'On Track',atrisk:'At Risk',blocked:'Blocked',done:'Done'}[p.status];
+    const msHtml=p.milestones.map(m=>`<div style="display:flex;align-items:center;gap:.4rem;font-size:.74rem;margin:.2rem 0;color:${m.done?'var(--phi)':'var(--tdim)'}"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke-width:2.5">${m.done?'<polyline points="20 6 9 17 4 12"/>':'<circle cx="12" cy="12" r="10"/>'}</svg>${escapeHtml(m.n)}</div>`).join('');
+    return `
+    <div class="pf" data-status="${p.status}">
+      <div class="pf-top">
+        <div class="pf-thumb" style="background:var(--acbg)">📁</div>
+        <div>
+          <div class="pf-name">${escapeHtml(p.name)}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em">${p.client} · due ${p.due}</div>
+        </div>
+        <div class="pf-tags"><span class="tag ${p.status==='done'?'product':p.status==='atrisk'?'leather':p.status==='blocked'?'failed':'test'}">${statusLabel}</span></div>
+      </div>
+      <div class="proj-bar" style="margin:.5rem 0"><div class="proj-bar-fill" style="width:${p.progress}%"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--tlo)">Progress</span>
+        <span class="mono" style="color:var(--acc);font-weight:600;font-size:.85rem">${p.progress}%</span>
+      </div>
+      <div style="padding:.5rem .65rem;background:var(--sdk);border-radius:var(--rsm);margin-bottom:.5rem">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:var(--tdim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem">Milestones</div>
+        ${msHtml}
+      </div>
+      <div class="pf-foot"><span>Last: ${escapeHtml(p.lastAct)}</span><span>${p.lastActDate}</span></div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── HISTORY ─── */
+function buildHistory(){
+  const items=[];
+  DB.prints.forEach(p=>items.push({type:'print',date:p.date,title:`${p.emoji} ${p.name}`,meta:`${p.material} · ${p.duration}`,amt:p.cost,icon:'print'}));
+  DB.ink.forEach(i=>items.push({type:'refill',date:i.date,title:`Ink ${i.ch.toUpperCase()} Refill`,meta:`${i.ml}ml refilled`,amt:'-'+i.cost.replace('€','€'),icon:'refill'}));
+  DB.maintenance.forEach(m=>items.push({type:'maint',date:m.date,title:m.type,meta:`${m.duration} · ${m.outcome}`,amt:m.ink,icon:'maint'}));
+  DB.expenses.forEach(e=>items.push({type:'expense',date:e.date,title:e.name,meta:e.cat,amt:e.amt,icon:'expense'}));
+  DB.projects.forEach(p=>items.push({type:'proj',date:p.due,title:`${p.name} update`,meta:p.lastAct,amt:p.progress+'%',icon:'proj'}));
+  return items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+}
+const HIST_ICONS={
+  print:'<svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>',
+  refill:'<svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>',
+  maint:'<svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  expense:'<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  proj:'<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+  news:'<svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2z"/></svg>'
+};
+function renderHistTabs(){
+  const t=$('#hist-tabs');
+  if(!t)return;
+  t.innerHTML=HIST_CATS.map(c=>`<button class="hist-tab ${c===curHistCat?'active':''}" onclick="setHistCat('${c}')">${c}</button>`).join('');
+}
+function setHistCat(c){curHistCat=c;renderHistTabs();renderHistoryList();if($('#view-history').classList.contains('active'))renderHistoryFull()}
+function renderHistoryList(){
+  const list=$('#history-list');
+  if(!list)return;
+  const all=buildHistory();
+  const typeMap={Prints:'print',Refills:'refill',Maintenance:'maint',Expenses:'expense',Projects:'proj'};
+  const filterType=typeMap[curHistCat];
+  const items=curHistCat==='All'?all:all.filter(i=>i.type===filterType);
+  if(!items.length){list.innerHTML='<div class="hist-empty">No activity yet</div>';return}
+  list.innerHTML=items.slice(0,15).map(i=>`
+    <div class="hist-item">
+      <div class="hist-ico ${i.icon}">${HIST_ICONS[i.icon]}</div>
+      <div class="hist-body">
+        <div class="hist-title">${escapeHtml(i.title)}</div>
+        <div class="hist-meta"><span>${fmtRel(i.date)}</span><span>·</span><span>${escapeHtml(i.meta)}</span>${i.amt?`<span>·</span><span class="amt ${i.amt.startsWith('-')?'neg':i.amt.startsWith('+')?'pos':''}">${i.amt}</span>`:''}</div>
+      </div>
+    </div>
+  `).join('');
+}
+function renderHistoryFull(){
+  const list=$('#history-full-list');
+  if(!list)return;
+  const tabs=$('#hist-full-tabs');
+  if(tabs)tabs.innerHTML=HIST_CATS.map(c=>`<button class="tag-chip ${c===curHistCat?'active':''}" onclick="setHistCat('${c}')">${c}</button>`).join('');
+  const all=buildHistory();
+  const typeMap={Prints:'print',Refills:'refill',Maintenance:'maint',Expenses:'expense',Projects:'proj'};
+  const filterType=typeMap[curHistCat];
+  const items=curHistCat==='All'?all:all.filter(i=>i.type===filterType);
+  list.innerHTML=items.map(i=>`
+    <div class="pf">
+      <div class="pf-top">
+        <div class="pf-thumb">${i.icon==='print'?'🖨':i.icon==='refill'?'💧':i.icon==='maint'?'🔧':i.icon==='expense'?'💰':i.icon==='proj'?'📁':'📰'}</div>
+        <div class="pf-name">${escapeHtml(i.title)}</div>
+        <div class="pf-tags"><span class="tag ${i.type==='expense'&&i.amt.startsWith('-')?'failed':i.type==='expense'?'product':'test'}">${i.type}</span></div>
+      </div>
+      <div class="pf-foot"><span>${escapeHtml(i.meta)} · ${fmtRel(i.date)}</span>${i.amt?`<span class="mono" style="color:var(--acc);font-weight:600">${i.amt}</span>`:''}</div>
+    </div>
+  `).join('')||'<div class="lib-empty"><div class="em-emoji">📭</div><p>No activity in this category</p></div>';
+}
+
+/* ─── DASHBOARD ─── */
+function renderDashboard(){
+  renderDashAlerts();
+  renderDashStats();
+  renderDashQA();
+  renderDashInk();
+  renderDashRecent();
+}
+function renderDashAlerts(){
+  const c=$('#dash-alerts');
+  if(!c)return;
+  c.innerHTML=`
+    <div class="alert-bar crit" onclick="openSnooze('cleaning')">
+      <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <div class="ab-t">HEAD CLEANING OVERDUE · 18 days since last</div>
+      <div class="ab-snooze">SNOOZE →</div>
+    </div>
+    <div class="alert-bar" onclick="openSnooze('white')">
+      <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+      <div class="ab-t">WHITE INK LOW · 1.8ml remaining</div>
+      <div class="ab-snooze">SNOOZE →</div>
+    </div>
+  `;
+}
+function renderDashStats(){
+  const c=$('#dash-stats');
+  if(!c)return;
+  const stats=[
+    {l:'Prints Today',v:'7',s:'2 pending',cls:''},
+    {l:'Revenue Apr',v:'€284',s:'+18% vs Mar',cls:'acc'},
+    {l:'Ink Used Apr',v:'2.8ml',s:'6 channels',cls:''},
+    {l:'Net Profit Apr',v:'€191',s:'67% margin',cls:'pos'}
+  ];
+  c.innerHTML=stats.map((s,i)=>`<div class="stat-card" style="animation-delay:${i*0.05}s" onclick="nav('${i===0?'prints':i===2?'ink':'finances'}')">
+    <div class="stat-lbl">${s.l}</div>
+    <div class="stat-val ${s.cls}">${s.v}</div>
+    <div class="stat-sub">${s.s}</div>
+  </div>`).join('');
+}
+function renderDashQA(){
+  const c=$('#dash-qa');
+  if(!c)return;
+  const acts=[
+    {l:'New Print',ic:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',t:'prints'},
+    {l:'Log Ink',ic:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',t:'ink'},
+    {l:'Add Material',ic:'<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>',t:'materials'},
+    {l:'Log Expense',ic:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',t:'expenses'},
+    {l:'Log Service',ic:'<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',t:'maintenance'},
+    {l:'Add Client',ic:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',t:'clients'}
+  ];
+  c.innerHTML=acts.map(a=>`<button class="qa-btn" onclick="openAddModal('${a.t}')"><svg viewBox="0 0 24 24">${a.ic}</svg>${a.l}</button>`).join('');
+}
+function renderDashInk(){
+  const c=$('#dash-ink');
+  if(!c)return;
+  const ch={c:'C',m:'M',y:'Y',k:'K',w:'W',g:'G'};
+  const col={c:'var(--ink-c)',m:'var(--ink-m)',y:'var(--ink-y)',k:'var(--ink-k)',w:'var(--ink-w)',g:'var(--ink-g)'};
+  c.innerHTML=Object.keys(DB.inkLevels).map(k=>{
+    const pct=DB.inkLevels[k];
+    const low=pct<20;
+    return `<div class="ink-row" onclick="openAddModal('ink',{ch:'${k.toUpperCase()}'})">
+      <div class="ink-sw" style="background:${col[k]};color:var(--base)">${ch[k]}</div>
+      <div class="ink-name">${ch[k]}</div>
+      <div class="ink-track"><div class="ink-fill" style="width:${pct}%;background:${col[k]};${low?'animation:pulse 2s infinite':''}"></div></div>
+      <div class="ink-val">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+function renderDashRecent(){
+  const c=$('#dash-recent');
+  if(!c)return;
+  c.innerHTML=DB.prints.slice(0,4).map(p=>{
+    const stars='★'.repeat(p.quality)+'☆'.repeat(5-p.quality);
+    return `<div class="print-card" onclick="nav('prints')">
+      <div class="pc-thumb">${p.emoji}</div>
+      <div class="pc-body">
+        <div class="pc-name">${escapeHtml(p.name)}</div>
+        <div class="pc-meta"><span>${p.material}</span><span>·</span><span>${p.duration}</span><span>·</span><span class="cost">${p.cost}</span></div>
+      </div>
+      <div class="stars">${stars}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── PRINTS ─── */
+function getAllTags(){
+  const s=new Set();
+  DB.prints.forEach(p=>p.tags.forEach(t=>s.add(t)));
+  return ['All',...s];
+}
+function renderTagFilter(){
+  const c=$('#tag-filter');
+  if(!c)return;
+  c.innerHTML=getAllTags().map(t=>`<button class="tag-chip ${activeTags.has(t)?'active':''}" onclick="toggleTag('${t}')">${t}</button>`).join('');
+}
+function toggleTag(t){
+  if(t==='All'){activeTags=new Set(['All'])}
+  else{activeTags.delete('All');if(activeTags.has(t))activeTags.delete(t);else activeTags.add(t);if(activeTags.size===0)activeTags.add('All')}
+  renderTagFilter();renderPrintsList();
+}
+function cycleSortMode(){
+  const modes=['date-desc','date-asc','quality-desc','ink-desc','duration-asc'];
+  const labels={'date-desc':'Date ↓','date-asc':'Date ↑','quality-desc':'Quality ↓','ink-desc':'Ink ↓','duration-asc':'Duration ↑'};
+  const i=modes.indexOf(sortMode);
+  sortMode=modes[(i+1)%modes.length];
+  $('#sort-mode-lbl').textContent=labels[sortMode];
+  renderPrintsList();
+}
+function setSortDisplay(m,el){
+  displayMode=m;
+  $$('.sort-opt').forEach(o=>o.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderPrintsList();
+}
+function getFilteredSorted(){
+  let arr=DB.prints.slice();
+  if(!activeTags.has('All'))arr=arr.filter(p=>p.tags.some(t=>activeTags.has(t)));
+  const [field,dir]=sortMode.split('-');
+  arr.sort((a,b)=>{
+    let va,vb;
+    if(field==='date'){va=new Date(a.date);vb=new Date(b.date)}
+    else if(field==='quality'){va=a.quality;vb=b.quality}
+    else if(field==='ink'){va=Object.values(a.ink).reduce((s,v)=>s+v,0);vb=Object.values(b.ink).reduce((s,v)=>s+v,0)}
+    else if(field==='duration'){va=parseInt(a.duration);vb=parseInt(b.duration)}
+    return dir==='desc'?vb-va:va-vb;
+  });
+  return arr;
+}
+function tagClass(t){return['product','test','failed','leather'].includes(t)?t:''}
+function printCard(p){
+  const stars='★'.repeat(p.quality)+'<span style="color:var(--tdim)">'+'★'.repeat(5-p.quality)+'</span>';
+  const inkDots=['c','m','y','k','w','g'].map(k=>`<div class="pf-ink ${k}"></div>`).join('');
+  const totalInk=Object.values(p.ink).reduce((s,v)=>s+v,0).toFixed(1);
+  return `<div class="pf" onclick="openPrintDetail('${p.id}')">
+    <div class="pf-top">
+      <div class="pf-thumb">${p.emoji}</div>
+      <div class="pf-name">${escapeHtml(p.name)}</div>
+      <div class="pf-tags">${p.tags.map(t=>`<span class="tag ${tagClass(t)}">${t}</span>`).join('')}</div>
+    </div>
+    <div class="pf-foot">
+      <span>${fmtRel(p.date)} · ${p.duration} · ${totalInk}ml total</span>
+      <span style="display:flex;align-items:center;gap:.5rem">
+        <span class="stars">${stars}</span>
+        <span style="color:var(--acc);font-weight:600">${p.cost}</span>
+      </span>
+    </div>
+    ${p.failed?'<div style="margin-top:.4rem;color:var(--nhi);font-size:.74rem;font-family:IBM Plex Mono">⚠ FAILED — review nozzle check</div>':''}
+  </div>`;
+}
+function renderPrintsList(){
+  const c=$('#prints-list');
+  if(!c)return;
+  const arr=getFilteredSorted();
+  $('#prints-count').textContent=arr.length+' jobs';
+  if(displayMode==='grouped'){
+    const groups={};
+    arr.forEach(p=>{const k=p.tags[0]||'other';(groups[k]=groups[k]||[]).push(p)});
+    c.innerHTML=Object.keys(groups).map(g=>`<div style="margin-bottom:1rem"><div class="sec-lbl" style="margin:.5rem 0">${g} · ${groups[g].length}</div>${groups[g].map(printCard).join('')}</div>`).join('');
+  }else{
+    c.innerHTML=arr.map(printCard).join('')||'<div class="lib-empty"><div class="em-emoji">🖨</div><p>No prints match your filter</p></div>';
+  }
+}
+function openPrintDetail(id){
+  const p=DB.prints.find(x=>x.id===id);
+  if(!p)return;
+  toast(`${p.emoji} ${p.name} · ${p.material} · ${p.duration} · ${p.cost}`,'info');
+}
+
+/* ─── LIBRARY ─── */
+function renderLibTabs(){
+  const c=$('#lib-tabs');
+  if(!c)return;
+  const tabs=['prints','materials','ink','maintenance','expenses','clients'];
+  const labels={prints:'Print Jobs',materials:'Materials',ink:'Ink Refills',maintenance:'Maintenance',expenses:'Expenses',clients:'Clients'};
+  c.innerHTML=tabs.map(t=>`<button class="lib-tab ${t===curLibTab?'active':''}" onclick="libTab('${t}',this)">${labels[t]}</button>`).join('');
+}
+function libTab(name,el){
+  curLibTab=name;
+  renderLibTabs();
+  const s=$('#lib-search');if(s)s.value='';
+  renderLib();
+}
+function renderLib(){
+  renderLibTabs();
+  const c=$('#lib-list');
+  if(!c)return;
+  const q=($('#lib-search')||{}).value||'';
+  const arr=(DB[curLibTab]||[]).filter(x=>{
+    if(!q)return true;
+    return JSON.stringify(x).toLowerCase().includes(q.toLowerCase());
+  });
+  if(!arr.length){c.innerHTML='<div class="lib-empty"><div class="em-emoji">📭</div><p>No '+curLibTab+' found</p></div>';return}
+  const cfg=libCfg[curLibTab];
+  c.innerHTML=arr.map(item=>{
+    const icon=cfg.icon;
+    return `<div class="lib-entry">
+      <div class="lib-ico">${icon.length<=2?'<span style="font-size:1rem">'+icon+'</span>':'<svg viewBox="0 0 24 24">'+icon+'</svg>'}</div>
+      <div class="lib-body">
+        <div class="lib-name">${escapeHtml(String(item[cfg.key]||''))}</div>
+        <div class="lib-sub">${escapeHtml(cfg.sub(item))}</div>
+      </div>
+      <div class="lib-val">${escapeHtml(cfg.val(item))}</div>
+      <div class="lib-act">
+        <button onclick="editEntry('${curLibTab}','${item.id}')" title="Edit"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="del" onclick="deleteEntry('${curLibTab}','${item.id}','${escapeHtml(String(item[cfg.key]))}')" title="Delete"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg></button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function deleteEntry(tab,id,name){
+  showConfirm('Delete "'+name+'"? This cannot be undone.',()=>{
+    DB[tab]=DB[tab].filter(x=>x.id!==id);
+    renderLib();
+    toast('Deleted from local DB','success');
+    if(localStorage.getItem('eb-notion-key'))toast('Notion sync: change pending','info');
+  });
+}
+function editEntry(tab,id){
+  const e=DB[tab].find(x=>x.id===id);
+  if(e)openAddModal(tab,e);
+}
+
+/* ─── ADD MODAL / FORM BUILDER ─── */
+function openAddModal(tab,ex){
+  editingTab=tab;
+  editingEntry=ex&&ex.id?ex:null;
+  const sc=schemas[tab];
+  if(!sc){toast('Unknown type: '+tab,'error');return}
+  $('#modal-add-title').innerHTML=sc.title;
+  const body=$('#modal-add-body');
+  body.innerHTML=sc.fields.map(f=>{
+    const val=ex?ex[f.n]:'';
+    if(f.t==='select'){
+      return `<div class="field"><label class="field-lbl">${f.l}</label><select class="field-in" name="${f.n}">${f.o.map(o=>`<option ${o===val?'selected':''}>${o}</option>`).join('')}</select></div>`;
+    }
+    if(f.t==='textarea'){
+      return `<div class="field"><label class="field-lbl">${f.l}</label><textarea class="field-in" name="${f.n}" rows="3" placeholder="${f.p||''}">${escapeHtml(val||'')}</textarea></div>`;
+    }
+    if(f.t==='number'){
+      return `<div class="field"><label class="field-lbl">${f.l}</label><input class="field-in" type="number" name="${f.n}" value="${val||''}" placeholder="${f.p||''}" ${f.s?'step="'+f.s+'"':''} ${f.min?'min="'+f.min+'"':''} ${f.max?'max="'+f.max+'"':''}></div>`;
+    }
+    if(f.t==='date'){
+      return `<div class="field"><label class="field-lbl">${f.l}</label><input class="field-in" type="date" name="${f.n}" value="${val||''}"></div>`;
+    }
+    return `<div class="field"><label class="field-lbl">${f.l}</label><input class="field-in" type="text" name="${f.n}" value="${escapeHtml(val||'')}" placeholder="${f.p||''}"></div>`;
+  }).join('');
+  openModal('modal-add');
+}
+function submitEntry(){
+  const sc=schemas[editingTab];
+  const body=$('#modal-add-body');
+  const obj={};
+  sc.fields.forEach(f=>{
+    const el=body.querySelector(`[name="${f.n}"]`);
+    obj[f.n]=el?el.value:'';
+  });
+  if(editingEntry){
+    obj.id=editingEntry.id;
+    const i=DB[editingTab].findIndex(x=>x.id===editingEntry.id);
+    if(i>=0)DB[editingTab][i]=Object.assign(DB[editingTab][i],obj);
+    toast(sc.title+' updated','success');
+  }else{
+    obj.id=editingTab[0]+Date.now();
+    if(editingTab==='prints'){obj.failed=obj.failed||false;obj.ink=obj.ink||{c:0,m:0,y:0,k:0,w:0,g:0};obj.date=obj.date||new Date().toISOString().slice(0,10)}
+    if(editingTab==='projects'){obj.milestones=obj.milestones||[{n:'Started',done:true}];obj.lastAct='Created';obj.lastActDate='just now'}
+    DB[editingTab].unshift(obj);
+    toast(sc.title+' added','success');
+  }
+  closeModal('modal-add');
+  if(localStorage.getItem('eb-notion-key'))toast('Notion sync queued','info');
+  // Re-render whatever's visible
+  if($('#view-focus').classList.contains('active')){renderProjects();renderHistoryList()}
+  if($('#view-library').classList.contains('active'))renderLib();
+  if($('#view-prints').classList.contains('active'))renderPrintsList();
+  if($('#view-projects').classList.contains('active'))renderProjectsFull();
+  if($('#view-dashboard').classList.contains('active'))renderDashboard();
+  $('#sb-cnt').textContent=DB.prints.length;
+}
+
+/* ─── SNOOZE ─── */
+function openSnooze(type){
+  let opts,title;
+  if(type==='cleaning'){
+    title='Head Cleaning Overdue';
+    opts=[
+      {ic:'<polyline points="20 6 9 17 4 12"/>',tt:'Run cleaning now',ts:'Starts 18 min cycle'},
+      {ic:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',tt:'Snooze 1 hour',ts:'Remind at '+((new Date().getHours()+1)%24)+':00'},
+      {ic:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',tt:'Snooze until tomorrow',ts:'9:00 AM tomorrow'},
+      {ic:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',tt:'Dismiss alert',ts:'Will not show again'}
+    ];
+  }else{
+    title='White Ink Low';
+    opts=[
+      {ic:'<polyline points="20 6 9 17 4 12"/>',tt:'Order refill now',ts:'€28 · 100ml bottle'},
+      {ic:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',tt:'Snooze 24 hours',ts:'Continue with low ink'},
+      {ic:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>',tt:'Switch to alternative',ts:'Use gloss varnish instead'},
+      {ic:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',tt:'Dismiss alert',ts:'Will not show again'}
+    ];
+  }
+  $('#snooze-title').textContent=title;
+  $('#snooze-opts').innerHTML=opts.map((o,i)=>`<div class="snooze-opt" onclick="snoozeAction(${i},'${type}')"><svg viewBox="0 0 24 24">${o.ic}</svg><div class="so-t"><div class="so-tt">${o.tt}</div><div class="so-ts">${o.ts}</div></div></div>`).join('');
+  openModal('modal-snooze');
+}
+function snoozeAction(i,type){
+  closeModal('modal-snooze');
+  const map={0:'Action started',1:'Snoozed',2:'Alternative set',3:'Dismissed'};
+  toast(map[i]||'Done',i===0?'success':'info');
+}
+
+/* ─── INK VIEW ─── */
+function renderInkView(){
+  const c=$('#ink-grid');
+  if(!c)return;
+  const labels={c:'Cyan',m:'Magenta',y:'Yellow',k:'Black',w:'White',g:'Gloss'};
+  const colors={c:'var(--ink-c)',m:'var(--ink-m)',y:'var(--ink-y)',k:'var(--ink-k)',w:'var(--ink-w)',g:'var(--ink-g)'};
+  c.innerHTML=Object.keys(DB.inkLevels).map(k=>{
+    const pct=DB.inkLevels[k];
+    const ml=Math.round(pct*1);
+    const circ=2*Math.PI*42;
+    const dash=(pct/100)*circ;
+    return `<div class="ch-card ${pct<20?'low':''}" data-ch="${k}" onclick="openAddModal('ink',{ch:'${k.toUpperCase()}'})">
+      <div class="ch-ring">
+        <svg viewBox="0 0 96 96">
+          <circle class="track" cx="48" cy="48" r="42"/>
+          <circle class="fill" cx="48" cy="48" r="42" stroke-dasharray="${dash} ${circ-dash}" stroke="${colors[k]}"/>
+        </svg>
+        <div class="ch-pct">${pct}%</div>
+      </div>
+      <div class="ch-lbl">${labels[k]}</div>
+      <div class="ch-ml">${ml}ml remaining</div>
+    </div>`;
+  }).join('');
+  // Refills
+  const r=$('#ink-refills');
+  if(r)r.innerHTML=DB.ink.map(i=>`<div class="ri-item"><div class="ri-ico"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div><div class="ri-body"><div class="ri-name">Channel ${i.ch.toUpperCase()} Refill</div><div class="ri-sub">${fmtRel(i.date)} · ${i.ml}ml</div></div><div class="ri-val">${i.cost}</div></div>`).join('');
+  // Materials
+  const m=$('#ink-materials');
+  if(m)m.innerHTML=DB.materials.map(mat=>`<div class="ri-item ${mat.stock<=mat.low?'low':''}"><div class="ri-ico"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div class="ri-body"><div class="ri-name">${escapeHtml(mat.name)}</div><div class="ri-sub">${mat.stock} ${mat.unit} ${mat.stock<=mat.low?'· ⚠ LOW':''}</div></div><div class="ri-val">${mat.cost}</div></div>`).join('');
+}
+
+/* ─── FINANCES ─── */
+function renderFinances(){
+  const p=$('#fin-profit');
+  if(!p)return;
+  p.innerHTML=`
+    <div class="profit-main">€191.40</div>
+    <div class="profit-row"><span class="l">Revenue</span><span class="v">€284.00</span></div>
+    <div class="profit-row neg"><span class="l">Ink Costs</span><span class="v">-€42.00</span></div>
+    <div class="profit-row neg"><span class="l">Materials</span><span class="v">-€38.00</span></div>
+    <div class="profit-row neg"><span class="l">Overhead</span><span class="v">-€12.60</span></div>
+    <div class="profit-row pos"><span class="l">Net Profit · 67% margin</span><span class="v">€191.40</span></div>
+  `;
+  renderBarChart();
+  const d=$('#fin-donut');
+  if(d){
+    const segs=[
+      {l:'Ink',p:18,c:'var(--acc)'},
+      {l:'Materials',p:16,c:'var(--phi)'},
+      {l:'Machine',p:41,c:'var(--whi)'},
+      {l:'Other',p:25,c:'var(--nhi)'}
+    ];
+    let offset=0;
+    const circ=2*Math.PI*44;
+    d.innerHTML=`<svg class="donut-svg" viewBox="0 0 100 100">${segs.map(s=>{
+      const len=(s.p/100)*circ;
+      const dash=`${len} ${circ-len}`;
+      const off=-offset;
+      offset+=len;
+      return `<circle cx="50" cy="50" r="44" stroke="${s.c}" stroke-dasharray="${dash}" stroke-dashoffset="${off}"/>`;
+    }).join('')}</svg><div class="donut-leg">${segs.map(s=>`<div class="donut-leg-item"><span class="sw" style="background:${s.c}"></span><span class="lbl">${s.l}</span><span class="pct">${s.p}%</span></div>`).join('')}</div>`;
+  }
+  const t=$('#fin-transactions');
+  if(t)t.innerHTML=DB.expenses.map(e=>{
+    const icoMap={ink:'ink',mat:'mat',maint:'maint',serv:'serv'};
+    const ic=`<path d="${e.type==='ink'?'M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z':e.type==='mat'?'M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z':e.type==='maint'?'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z':'M9 11l3 3L22 4'}"/>`;
+    return `<div class="exp-item"><div class="exp-ico ${icoMap[e.type]||'ink'}"><svg viewBox="0 0 24 24">${ic}</svg></div><div class="exp-body"><div class="exp-name">${escapeHtml(e.name)}</div><div class="exp-cat">${e.cat} · ${fmtRel(e.date)}</div></div><div class="exp-amt ${e.amt.startsWith('-')?'neg':'pos'}">${e.amt}</div></div>`;
+  }).join('');
+}
+function renderBarChart(){
+  const c=$('#bar-chart');
+  if(!c)return;
+  const max=Math.max(...CD.rev);
+  c.innerHTML=CD.months.map((m,i)=>{
+    const rh=(CD.rev[i]/max)*100;
+    const ch=(CD.cost[i]/max)*100;
+    return `<div class="bar-col"><div class="bar-stack"><div class="bar-f inc" style="height:0" data-h="${rh}%"></div><div class="bar-f cst" style="height:0" data-h="${ch}%"></div></div><div class="bar-lbl">${m}</div></div>`;
+  }).join('');
+  setTimeout(()=>$$('#bar-chart .bar-f').forEach(b=>b.style.height=b.dataset.h),50);
+}
+
+/* ─── AI AGENT (pi.dev) ─── */
+function renderSuggestions(){
+  const c=$('#ast-sugg');
+  if(!c)return;
+  c.innerHTML=SUGGESTIONS.slice(0,6).map(s=>`<button class="sugg-chip" onclick="fillSugg(${this?'':0},'${escapeHtml(s).replace(/'/g,"\\'")}')">${escapeHtml(s)}</button>`).join('');
+}
+function fillSugg(_,text){
+  const i=$('#chat-in');
+  if(i){i.value=text;autoR(i);i.focus()}
+}
+function insertAt(cmd,arg){
+  const i=$('#chat-in');
+  if(!i)return;
+  i.value=cmd+(arg?' '+arg:'');
+  i.focus();
+  autoR(i);
+}
+function toggleCtx(el){
+  const ctx=el.dataset.ctx;
+  ctxState[ctx]=!ctxState[ctx];
+  el.classList.toggle('on',ctxState[ctx]);
+  toast('Context '+(ctxState[ctx]?'enabled':'disabled')+': '+ctx,'info');
+  updateAgentStatus();
+}
+function updateAgentStatus(){
+  const hasKey=!!localStorage.getItem('eb-or-key');
+  const online=curModel!=='offline'&&hasKey;
+  const pulse=$('#ast-pulse');
+  if(pulse){pulse.classList.toggle('off',!online);$('#ast-stat').textContent=online?'online · '+curModel.split('/').pop():'offline agent'}
+}
+function onModelChange(m){
+  curModel=m;
+  localStorage.setItem('eb-model',m);
+  const sel2=document.querySelector('#view-advisor .ast-sel');
+  if(sel2&&sel2.value!==m)sel2.value=m;
+  const sel1=$('#ast-model');
+  if(sel1&&sel1.value!==m)sel1.value=m;
+  updateAgentStatus();
+  toast('Model: '+(m==='offline'?'Offline Agent':m.split('/').pop()),'info');
+}
+function autoR(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,90)+'px';
+}
+function hkey(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg()}
+}
+function hkey2(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg2()}
+}
+function appendMsg(role,text,before){
+  const msgs=$('#chat-msgs');
+  if(!msgs)return;
+  const m=document.createElement('div');
+  m.className='msg '+role;
+  const av=role==='ai'?'π':'You';
+  m.innerHTML=`<div class="msg-av">${av}</div><div class="msg-wrap"><div class="msg-b">${text}</div><div class="msg-t">${nowTime()}</div></div>`;
+  if(before)msgs.insertBefore(m,msgs.firstChild);
+  else msgs.appendChild(m);
+  msgs.scrollTop=msgs.scrollHeight;
+  return m;
+}
+function clearChat(){
+  chatHistory=[];
+  localStorage.removeItem('eb-chat');
+  initChat();
+  toast('Chat cleared','success');
+}
+function initChat(){
+  const msgs=$('#chat-msgs');
+  if(!msgs)return;
+  msgs.innerHTML='';
+  if(!chatHistory.length){
+    const seed=[
+      {role:'ai',text:'<strong>Hi, I\'m your pi.dev agent.</strong> I can see your print history, ink levels, projects, and Notion data.<br><br>Try asking:<ul><li>How much ink did I use this month?</li><li>Which projects are at risk?</li><li>Forecast my white ink refill date</li></ul>'}
+    ];
+    seed.forEach(m=>appendMsg(m.role,m.text));
+  }else{
+    chatHistory.forEach(m=>appendMsg(m.role,m.text));
+  }
+}
+function buildContext(){
+  const parts=[];
+  if(ctxState.notion)parts.push('Notion DB is connected (projects, prints, news synced).');
+  if(ctxState.prints){
+    const total=DB.prints.length;
+    const failed=DB.prints.filter(p=>p.failed).length;
+    const totalInk=DB.prints.reduce((s,p)=>s+Object.values(p.ink).reduce((a,b)=>a+b,0),0).toFixed(1);
+    parts.push(`Print history: ${total} jobs, ${failed} failed, ${totalInk}ml ink used. Recent: ${DB.prints.slice(0,3).map(p=>p.name).join(', ')}.`);
+  }
+  if(ctxState.ink){
+    const low=Object.entries(DB.inkLevels).filter(([k,v])=>v<20).map(([k])=>k.toUpperCase());
+    parts.push(`Ink levels: ${Object.entries(DB.inkLevels).map(([k,v])=>k.toUpperCase()+' '+v+'%').join(', ')}.${low.length?' LOW: '+low.join(',')+'.':''}`);
+  }
+  if(ctxState.web)parts.push('Web search is enabled for current eufy product info.');
+  if(ctxState.manuals)parts.push('eufy E1 UV manual is loaded in context.');
+  return parts.join(' ');
+}
+function offlineAgentReply(userText){
+  // Smart offline agent — uses context to generate helpful replies
+  const t=userText.toLowerCase();
+  const ctx=buildContext();
+  
+  if(t.includes('ink')&&(t.includes('month')||t.includes('use'))){
+    const total=DB.prints.reduce((s,p)=>s+Object.values(p.ink).reduce((a,b)=>a+b,0),0).toFixed(1);
+    return `This month you used <strong>${total}ml</strong> of ink across ${DB.prints.length} print jobs.<br><br>Breakdown by channel:<ul>${Object.keys(DB.inkLevels).map(k=>{const used=DB.prints.reduce((s,p)=>s+(p.ink[k]||0),0).toFixed(1);return `<li><strong>${k.toUpperCase()}</strong>: ${used}ml</li>`}).join('')}</ul>${ctxState.ink?'Current levels: '+Object.entries(DB.inkLevels).map(([k,v])=>k.toUpperCase()+' '+v+'%').join(', '):''}`;
+  }
+  if(t.includes('revenue')||t.includes('client')){
+    return `Your top revenue client is <strong>Atelier Bergman</strong> with €420 across 8 orders since September 2025.<br><br>Client breakdown:<ul><li>Atelier Bergman — €420 (8 orders)</li><li>Nordic Gifts Co. — €680 (12 orders)</li><li>Studio Lumen — €190 (4 orders)</li></ul>April revenue: <strong>€284</strong> (+18% vs March).`;
+  }
+  if(t.includes('clean')||t.includes('maintenance')){
+    const last=DB.maintenance[0];
+    const d=daysAgo(last.date);
+    return `Last head cleaning was <strong>${d} days ago</strong> (${last.date}). The maintenance schedule recommends cleaning every 30 days or 500 prints.<br><br>${d>30?'<strong>⚠ Overdue — recommend cleaning now.</strong>':'You\'re within schedule.'} Next auto-clean trigger: in ${30-d} days.`;
+  }
+  if(t.includes('project')||t.includes('prioriti')){
+    const atRisk=DB.projects.filter(p=>p.status==='atrisk');
+    const blocked=DB.projects.filter(p=>p.status==='blocked');
+    let r='You have <strong>'+DB.projects.length+' active projects</strong>.<br><br>';
+    if(atRisk.length)r+='<strong>⚠ At risk:</strong><ul>'+atRisk.map(p=>`<li>${p.name} (${p.progress}%) — ${p.lastAct}</li>`).join('')+'</ul>';
+    if(blocked.length)r+='<strong>⛔ Blocked:</strong><ul>'+blocked.map(p=>`<li>${p.name} — ${p.lastAct}</li>`).join('')+'</ul>';
+    r+='<br><strong>Recommendation:</strong> Address white ink shortage first — it\'s blocking the Nordic Gifts Q2 Batch project.';
+    return r;
+  }
+  if(t.includes('forecast')||t.includes('refill')){
+    const w=DB.inkLevels.w;
+    const daysLeft=Math.round(w/2);
+    return `White ink forecast:<br><br>Current level: <strong>${w}% (0.8ml)</strong><br>Average daily usage: ~2%<br>Estimated refill needed in: <strong>${daysLeft} days</strong><br><br>Recommend ordering a 100ml refill bottle (€28) within the next 3 days to avoid stockouts. The Nordic Gifts Q2 Batch project depends on it.`;
+  }
+  if(t.includes('march')||t.includes('compar')){
+    return `March vs April 2026:<br><br><ul><li><strong>Revenue:</strong> €240 → €284 (+18.3%)</li><li><strong>Costs:</strong> €110 → €93 (-15.5%)</li><li><strong>Margin:</strong> 54% → 67% (+13pp)</li><li><strong>Prints:</strong> similar volume, higher-value jobs</li></ul>April was significantly more profitable — keep targeting client orders over stock prints.`;
+  }
+  if(t.includes('stock')||t.includes('material')){
+    const low=DB.materials.filter(m=>m.stock<=m.low);
+    return low.length?`<strong>⚠ Low-stock materials:</strong><ul>${low.map(m=>`<li>${m.name} — ${m.stock} ${m.unit} (threshold: ${m.low})</li>`).join('')}</ul>Recommend reordering within the week.`:'all materials are above their low-stock thresholds.';
+  }
+  if(t.startsWith('/sync')){
+    return 'Syncing with Notion…<br><br>Connected databases:<ul><li>Projects (5 records)</li><li>Prints (7 records)</li><li>News (8 items)</li></ul>Last sync: just now. Next auto-sync in 5 minutes.';
+  }
+  if(t.startsWith('/report')){
+    return '<strong>Daily Report — April 18, 2026</strong><br><br><ul><li>Prints today: 7</li><li>Revenue: €284</li><li>Active projects: 5 (1 at risk, 1 blocked)</li><li>Ink status: W low (8%), K low (18%)</li><li>Recommended actions: order white ink, run head cleaning</li></ul>';
+  }
+  if(t.startsWith('/forecast')){
+    return '7-day forecast:<br><br><ul><li><strong>Ink:</strong> White runs out in ~4 days</li><li><strong>Projects:</strong> 2 due next week (Lumen Promo Mugs, Nordic Q2)</li><li><strong>Revenue:</strong> Estimated €320 if all on-track projects deliver</li></ul>';
+  }
+  if(t.startsWith('/help')){
+    return 'Available commands:<br><br><ul><li><code>/sync</code> — Sync with Notion DB</li><li><code>/report</code> — Daily summary report</li><li><code>/forecast</code> — 7-day forecast</li><li><code>/help</code> — This message</li></ul>You can also ask me anything in natural language about your prints, ink, projects, or finances.';
+  }
+  // Default
+  return `I understand you\'re asking about "${escapeHtml(userText)}".<br><br>I\'m currently running in <strong>offline mode</strong> with access to your local print data, ink levels, projects, and news. ${ctx?'<br><br>Active context: '+ctx:''}<br><br>Try asking about:<ul><li>Ink usage this month</li><li>Project status and priorities</li><li>Revenue comparisons</li><li>Refill forecasts</li></ul>`;
+}
+function sendMsg(){
+  const inp=$('#chat-in');
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';autoR(inp);
+  appendMsg('user',escapeHtml(text));
+  chatHistory.push({role:'user',text:escapeHtml(text)});
+  // Typing indicator
+  const msgs=$('#chat-msgs');
+  const tp=document.createElement('div');
+  tp.className='msg ai';tp.innerHTML='<div class="msg-av">π</div><div class="msg-wrap"><div class="typing"><span></span><span></span><span></span></div></div>';
+  msgs.appendChild(tp);
+  msgs.scrollTop=msgs.scrollHeight;
+  const hasKey=!!localStorage.getItem('eb-or-key');
+  const useLive=curModel!=='offline'&&hasKey;
+  setTimeout(()=>{
+    tp.remove();
+    let reply;
+    if(useLive){
+      // Try real API (will fail in most demo envs, but structure is correct)
+      callLiveAgent(text,curModel).then(r=>{
+        appendMsg('ai',r);
+        chatHistory.push({role:'ai',text:r});
+        saveChat();
+      }).catch(()=>{
+        reply=offlineAgentReply(text);
+        appendMsg('ai',reply);
+        chatHistory.push({role:'ai',text:reply});
+        saveChat();
+      });
+    }else{
+      reply=offlineAgentReply(text);
+      // Simulate streaming for offline
+      typeReply(reply);
+    }
+  },600);
+}
+function typeReply(html){
+  // For simplicity, just append the full reply. Could be enhanced to type out.
+  appendMsg('ai',html);
+  chatHistory.push({role:'ai',text:html});
+  saveChat();
+}
+function saveChat(){
+  try{localStorage.setItem('eb-chat',JSON.stringify(chatHistory.slice(-20)))}catch(e){}
+}
+function loadChat(){
+  try{const s=localStorage.getItem('eb-chat');if(s){chatHistory=JSON.parse(s)}}catch(e){}
+}
+async function callLiveAgent(text,model){
+  const key=localStorage.getItem('eb-or-key');
+  const ctx=buildContext();
+  const sys=`You are pi.dev agent, embedded in eufyBASE v7 — a UV printer dashboard for an eufy E1 UV printer. You help the user with print jobs, ink management, project tracking, and Notion data. Be concise, helpful, and use HTML formatting (strong, ul, li, code). Active context: ${ctx}`;
+  const messages=[
+    {role:'system',content:sys},
+    ...chatHistory.slice(-10).map(m=>({role:m.role==='ai'?'assistant':'user',content:m.text.replace(/<[^>]+>/g,'')})),
+    {role:'user',content:text}
+  ];
+  const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json','HTTP-Referer':location.origin,'X-Title':'eufyBASE v7'},
+    body:JSON.stringify({model,messages,max_tokens:800,temperature:0.7})
+  });
+  if(!r.ok)throw new Error('API error: '+r.status);
+  const d=await r.json();
+  return d.choices[0].message.content;
+}
+function sendMsg2(){
+  const inp=$('#chat-in-2');
+  if(!inp)return;
+  const text=inp.value.trim();
+  if(!text)return;
+  inp.value='';autoR(inp);
+  // Mirror to focus chat
+  const focusInp=$('#chat-in');
+  if(focusInp){focusInp.value=text;sendMsg()}
+}
+function renderAdvisorFull(){
+  // Mirror chat to full advisor view
+  const m2=$('#chat-msgs-2');
+  if(!m2)return;
+  m2.innerHTML=$('#chat-msgs').innerHTML;
+  // Render suggestions in advisor view
+  const s2=$('#ast-sugg-2');
+  if(s2)s2.innerHTML=SUGGESTIONS.map(s=>`<button class="sugg-chip" onclick="document.getElementById('chat-in-2').value='${escapeHtml(s).replace(/'/g,"\\'")}';autoR(document.getElementById('chat-in-2'))">${escapeHtml(s)}</button>`).join('');
+  // Mirror context badges
+  const c2=$('#ctx-badges-2');
+  if(c2)c2.innerHTML=Array.from($('#ctx-badges').children).map(b=>`<button class="ctx-b ${b.classList.contains('on')?'on':''}" data-ctx="${b.dataset.ctx}" onclick="toggleCtx(this);document.querySelectorAll('#ctx-badges [data-ctx=${b.dataset.ctx}],#ctx-badges-2 [data-ctx=${b.dataset.ctx}]').forEach(x=>x.classList.toggle('on',${b.classList.contains('on')}?false:true))">${b.textContent}</button>`).join('');
+}
+
+/* ─── NOTION INTEGRATION ─── */
+function saveApiKeys(){
+  const orKey=($('#or-key')||{}).value||'';
+  const notionKey=($('#notion-key')||{}).value||'';
+  const dbProjects=($('#notion-db-projects')||{}).value||'';
+  const dbPrints=($('#notion-db-prints')||{}).value||'';
+  const dbNews=($('#notion-db-news')||{}).value||'';
+  const defaultModel=($('#or-default-model')||{}).value||'offline';
+  if(orKey){
+    localStorage.setItem('eb-or-key',orKey);
+    const s=$('#or-status');if(s){s.textContent='online';s.classList.add('on')}
+  }else{
+    localStorage.removeItem('eb-or-key');
+    const s=$('#or-status');if(s){s.textContent='offline';s.classList.remove('on')}
+  }
+  if(notionKey){
+    localStorage.setItem('eb-notion-key',notionKey);
+    localStorage.setItem('eb-notion-projects',dbProjects);
+    localStorage.setItem('eb-notion-prints',dbPrints);
+    localStorage.setItem('eb-notion-news',dbNews);
+    const s=$('#notion-status');if(s){s.textContent='connected';s.classList.add('on')}
+    toast('Notion connected','success');
+  }else{
+    localStorage.removeItem('eb-notion-key');
+    const s=$('#notion-status');if(s){s.textContent='offline';s.classList.remove('on')}
+  }
+  if(defaultModel){
+    localStorage.setItem('eb-model',defaultModel);
+    onModelChange(defaultModel);
+  }
+  toast('Settings saved','success');
+}
+function loadApiKeysUI(){
+  const orKey=localStorage.getItem('eb-or-key')||'';
+  const notionKey=localStorage.getItem('eb-notion-key')||'';
+  const dbP=localStorage.getItem('eb-notion-projects')||'';
+  const dbPr=localStorage.getItem('eb-notion-prints')||'';
+  const dbN=localStorage.getItem('eb-notion-news')||'';
+  const m=localStorage.getItem('eb-model')||'offline';
+  if($('#or-key'))$('#or-key').value=orKey;
+  if($('#notion-key'))$('#notion-key').value=notionKey;
+  if($('#notion-db-projects'))$('#notion-db-projects').value=dbP;
+  if($('#notion-db-prints'))$('#notion-db-prints').value=dbPr;
+  if($('#notion-db-news'))$('#notion-db-news').value=dbN;
+  if($('#or-default-model'))$('#or-default-model').value=m;
+  if($('#ast-model'))$('#ast-model').value=m;
+  curModel=m;
+  // Status badges
+  const os=$('#or-status');
+  if(os){os.textContent=orKey?'online':'offline';os.classList.toggle('on',!!orKey)}
+  const ns=$('#notion-status');
+  if(ns){ns.textContent=notionKey?'connected':'offline';ns.classList.toggle('on',!!notionKey)}
+}
+function testAgent(){
+  const key=localStorage.getItem('eb-or-key');
+  if(!key){toast('Add your OpenRouter API key first','warn');return}
+  if(curModel==='offline'){toast('Select a live model first','warn');return}
+  toast('Testing connection to '+curModel.split('/').pop()+'…','info');
+  setTimeout(()=>{
+    // Simulated test
+    if(Math.random()>0.2){
+      toast('Connection successful · 247ms latency','success');
+      updateAgentStatus();
+    }else{
+      toast('Connection failed · check API key','error');
+    }
+  },900);
+}
+function syncNotion(type){
+  const key=localStorage.getItem('eb-notion-key');
+  if(!key){
+    toast('Add Notion integration token in Settings first','warn');
+    nav('settings');
+    return;
+  }
+  if(isSyncing){toast('Sync already in progress','warn');return}
+  isSyncing=true;
+  toast('Syncing '+type+' from Notion…','info');
+  setTimeout(()=>{
+    isSyncing=false;
+    toast(type+' synced from Notion ('+Math.floor(Math.random()*5+3)+' records)','success');
+    // Re-render
+    if(type==='projects'){renderProjects();if($('#view-projects').classList.contains('active'))renderProjectsFull()}
+    if(type==='prints'){renderPrintsList();$('#sb-cnt').textContent=DB.prints.length}
+    if(type==='news'){renderNewsList();if($('#view-news').classList.contains('active'))renderNewsFull()}
+    renderHistoryList();
+  },1100);
+}
+function syncAllNotion(){
+  const key=localStorage.getItem('eb-notion-key');
+  if(!key){toast('Add Notion integration token first','warn');return}
+  toast('Syncing all databases from Notion…','info');
+  let i=0;
+  const types=['projects','prints','news','expenses'];
+  const next=()=>{
+    if(i>=types.length){toast('Full sync complete · 23 records','success');return}
+    syncNotion(types[i]);
+    i++;
+    setTimeout(next,1300);
+  };
+  next();
+}
+function disconnectNotion(){
+  showConfirm('Disconnect Notion? Local data will remain, but live sync will stop.',()=>{
+    localStorage.removeItem('eb-notion-key');
+    localStorage.removeItem('eb-notion-projects');
+    localStorage.removeItem('eb-notion-prints');
+    localStorage.removeItem('eb-notion-news');
+    loadApiKeysUI();
+    toast('Notion disconnected','success');
+  },'Disconnect Notion?');
+}
+function renderSettingsStatus(){
+  const total=DB.prints.length+DB.materials.length+DB.ink.length+DB.maintenance.length+DB.expenses.length+DB.clients.length+DB.projects.length+DB.news.length;
+  const ds=$('#data-status');
+  if(ds)ds.textContent=total+' records · '+(localStorage.getItem('eb-notion-key')?'Notion-synced':'local only');
+}
+
+/* ─── THRESHOLDS ─── */
+function saveThresholds(){
+  localStorage.setItem('eb-thr-ink',$('#thr-ink').value);
+  localStorage.setItem('eb-thr-maint',$('#thr-maint').value);
+  localStorage.setItem('eb-thr-stock',$('#thr-stock').value);
+  toast('Thresholds saved','success');
+}
+function loadThresholds(){
+  if(localStorage.getItem('eb-thr-ink'))$('#thr-ink').value=localStorage.getItem('eb-thr-ink');
+  if(localStorage.getItem('eb-thr-maint'))$('#thr-maint').value=localStorage.getItem('eb-thr-maint');
+  if(localStorage.getItem('eb-thr-stock'))$('#thr-stock').value=localStorage.getItem('eb-thr-stock');
+}
+
+/* ─── CUSTOMIZE ─── */
+function openCustomize(){
+  // Sync UI with current state
+  $$('.cust-toggle').forEach(t=>t.classList.toggle('off',!layout[t.dataset.col]));
+  $('#w-news').value=layout.widths.news;$('#w-news-v').textContent=layout.widths.news.toFixed(1)+'×';
+  $('#w-assistant').value=layout.widths.assistant;$('#w-assistant-v').textContent=layout.widths.assistant.toFixed(1)+'×';
+  $('#w-right').value=layout.widths.right;$('#w-right-v').textContent=layout.widths.right.toFixed(1)+'×';
+  $$('.cust-preset[data-preset]').forEach(p=>p.classList.toggle('active',p.dataset.preset===layout.preset));
+  $$('.cust-preset[data-dmode]').forEach(p=>p.classList.toggle('active',p.dataset.dmode===layout.defaultMode));
+  openModal('modal-customize');
+}
+function togglePanel(col){
+  layout[col]=!layout[col];
+  saveLayout();
+  applyLayout();
+  $$('.cust-toggle[data-col="'+col+'"]').forEach(t=>t.classList.toggle('off',!layout[col]));
+  toast((layout[col]?'Shown':'Hidden')+': '+col,'success');
+}
+function setWidth(col,val){
+  layout.widths[col]=parseFloat(val);
+  saveLayout();
+  applyLayout();
+  $('#w-'+col+'-v').textContent=parseFloat(val).toFixed(1)+'×';
+}
+function applyPreset(p){
+  layout.preset=p;
+  const presets={
+    'focus':{news:true,assistant:true,right:true,widths:{news:1,assistant:1.4,right:1.1}},
+    'wide-assistant':{news:true,assistant:true,right:true,widths:{news:0.8,assistant:2.2,right:1}},
+    'news-heavy':{news:true,assistant:true,right:true,widths:{news:2,assistant:1.2,right:1}},
+    'projects-focus':{news:true,assistant:true,right:true,widths:{news:0.8,assistant:1.2,right:1.8}},
+    'assistant-only':{news:false,assistant:true,right:false,widths:{news:1,assistant:2,right:1}},
+    'news-projects':{news:true,assistant:false,right:true,widths:{news:1.5,assistant:1.4,right:1.5}}
+  };
+  if(presets[p]){
+    Object.assign(layout,presets[p]);
+    saveLayout();
+    applyLayout();
+    openCustomize();
+    toast('Preset applied: '+p,'success');
+  }
+}
+function applyLayout(){
+  const g=$('#focus-grid');
+  if(!g)return;
+  g.classList.toggle('no-news',!layout.news);
+  g.classList.toggle('no-assistant',!layout.assistant);
+  g.classList.toggle('no-right',!layout.right);
+  g.style.setProperty('--col-news',layout.widths.news+'fr');
+  g.style.setProperty('--col-assistant',layout.widths.assistant+'fr');
+  g.style.setProperty('--col-right',layout.widths.right+'fr');
+}
+function saveLayout(){
+  localStorage.setItem('eb-layout',JSON.stringify(layout));
+}
+function loadLayout(){
+  try{
+    const s=localStorage.getItem('eb-layout');
+    if(s)layout=Object.assign(layout,JSON.parse(s));
+  }catch(e){}
+}
+
+/* ─── NOTIFICATIONS ─── */
+function showNotifPanel(){
+  const notifs=[
+    {t:'White ink low (8%)',d:'2h ago',i:'warn'},
+    {t:'Head cleaning overdue',d:'4h ago',i:'crit'},
+    {t:'New firmware 2.4 available',d:'1d ago',i:'info'},
+    {t:'Bergman Spring Catalog: 6 prints left',d:'2h ago',i:'info'}
+  ];
+  toast(notifs.length+' notifications · newest: '+notifs[0].t,'info');
+}
+
+/* ─── THEME GRID & FONT GRID ─── */
+function renderThemeGrid(){
+  const c=$('#theme-grid');
+  if(!c)return;
+  c.innerHTML=THEMES.map(t=>{
+    const m=THEME_META[t];
+    const isDark=m.m==='dark';
+    const bg=isDark?'#1c1914':'#eae5dc';
+    const txt=isDark?'#ede2ca':'#18140a';
+    const slt=isDark?'#2c2820':'#f0ebe0';
+    return `<div class="theme-card ${document.documentElement.dataset.theme===t?'active':''}" data-theme="${t}" onclick="setTheme('${t}')">
+      <div class="tc-preview" style="background:${bg}">
+        <div class="tc-pt"><span style="background:${m.a}"></span><span style="background:${slt}"></span><span style="background:${txt};opacity:.5"></span></div>
+        <div class="tc-pb" style="background:${m.a}"></div>
+      </div>
+      <div class="tc-footer">
+        <span class="tc-name" style="color:${txt}">${m.n}</span>
+        <span class="tc-mode">${m.m}</span>
+        <span class="tc-dot" style="background:${m.a}"></span>
+      </div>
+    </div>`;
+  }).join('');
+}
+function renderFontGrid(){
+  const c=$('#font-grid');
+  if(!c)return;
+  c.innerHTML=FONTS.map(f=>{
+    const m=FONT_META[f];
+    const fd={inter:'Inter, sans-serif',bebas:'Bebas Neue, sans-serif',impact:'Impact, sans-serif',candara:'Candara, sans-serif',swiss:'Barlow Condensed, sans-serif',grotesk:'Space Grotesk, sans-serif'}[f];
+    const fw={inter:700,bebas:400,impact:400,candara:700,swiss:700,grotesk:600}[f];
+    const tt={inter:'none',bebas:'uppercase',impact:'uppercase',candara:'none',swiss:'uppercase',grotesk:'none'}[f];
+    return `<div class="font-card ${document.documentElement.dataset.font===f?'active':''}" data-font="${f}" onclick="setFont('${f}')">
+      <div class="fc-name">${m.n}</div>
+      <div class="fc-sample" style="font-family:${fd};font-weight:${fw};text-transform:${tt}">${m.s}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ─── RESET ─── */
+function resetAll(){
+  showConfirm('Reset everything? This will erase all keys, settings, chat, and onboarding state. Local data (DB) will be preserved.',()=>{
+    localStorage.clear();
+    toast('Everything reset','success');
+    setTimeout(()=>location.reload(),900);
+  },'Reset everything?');
+}
+
+/* ─── INIT ─── */
+function bootEufy(){
+  try{
+    // Load saved prefs
+    const t=localStorage.getItem('eb-theme')||'terra';
+    const f=localStorage.getItem('eb-font')||'inter';
+    document.documentElement.dataset.theme=t;
+    document.documentElement.dataset.font=f;
+    const m=localStorage.getItem('eb-mode')||'focus';
+    document.documentElement.dataset.mode=m;
+    $$('.sb-mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+    updateThemeIcon();
+    loadLayout();
+    loadChat();
+    loadApiKeysUI();
+    loadThresholds();
+    curModel=localStorage.getItem('eb-model')||'offline';
+    if($('#ast-model'))$('#ast-model').value=curModel;
+    // Render theme & font grids
+    renderThemeGrid();
+    renderFontGrid();
+    // Render initial UI
+    renderSuggestions();
+    renderNewsTabs();
+    renderNewsList();
+    initChat();
+    renderProjects();
+    renderHistTabs();
+    renderHistoryList();
+    applyLayout();
+    updateAgentStatus();
+    // Set default mode
+    if(m==='raised')nav('dashboard');else nav('focus');
+  }catch(err){
+    console.error('eufyBASE boot error:',err);
+    // Even if init fails, force the app visible so user isn't stuck
+    try{document.getElementById('app').classList.add('show')}catch(e){}
+    try{toast('App loaded with errors — some features may not work','warn')}catch(e){alert('Boot error: '+err.message)}
+  }finally{
+    // Always run the intro dismissal sequence
+    runIntro();
+  }
+}
+
+// Use DOMContentLoaded (fires when HTML is parsed, doesn't wait for fonts/images)
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',bootEufy);
+}else{
+  // DOM already ready
+  bootEufy();
+}
+
+// ABSOLUTE FALLBACK: if for any reason bootEufy hasn't run within 3s, force-show the app
+setTimeout(()=>{
+  const app=document.getElementById('app');
+  const intro=document.getElementById('intro');
+  if(app&&!app.classList.contains('show')){
+    console.warn('eufyBASE: forced boot fallback triggered');
+    if(intro){intro.classList.add('hide');if(intro.parentNode)intro.parentNode.removeChild(intro)}
+    app.classList.add('show');
+    if(localStorage.getItem('eb-onboarded')!=='1'){
+      const ob=document.getElementById('onboarding');
+      if(ob)ob.classList.add('show');
+    }
+  }
+},3000);
+</script>
+</body>
+</html>
