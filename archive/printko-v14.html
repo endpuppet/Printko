@@ -1,3 +1,8 @@
+<!-- ════════════════════════════════════════════════════════════════
+     ⚠️  DEPRECATED — DO NOT USE
+     This file is from v14 of the Printko project.
+     The current version lives in /printko/index.html (v15+).
+     ════════════════════════════════════════════════════════════════ -->
 <!DOCTYPE html>
 <html lang="sl" data-theme="trta" data-lang="sl">
 <head>
@@ -1685,465 +1690,6 @@ body{
     animation:none!important;
   }
 }
-
-/* ════════════════════════════════════════════════════════════
-   v15 — INDEPENDENT LOCATION × WEATHER × TIME-OF-DAY BACKGROUNDS
-   Smooth color transitions; CSS vars drive sky colours per axis.
-   ════════════════════════════════════════════════════════════ */
-:root{
-  /* v15 time-of-day sky vars (default = day). Computed in JS. */
-  --sky-top:#cce4f0;
-  --sky-mid:#a8c8dc;
-  --sky-bot:#7898b8;
-  --ground-color:#3a5c80;
-  --ground-type:sea;
-  --time-overlay:rgba(0,0,0,0);   /* dawn=rose, dusk=orange, night=indigo overlay */
-}
-.scene-sky,
-.scene-ground,
-.scene-horizon{
-  transition:background 2s ease, fill 2s ease, opacity 2s ease;
-}
-.scene-sky svg rect:first-of-type{
-  transition:fill 2s ease;
-}
-/* Sky gradient driven by time-of-day vars (replaces theme-driven sky) */
-body{
-  background:linear-gradient(to bottom,var(--sky-top) 0%,var(--sky-mid) 60%,var(--sky-bot) 100%);
-  transition:background 2s ease,color var(--t-base);
-}
-/* Time-of-day overlay — full-viewport tint that fades between phases */
-.scene-time-overlay{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:var(--time-overlay);
-  transition:background 2s ease;
-  mix-blend-mode:multiply;
-}
-
-/* Printko floats higher above ground — bigger float amplitude + softer shadow */
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
-.piko .body-group{
-  animation:float 4.5s ease-in-out infinite;
-  transform-origin:120px 220px;
-}
-.piko .shadow-ellipse{
-  animation:shadowPulse 4.5s ease-in-out infinite;
-  transform-origin:120px 262px;
-  opacity:.12;
-  filter:blur(1px);
-}
-@keyframes shadowPulse{0%,100%{transform:scale(1);opacity:.10}50%{transform:scale(.78);opacity:.18}}
-
-/* ════════════════════════════════════════════════════════════
-   v15 — 3 RGB ANTENNAS on Printko (replaces single antenna)
-   ════════════════════════════════════════════════════════════ */
-.piko .antenna-tip{
-  animation:antennaGlowIdle 2.6s ease-in-out infinite;
-  transform-origin:center;
-  transform-box:fill-box;
-}
-.piko .antenna-red .antenna-tip{
-  fill:#e84a4a;
-  filter:drop-shadow(0 0 4px rgba(232,74,74,.7));
-}
-.piko .antenna-green .antenna-tip{
-  fill:#4ad04a;
-  filter:drop-shadow(0 0 4px rgba(74,208,74,.7));
-}
-.piko .antenna-blue .antenna-tip{
-  fill:#4a8ae8;
-  filter:drop-shadow(0 0 4px rgba(74,138,232,.7));
-}
-@keyframes antennaGlowIdle{
-  0%,100%{opacity:.35;transform:scale(.85)}
-  50%{opacity:.6;transform:scale(1.1)}
-}
-/* When avatar is thinking, all antennas pulse faster */
-.avatar.thinking .piko .antenna-tip{animation-duration:.7s;opacity:.8}
-.avatar.speaking .piko .antenna-tip{animation-duration:.5s;opacity:.85}
-.avatar.emotion-sleeping .piko .antenna-tip{animation-duration:4s;opacity:.25}
-.avatar.emotion-grumpy .piko .antenna-tip,
-.avatar.emotion-annoyed .piko .antenna-tip{animation-duration:1.4s;opacity:.5}
-
-/* Signal answer type — when triggered, that antenna pulses bright for 3s */
-.avatar.signal-success .piko .antenna-green .antenna-tip{
-  animation:antennaSignalGreen .5s ease-in-out infinite;
-}
-@keyframes antennaSignalGreen{
-  0%,100%{opacity:.95;transform:scale(1.3);filter:drop-shadow(0 0 10px rgba(74,208,74,.95))}
-  50%{opacity:1;transform:scale(1.6);filter:drop-shadow(0 0 16px rgba(74,208,74,1))}
-}
-.avatar.signal-error .piko .antenna-red .antenna-tip{
-  animation:antennaSignalRed .5s ease-in-out infinite;
-}
-@keyframes antennaSignalRed{
-  0%,100%{opacity:.95;transform:scale(1.3);filter:drop-shadow(0 0 10px rgba(232,74,74,.95))}
-  50%{opacity:1;transform:scale(1.6);filter:drop-shadow(0 0 16px rgba(232,74,74,1))}
-}
-.avatar.signal-info .piko .antenna-blue .antenna-tip{
-  animation:antennaSignalBlue .5s ease-in-out infinite;
-}
-@keyframes antennaSignalBlue{
-  0%,100%{opacity:.95;transform:scale(1.3);filter:drop-shadow(0 0 10px rgba(74,138,232,.95))}
-  50%{opacity:1;transform:scale(1.6);filter:drop-shadow(0 0 16px rgba(74,138,232,1))}
-}
-/* When signaling, dim the other two antennas */
-.avatar.signal-success .piko .antenna-red .antenna-tip,
-.avatar.signal-success .piko .antenna-blue .antenna-tip{opacity:.18;animation-duration:3s}
-.avatar.signal-error .piko .antenna-green .antenna-tip,
-.avatar.signal-error .piko .antenna-blue .antenna-tip{opacity:.18;animation-duration:3s}
-.avatar.signal-info .piko .antenna-red .antenna-tip,
-.avatar.signal-info .piko .antenna-green .antenna-tip{opacity:.18;animation-duration:3s}
-
-/* ════════════════════════════════════════════════════════════
-   v15 — SUGGESTION THOUGHT-BUBBLE ICONS (replaces text pills)
-   Hidden by default, toggle on avatar tap, auto-hide after 8s.
-   ════════════════════════════════════════════════════════════ */
-.suggestions-pop{
-  position:absolute;
-  inset:-20px -40px;
-  pointer-events:none;
-  z-index:5;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity var(--t-base),visibility var(--t-base);
-}
-.suggestions-pop.show{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-}
-.sugg-bubble{
-  position:absolute;
-  width:46px;height:46px;
-  border-radius:50%;
-  background:var(--card);
-  border:2px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.35rem;line-height:1;
-  cursor:pointer;
-  box-shadow:var(--shadow-soft);
-  transition:transform var(--t-base) var(--spring),border-color var(--t-fast),box-shadow var(--t-fast);
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-  animation:suggPopIn .5s var(--spring) backwards;
-}
-.sugg-bubble:hover,
-.sugg-bubble:active,
-.sugg-bubble:focus{
-  border-color:var(--acc);
-  transform:scale(1.12) translateY(-3px);
-  box-shadow:var(--shadow);
-  outline:none;
-}
-.sugg-bubble.tapped{
-  animation:suggTap .4s var(--spring)!important;
-}
-@keyframes suggTap{
-  0%{transform:scale(1.12)}
-  40%{transform:scale(.85);background:var(--acc-bg);border-color:var(--acc)}
-  100%{transform:scale(1)}
-}
-/* 6 icon bubbles arranged in a soft arc around Printko's head */
-.sugg-bubble:nth-child(1){top:-6%;  left:6%;  animation-delay:.05s}
-.sugg-bubble:nth-child(2){top:-12%; left:34%; animation-delay:.12s}
-.sugg-bubble:nth-child(3){top:-10%; left:62%; animation-delay:.19s}
-.sugg-bubble:nth-child(4){top:8%;   left:-10%;animation-delay:.26s}
-.sugg-bubble:nth-child(5){top:8%;   right:-10%;animation-delay:.33s}
-.sugg-bubble:nth-child(6){top:24%;  left:34%; animation-delay:.40s}
-@keyframes suggPopIn{
-  from{opacity:0;transform:scale(.3) translateY(10px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
-}
-/* Gentle idle float per bubble (staggered) */
-.sugg-bubble:nth-child(1){animation:suggPopIn .5s var(--spring) .05s backwards,suggFloat 4s ease-in-out .55s infinite}
-.sugg-bubble:nth-child(2){animation:suggPopIn .5s var(--spring) .12s backwards,suggFloat 4.4s ease-in-out .65s infinite}
-.sugg-bubble:nth-child(3){animation:suggPopIn .5s var(--spring) .19s backwards,suggFloat 4.2s ease-in-out .75s infinite}
-.sugg-bubble:nth-child(4){animation:suggPopIn .5s var(--spring) .26s backwards,suggFloat 4.6s ease-in-out .85s infinite}
-.sugg-bubble:nth-child(5){animation:suggPopIn .5s var(--spring) .33s backwards,suggFloat 4.3s ease-in-out .95s infinite}
-.sugg-bubble:nth-child(6){animation:suggPopIn .5s var(--spring) .40s backwards,suggFloat 4.5s ease-in-out 1.05s infinite}
-@keyframes suggFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-/* Tiny dotted thought-bubble trail connecting to Printko's head */
-.suggestions-pop::before,
-.suggestions-pop::after{
-  content:'';
-  position:absolute;
-  border-radius:50%;
-  background:var(--card);
-  border:1.5px solid var(--line);
-  opacity:0;
-  transition:opacity var(--t-base);
-}
-.suggestions-pop.show::before{
-  width:8px;height:8px;
-  bottom:-2%;left:48%;
-  opacity:.7;
-  animation:suggFloat 3s ease-in-out infinite;
-}
-.suggestions-pop.show::after{
-  width:5px;height:5px;
-  bottom:-8%;left:50%;
-  opacity:.6;
-  animation:suggFloat 3s ease-in-out .3s infinite;
-}
-
-/* ════════════════════════════════════════════════════════════
-   v15 — LAYOUT REDESIGN: FAB + slide-out menu icons + chat panel
-   All UI elements constrained to max 1/4 viewport width.
-   ════════════════════════════════════════════════════════════ */
-/* Status label now sits directly below avatar SVG (before speech) */
-.avatar-status{
-  margin-top:.4rem;
-  margin-bottom:.6rem;
-}
-
-/* Custom FAB icon — waveform + bubble + 3 dots merged */
-.fab svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.fab .fab-dot{fill:currentColor;stroke:none}
-
-/* FAB wrap constrained to 1/4 viewport width */
-.fab-wrap{
-  position:fixed;
-  bottom:1.2rem;
-  right:1.2rem;
-  z-index:90;
-  width:min(25vw,300px);
-  display:flex;
-  align-items:flex-end;
-  justify-content:flex-end;
-}
-.fab{
-  width:clamp(44px,8vw,60px);height:clamp(44px,8vw,60px);
-  border-radius:50%;
-  background:var(--acc);
-  color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 20px var(--acc-bg),0 2px 8px rgba(0,0,0,.15);
-  transition:all var(--t-base) var(--spring);
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-  cursor:pointer;
-  user-select:none;
-  flex-shrink:0;
-  position:relative;
-  z-index:5;
-}
-
-/* v15: slide-out menu icons (6 report icons) — fan out from behind FAB */
-.fab-menu{
-  position:absolute;
-  bottom:0;
-  right:0;
-  width:100%;
-  height:100%;
-  pointer-events:none;
-}
-.fab-menu .report-icon{
-  position:absolute;
-  bottom:0;
-  right:0;
-  width:48px;
-  padding:.4rem;
-  min-width:0;
-  font-size:.6rem;
-  opacity:0;
-  transform:translate(0,0) scale(.3);
-  transition:transform var(--t-base) var(--spring),opacity var(--t-base);
-  pointer-events:none;
-}
-.fab-menu .report-icon .ri-label{font-size:.6rem}
-.fab-menu .report-icon svg{width:20px;height:20px}
-.fab-menu .report-icon .ri-badge{font-size:.5rem;min-width:14px}
-
-/* When FAB is pressed, menu icons fan out in arc */
-.fab-wrap.pressed .fab-menu .report-icon{
-  opacity:1;
-  pointer-events:auto;
-}
-/* 6 icons arranged in a 90° arc above-left of FAB */
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(1){transform:translate(-70px,-10px) scale(1);transition-delay:.05s}
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(2){transform:translate(-58px,-50px) scale(1);transition-delay:.1s}
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(3){transform:translate(-32px,-80px) scale(1);transition-delay:.15s}
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(4){transform:translate( 4px,-92px) scale(1);transition-delay:.2s}
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(5){transform:translate( 40px,-86px) scale(1);transition-delay:.25s}
-.fab-wrap.pressed .fab-menu .report-icon:nth-child(6){transform:translate( 72px,-62px) scale(1);transition-delay:.3s}
-
-/* v15: chat input — small, CENTER-BOTTOM, 1/4 width (separate from FAB button which stays bottom-right) */
-.fab-panel{
-  position:fixed;
-  bottom:1rem;
-  left:50%;
-  right:auto;
-  width:min(25vw,300px);
-  background:var(--card);
-  border:1.5px solid var(--line);
-  border-radius:var(--r);
-  padding:.7rem;
-  box-shadow:var(--shadow);
-  opacity:0;
-  visibility:hidden;
-  transform:translateX(-50%) translateY(10px) scale(.95);
-  transition:all var(--t-base) var(--spring);
-  z-index:88;
-}
-.fab-panel.open{
-  opacity:1;visibility:visible;
-  transform:translateX(-50%) translateY(0) scale(1);
-}
-.fab-input{
-  width:100%;
-  border:1.5px solid var(--line);
-  border-radius:var(--rsm);
-  padding:.5rem .7rem;
-  font-size:.88rem;
-  color:var(--text);
-  background:var(--card-soft);
-  outline:none;
-  resize:none;
-  font-family:inherit;
-  line-height:1.4;
-  min-height:54px;
-}
-
-/* v15: structured chat panel — above input, below avatar, scrollable */
-.chat-output{
-  position:fixed;
-  left:50%;
-  transform:translateX(-50%);
-  bottom:140px;
-  width:min(25vw,300px);
-  max-height:min(40vh,360px);
-  background:var(--card);
-  border:1.5px solid var(--line);
-  border-radius:var(--r);
-  padding:.85rem 1rem;
-  box-shadow:var(--shadow);
-  z-index:85;
-  overflow-y:auto;
-  opacity:0;
-  visibility:hidden;
-  transform:translateX(-50%) translateY(10px);
-  transition:all var(--t-base) var(--spring);
-}
-.chat-output.open{
-  opacity:1;
-  visibility:visible;
-  transform:translateX(-50%) translateY(0);
-}
-.chat-output::-webkit-scrollbar{width:5px}
-.chat-output::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-/* Structured output styles — headings, lists, bold, all in Caveat for Printko's voice */
-.chat-output .co-msg{
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.15rem;
-  line-height:1.4;
-  color:var(--text);
-}
-.chat-output .co-msg strong{color:var(--acc);font-weight:700}
-.chat-output .co-msg ul,
-.chat-output .co-msg ol{
-  padding-left:1.2rem;
-  margin:.4rem 0;
-  font-family:'Nunito',sans-serif;
-  font-size:.78rem;
-  font-weight:400;
-  line-height:1.5;
-  text-align:left;
-}
-.chat-output .co-msg li{margin-bottom:.2rem}
-.chat-output .co-msg code{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.74rem;
-  background:var(--card-soft);
-  padding:1px 6px;
-  border-radius:4px;
-  color:var(--acc);
-}
-.chat-output .co-msg h3,
-.chat-output .co-msg h4{
-  font-family:'Fraunces',serif;
-  font-weight:500;
-  font-size:.95rem;
-  color:var(--text);
-  margin:.5rem 0 .25rem;
-  letter-spacing:-.01em;
-}
-.chat-output .co-user{
-  font-family:'Nunito',sans-serif;
-  font-size:.74rem;
-  color:var(--tlo);
-  background:var(--card-soft);
-  padding:.4rem .7rem;
-  border-radius:var(--rsm);
-  margin-bottom:.5rem;
-  text-align:right;
-  font-weight:600;
-}
-.chat-output .co-typing{
-  display:inline-block;
-  width:7px;height:13px;
-  background:var(--acc);
-  margin-left:2px;
-  vertical-align:text-bottom;
-  animation:cursorBlink .8s steps(2) infinite;
-}
-
-/* v15: mobile tweaks — keep all elements compact (max 25vw per spec) */
-@media(max-width:640px){
-  .fab-wrap{width:min(25vw,200px)}
-  /* chat-output & fab-panel stay at min(25vw,300px) — same as desktop, per spec */
-  .fab-menu .report-icon{width:42px;padding:.3rem}
-  /* Make chat-output narrower on very small screens so it doesn't crowd the FAB */
-  .chat-output{bottom:120px}
-  .fab-panel{bottom:.8rem}
-}
-@media(max-width:380px){
-  .fab-wrap{width:min(28vw,160px)}
-  .fab-menu .report-icon{width:38px;padding:.25rem}
-  .fab-menu .report-icon .ri-label{font-size:.55rem}
-  /* On tiny phones, allow chat-output to grow to keep text readable */
-  .chat-output{width:min(60vw,280px)}
-  .fab-panel{width:min(60vw,280px)}
-}
-
-/* v15: settings — axis cards (Location / Weather / Time) */
-.axis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:.45rem;margin-bottom:.4rem}
-.axis-card{
-  padding:.55rem .3rem;
-  border-radius:var(--rsm);
-  background:var(--card-soft);
-  border:2px solid transparent;
-  cursor:pointer;
-  transition:all var(--t-base);
-  text-align:center;
-  -webkit-tap-highlight-color:transparent;
-  outline:none;
-}
-.axis-card:hover{transform:translateY(-2px)}
-.axis-card.active{border-color:var(--acc);box-shadow:0 0 0 4px var(--acc-bg)}
-.axis-card .ac-emoji{font-size:1.4rem;line-height:1;display:block;margin-bottom:.25rem}
-.axis-card .ac-name{font-size:.7rem;font-weight:700;color:var(--text);display:block}
-.axis-card .ac-meta{font-family:'IBM Plex Mono',monospace;font-size:.55rem;color:var(--tdim);margin-top:1px}
-/* Time slider */
-.time-slider{
-  width:100%;
-  margin:.4rem 0;
-  accent-color:var(--acc);
-  cursor:pointer;
-}
-.time-slider-wrap{display:flex;align-items:center;gap:.6rem}
-.time-slider-wrap input{flex:1}
-.time-slider-wrap .ts-label{
-  font-family:'IBM Plex Mono',monospace;
-  font-size:.7rem;
-  color:var(--acc);
-  font-weight:700;
-  min-width:54px;
-  text-align:right;
-}
-/* Hide the legacy always-visible report icons row in v15 (replaced by slide-out menu) */
-main > .report-icons{display:none}
 </style>
 </head>
 <body>
@@ -2165,8 +1711,6 @@ main > .report-icons{display:none}
 <div class="weather-fx" id="weather-fx"></div>
 <!-- v14: Lightning flash overlay (storm themes) -->
 <div class="lightning-flash" id="lightning-flash" style="display:none"></div>
-<!-- v15: Time-of-day tint overlay (dawn/day/dusk/night) -->
-<div class="scene-time-overlay" id="scene-time-overlay"></div>
 
 <!-- TOPBAR -->
 <header class="topbar">
@@ -2178,7 +1722,7 @@ main > .report-icons{display:none}
     <button class="tb-btn wide" id="lang-toggle" onclick="toggleLang()" title="Jezik / Language">
       <span id="lang-label">SL</span>
     </button>
-    <button class="tb-btn" onclick="cycleLocation()" title="Lokacija / Location">
+    <button class="tb-btn" onclick="cycleTheme()" title="Tema / Theme">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
     </button>
     <button class="tb-btn" onclick="openSettings()" title="Nastavitve / Settings">
@@ -2211,31 +1755,19 @@ main > .report-icons{display:none}
         <!-- ground shadow -->
         <ellipse class="shadow-ellipse" cx="120" cy="262" rx="62" ry="7" fill="rgba(0,0,0,0.18)"/>
 
-        <!-- v15: 3 RGB antennas (red short, green medium, blue medium-long).
-             Replaces the single antenna. Antenna lights signal answer type
-             via .signal-success / .signal-error / .signal-info classes on #avatar. -->
-        <g class="antenna antenna-red">
-          <line x1="95" y1="66" x2="95" y2="46" stroke="var(--avatar-stroke)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle class="antenna-glow antenna-tip" cx="95" cy="46" r="6"/>
-          <circle class="antenna-tip" cx="95" cy="46" r="3.5" stroke="var(--avatar-stroke)" stroke-width="0.8"/>
-        </g>
-        <g class="antenna antenna-green">
-          <line x1="120" y1="66" x2="120" y2="36" stroke="var(--avatar-stroke)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle class="antenna-glow antenna-tip" cx="120" cy="36" r="7"/>
-          <circle class="antenna-tip" cx="120" cy="36" r="4.5" stroke="var(--avatar-stroke)" stroke-width="0.8"/>
-        </g>
-        <g class="antenna antenna-blue">
-          <line x1="145" y1="66" x2="145" y2="41" stroke="var(--avatar-stroke)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle class="antenna-glow antenna-tip" cx="145" cy="41" r="6"/>
-          <circle class="antenna-tip" cx="145" cy="41" r="3.5" stroke="var(--avatar-stroke)" stroke-width="0.8"/>
-        </g>
+        <!-- antenna -->
+        <line x1="120" y1="58" x2="120" y2="28" stroke="var(--avatar-stroke)" stroke-width="3" stroke-linecap="round"/>
+        <circle class="antenna-glow" cx="120" cy="18" r="9" fill="var(--acc)"/>
+        <circle cx="120" cy="18" r="5" fill="var(--acc-hi)" stroke="var(--avatar-stroke)" stroke-width="1"/>
 
         <!-- body group (sway + breathe + float + face-direction) -->
         <g class="body-group">
           <g class="body-sway">
             <g class="face-direction" id="face-direction">
-              <!-- v15: Top paper feed slot REMOVED — antennas now sprout directly
-                   from the chassis top. -->
+              <!-- Top paper feed slot -->
+              <rect x="58" y="56" width="124" height="14" rx="4" fill="var(--avatar-shadow)" stroke="var(--avatar-stroke)" stroke-width="2"/>
+              <rect x="64" y="60" width="112" height="3" rx="1.5" fill="var(--avatar-stroke)" opacity="0.3"/>
+
               <!-- Main body (breathes) — printer chassis -->
               <g class="body-breath">
                 <rect x="50" y="66" width="140" height="150" rx="14" fill="url(#bodyGrad)" stroke="var(--avatar-stroke)" stroke-width="2.5"/>
@@ -2459,54 +1991,30 @@ main > .report-icons{display:none}
         </g>
       </svg>
     </div>
-    <!-- v15: Status label now sits DIRECTLY BELOW the avatar SVG,
-         before the speech/chat output. Never moves. -->
-    <div class="avatar-status" id="avatar-status">Pripravljen</div>
-    <!-- v15: Suggestion thought-bubble icons — hidden by default, toggle on avatar tap -->
+    <!-- v11: Suggestion pills pop out around Printko's head -->
     <div class="suggestions-pop" id="suggestions"></div>
-    <!-- Speech text sits below status (still in Caveat for Printko's voice) -->
+    <!-- Speech text sits directly below avatar (no comic cloud) -->
     <div class="speech-wrap">
       <div class="speech" id="speech">
         <span id="speech-text">Pozdravljeni! Sem <strong>Printko</strong>, vaš pomočnik. Vprašajte me karkoli o vaših tiskih, črnilu, projektih ali financah.</span>
       </div>
     </div>
+    <!-- Small caveat status label below speech (sleeping/grumpy/thinking indicator) -->
+    <div class="avatar-status" id="avatar-status">Pripravljen</div>
   </div>
 
-  <!-- v13: REPORT ICONS row — hidden in v15 (replaced by slide-out menu behind FAB).
-       Element kept for backward compat (renderQuickAccess still populates it). -->
+  <!-- v13: REPORT ICONS — replace quick-access pills with meaningful report icons -->
   <div class="report-icons" id="quick-access"></div>
 
-  <!-- v15: STRUCTURED CHAT OUTPUT — above FAB input, below avatar.
-       Scrollable container; uses Caveat for Printko's voice but supports
-       headings, lists, bold, code for well-structured replies. -->
-  <div class="chat-output" id="chat-output" aria-live="polite"></div>
-
-  <!-- v15: FAB BUTTON redesigned — custom icon (waveform + bubble + 3 dots).
-       Press = menu icons slide out in arc + small chat input appears.
-       Hold = speech recognition (legacy behavior preserved). -->
+  <!-- v13: FAB BUTTON — press to expand input, hold for speech recognition -->
   <div class="fab-wrap" id="fab-wrap">
     <button class="fab" id="fab" onclick="fabClick(event)" aria-label="Talk to Printko">
-      <!-- Custom merged icon: speech waveform + message bubble + 3 dots (options) -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <!-- Message bubble outline (rounded rect with tail) -->
-        <path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.6-.8L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/>
-        <!-- Speech waveform inside the bubble -->
-        <line x1="7"  y1="11" x2="7"  y2="12.5"/>
-        <line x1="9.5" y1="9.5" x2="9.5" y2="14"/>
-        <line x1="12" y1="8"   x2="12" y2="15"/>
-        <line x1="14.5" y1="9.5" x2="14.5" y2="14"/>
-        <line x1="17" y1="11"  x2="17" y2="12.5"/>
-        <!-- 3 dots (options) at the bottom-right tail -->
-        <circle class="fab-dot" cx="19" cy="19" r="1.1"/>
-        <circle class="fab-dot" cx="21.5" cy="21" r="1.1"/>
-        <circle class="fab-dot" cx="18.5" cy="22" r="1.1"/>
-      </svg>
+      <svg class="fab-icon-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <svg class="fab-icon-keyboard" viewBox="0 0 24 24" style="display:none"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/></svg>
     </button>
-    <!-- v15: 6 report icons slide out from behind FAB in an arc when pressed -->
-    <div class="fab-menu" id="fab-menu"></div>
-    <!-- Expanded input panel (small, 1/4 width) -->
+    <!-- Expanded input panel -->
     <div class="fab-panel" id="fab-panel">
-      <textarea class="fab-input" id="chat-in" placeholder="Vprašaj Printka…" rows="2" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
+      <textarea class="fab-input" id="chat-in" placeholder="Vprašaj Printka…" rows="3" oninput="autoR(this)" onkeydown="hkey(event)"></textarea>
       <button class="fab-send" onclick="sendMsg()">
         <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
@@ -2696,13 +2204,7 @@ main > .report-icons{display:none}
         <div class="dim mono" style="font-size:.62rem" id="tts-hint">—</div>
       </div>
 
-      <!-- v15: LOCATION axis (4 locations — independent from weather & time) -->
-      <div class="section-lbl" id="lbl-location">Lokacija · Location</div>
-      <div class="axis-grid" id="location-grid"></div>
-
-      <!-- v15: WEATHER axis (6 weather types — overlays location) -->
-      <div class="section-lbl" id="lbl-weather">Vreme · Weather</div>
-      <div class="axis-grid" id="weather-grid"></div>
+      <div class="section-lbl" id="lbl-weather-auto">Vreme · Weather</div>
       <div class="field">
         <label class="field-lbl" id="lbl-auto-weather">Samodejno vreme (geolokacija)</label>
         <div class="panel-tabs" style="margin-bottom:.4rem">
@@ -2712,20 +2214,8 @@ main > .report-icons{display:none}
         <div class="dim mono" style="font-size:.62rem" id="aw-hint">—</div>
       </div>
 
-      <!-- v15: TIME-OF-DAY axis (4 phases, auto-advances every 10 min) -->
-      <div class="section-lbl" id="lbl-time">Čas dneva · Time of Day</div>
-      <div class="axis-grid" id="time-grid"></div>
-      <div class="field">
-        <label class="field-lbl" id="lbl-time-slider">Ročni drsnik časa / Manual time slider</label>
-        <div class="time-slider-wrap">
-          <input type="range" min="0" max="3" step="1" value="1" class="time-slider" id="time-slider" oninput="setTimeOfDayManual(parseInt(this.value))">
-          <span class="ts-label" id="ts-label">day</span>
-        </div>
-        <div class="dim mono" style="font-size:.62rem" id="time-hint">—</div>
-      </div>
-
       <div class="section-lbl" id="lbl-about">O programu · About</div>
-      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v15.0 · Printko</span></div>
+      <div class="about-row"><span class="l" id="lbl-version">Različica</span><span class="v">v14.0 · Printko</span></div>
       <div class="about-row"><span class="l" id="lbl-printer">Tiskalnik</span><span class="v">eufy E1 UV</span></div>
       <div class="about-row"><span class="l" id="lbl-status">Stanje</span><span class="v" id="conn-status">— povezave</span></div>
     </div>
@@ -2737,10 +2227,9 @@ main > .report-icons{display:none}
 
 <script>
 /* ════════════════════════════════════════════════
-   Printko v15 · centered avatar dashboard
+   Printko v9 · centered avatar dashboard
    Slovenian (SL) default, English (EN) toggle
-   Independent Location × Weather × Time-of-Day backgrounds,
-   3-RGB-antenna avatar, thought-bubble suggestions, redesigned FAB layout.
+   Weather-themed animated backgrounds, character avatar
    ════════════════════════════════════════════════ */
 
 /* ─── I18N ─── */
@@ -2829,37 +2318,7 @@ const I18N={
     replyCompare:'Marec vs. april 2026:<br><br><ul><li><strong>Promet:</strong> 240 € → 284 € (+18,3 %)</li><li><strong>Stroški:</strong> 110 € → 93 € (-15,5 %)</li><li><strong>Marža:</strong> 54 % → 67 % (+13 t. točk)</li></ul>April je bil precej bolj donosen.',
     replyStock:'<strong>Nizke zaloge materialov:</strong><ul><li>Wood Plank Cherry — 3 planks (mejna vrednost: 5)</li></ul>Priporočam naročilo v tednu dni.',
     replyDefault:'Razumem, da sprašujete o "{text}".<br><br>Trenutno delujem v <strong>offline načinu</strong> z dostopom do vaših lokalnih podatkov.<br><br>Vprašajte me o:<ul><li>Porabi črnila</li><li>Stanju projektov</li><li>Financah</li><li>Potrebi po polnitvah</li></ul>',
-    replyHelp:'Ukazi:<br><br><ul><li><code>/sinhro</code> — Sinhroniziraj z Notion</li><li><code>/porocilo</code> — Dnevno poročilo</li><li><code>/napoved</code> — 7-dnevna napoved</li><li><code>/pomoc</code> — To sporočilo</li></ul>',
-    /* v15 — axis labels (location / weather / time-of-day) */
-    locationTitle:'Lokacija',
-    weatherTitle:'Vreme',
-    timeTitle:'Čas dneva',
-    loc_forest:'Gozd',
-    loc_beach:'Plaža',
-    loc_ocean:'Ocean',
-    loc_mountains:'Gore',
-    w_clear:'Jasno',
-    w_cloudy:'Oblačno',
-    w_rain:'Dež',
-    w_snow:'Sneg',
-    w_fog:'Megla',
-    w_storm:'Nevihta',
-    t_dawn:'Zora',
-    t_day:'Dan',
-    t_dusk:'Mrak',
-    t_night:'Noč',
-    timeAuto:'Samodejno (vsakih 10 min)',
-    timeManual:'Ročni drsnik',
-    askPrintko:'Vprašaj Printka…',
-    listeningHint:'Drži za govor · Enter za pošiljanje',
-    listeningHintNoSR:'Enter za pošiljanje',
-    locationCycled:'Lokacija: ',
-    locationForestDesc:'Gozd · drevesa, ptiči',
-    locationBeachDesc:'Plaža · palme, galebi',
-    locationOceanDesc:'Ocean · valovi, ribe',
-    locationMountainsDesc:'Gore · vrhovi, orli',
-    weatherSet:'Vreme: ',
-    timeSet:'Čas: '
+    replyHelp:'Ukazi:<br><br><ul><li><code>/sinhro</code> — Sinhroniziraj z Notion</li><li><code>/porocilo</code> — Dnevno poročilo</li><li><code>/napoved</code> — 7-dnevna napoved</li><li><code>/pomoc</code> — To sporočilo</li></ul>'
   },
   en:{
     welcome:'Welcome!',
@@ -2945,37 +2404,7 @@ const I18N={
     replyCompare:'March vs April 2026:<br><br><ul><li><strong>Revenue:</strong> €240 → €284 (+18.3%)</li><li><strong>Costs:</strong> €110 → €93 (-15.5%)</li><li><strong>Margin:</strong> 54% → 67% (+13pp)</li></ul>April was significantly more profitable.',
     replyStock:'<strong>Low-stock materials:</strong><ul><li>Wood Plank Cherry — 3 planks (threshold: 5)</li></ul>Recommend reordering within a week.',
     replyDefault:'I understand you\'re asking about "{text}".<br><br>I\'m currently running in <strong>offline mode</strong> with access to your local data.<br><br>Ask me about:<ul><li>Ink usage</li><li>Project status</li><li>Finances</li><li>Refill forecasts</li></ul>',
-    replyHelp:'Commands:<br><br><ul><li><code>/sync</code> — Sync with Notion</li><li><code>/report</code> — Daily report</li><li><code>/forecast</code> — 7-day forecast</li><li><code>/help</code> — This message</li></ul>',
-    /* v15 — axis labels (location / weather / time-of-day) */
-    locationTitle:'Location',
-    weatherTitle:'Weather',
-    timeTitle:'Time of Day',
-    loc_forest:'Forest',
-    loc_beach:'Beach',
-    loc_ocean:'Ocean',
-    loc_mountains:'Mountains',
-    w_clear:'Clear',
-    w_cloudy:'Cloudy',
-    w_rain:'Rain',
-    w_snow:'Snow',
-    w_fog:'Fog',
-    w_storm:'Storm',
-    t_dawn:'Dawn',
-    t_day:'Day',
-    t_dusk:'Dusk',
-    t_night:'Night',
-    timeAuto:'Auto (every 10 min)',
-    timeManual:'Manual slider',
-    askPrintko:'Ask Printko…',
-    listeningHint:'Hold to speak · Enter to send',
-    listeningHintNoSR:'Enter to send',
-    locationCycled:'Location: ',
-    locationForestDesc:'Forest · trees, birds',
-    locationBeachDesc:'Beach · palms, gulls',
-    locationOceanDesc:'Ocean · waves, fish',
-    locationMountainsDesc:'Mountains · peaks, eagles',
-    weatherSet:'Weather: ',
-    timeSet:'Time: '
+    replyHelp:'Commands:<br><br><ul><li><code>/sync</code> — Sync with Notion</li><li><code>/report</code> — Daily report</li><li><code>/forecast</code> — 7-day forecast</li><li><code>/help</code> — This message</li></ul>'
   }
 };
 
@@ -2991,150 +2420,6 @@ const THEME_META={
   dez:{n:'Dež',m:'Rain',bg1:'#d8dee5',bg2:'#b4c0cc',acc:'#4a6a8a',av:'#7a8a9c',weather:'rain'},
   sneg:{n:'Sneg',m:'Snow',bg1:'#eef3f8',bg2:'#d8e4ee',acc:'#5a78a0',av:'#a8b8c8',weather:'snow'},
   meglja:{n:'Meglja',m:'Fog',bg1:'#e4e6ec',bg2:'#cdd0d8',acc:'#6a6a8a',av:'#a0a0b0',weather:'fog'}
-};
-
-/* ─── v15: 3 INDEPENDENT AXES — Location × Weather × Time-of-Day ───
-   Each axis has its own definition. renderScene() combines all 3 to build
-   the SVG layers. Old THEMES array kept for backward compat and mapped to
-   location+weather+time combos via THEME_TO_AXES below. */
-
-const LOCATIONS=['forest','beach','ocean','mountains'];
-const LOCATION_DEFS={
-  forest:{
-    nameKey:'loc_forest',
-    emoji:'🌲',
-    descKey:'locationForestDesc',
-    ground:'#3a5028',
-    groundType:'forest',
-    elements:['trees','birds','leaves']           // ambient per-location elements
-  },
-  beach:{
-    nameKey:'loc_beach',
-    emoji:'🏝️',
-    descKey:'locationBeachDesc',
-    ground:'#e8d4a8',
-    groundType:'sand',
-    elements:['palms','gulls','crabs']
-  },
-  ocean:{
-    nameKey:'loc_ocean',
-    emoji:'🌊',
-    descKey:'locationOceanDesc',
-    ground:'#3a5c80',
-    groundType:'sea',
-    elements:['waves','fish','sailboat','dolphins']
-  },
-  mountains:{
-    nameKey:'loc_mountains',
-    emoji:'⛰️',
-    descKey:'locationMountainsDesc',
-    ground:'#7a6c5a',
-    groundType:'peaks',
-    elements:['peaks','eagles','snowcaps','avalanche']
-  }
-};
-
-const WEATHERS=['clear','cloudy','rain','snow','fog','storm'];
-const WEATHER_DEFS={
-  clear:{
-    nameKey:'w_clear',
-    emoji:'☀️',
-    overlay:null,                                  // no overlay
-    elements:['sun-rays']                          // weather particle/effect elements
-  },
-  cloudy:{
-    nameKey:'w_cloudy',
-    emoji:'☁️',
-    overlay:null,
-    elements:['clouds']
-  },
-  rain:{
-    nameKey:'w_rain',
-    emoji:'🌧️',
-    overlay:'rgba(60,80,100,0.15)',
-    elements:['clouds','rain']
-  },
-  snow:{
-    nameKey:'w_snow',
-    emoji:'❄️',
-    overlay:'rgba(200,220,240,0.10)',
-    elements:['clouds','snow']
-  },
-  fog:{
-    nameKey:'w_fog',
-    emoji:'🌫️',
-    overlay:'rgba(180,184,194,0.25)',
-    elements:['fog']
-  },
-  storm:{
-    nameKey:'w_storm',
-    emoji:'⛈️',
-    overlay:'rgba(40,40,60,0.30)',
-    elements:['clouds','rain','lightning']
-  }
-};
-
-const TIMES_OF_DAY=['dawn','day','dusk','night'];
-const TIME_DEFS={
-  dawn:{
-    nameKey:'t_dawn',
-    emoji:'🌅',
-    skyTop:'#ffd4c0',
-    skyMid:'#f8a890',
-    skyBot:'#c8a8a8',
-    overlay:'rgba(255,200,170,0.10)',
-    showStars:false,
-    showSun:true,
-    showMoon:false
-  },
-  day:{
-    nameKey:'t_day',
-    emoji:'☀️',
-    skyTop:'#cce4f0',
-    skyMid:'#a8c8dc',
-    skyBot:'#7898b8',
-    overlay:'rgba(0,0,0,0)',
-    showStars:false,
-    showSun:true,
-    showMoon:false
-  },
-  dusk:{
-    nameKey:'t_dusk',
-    emoji:'🌇',
-    skyTop:'#f8b888',
-    skyMid:'#c878a0',
-    skyBot:'#5a4878',
-    overlay:'rgba(220,140,80,0.15)',
-    showStars:false,
-    showSun:true,
-    showMoon:false
-  },
-  night:{
-    nameKey:'t_night',
-    emoji:'🌙',
-    skyTop:'#1a1a36',
-    skyMid:'#241e48',
-    skyBot:'#0e0a20',
-    overlay:'rgba(10,8,32,0.20)',
-    showStars:true,
-    showSun:false,
-    showMoon:true
-  }
-};
-
-/* Backward-compat: old v14 themes map to (location, weather, time) combos.
-   When setTheme(name) is called (e.g. from old saved pref), it derives the
-   3 axes from this map and applies them. */
-const THEME_TO_AXES={
-  trta:   {location:'forest',    weather:'clear',  time:'day'},
-  jelka:  {location:'forest',    weather:'cloudy', time:'day'},
-  morje:  {location:'ocean',     weather:'clear',  time:'day'},
-  solnce: {location:'beach',     weather:'clear',  time:'dawn'},
-  noc:    {location:'mountains', weather:'clear',  time:'night'},
-  mleko:  {location:'ocean',     weather:'cloudy', time:'day'},
-  dez:    {location:'forest',    weather:'rain',   time:'day'},
-  sneg:   {location:'mountains', weather:'snow',   time:'day'},
-  meglja: {location:'beach',     weather:'fog',    time:'day'}
 };
 
 /* ─── MOCK DATA ─── */
@@ -3212,18 +2497,6 @@ const GRUMPY_DURATION=4000;      // 4s of grumpy after wake
 const EYE_EXPLORE_INTERVAL=4000; // every 4s look somewhere random
 const EYE_FOCUS_DURATION=2500;   // 2.5s focus lock on mouse/tap
 
-/* v15 — 3 independent background axes */
-let curLocation='forest';        // forest | beach | ocean | mountains
-let curWeather='clear';          // clear | cloudy | rain | snow | fog | storm
-let curTimeOfDay='day';          // dawn | day | dusk | night
-let timeAutoAdvance=true;        // auto-advance every 10 min (toggle via slider)
-let timeAdvanceTimer=null;
-const TIME_ADVANCE_INTERVAL=600000; // 10 minutes
-/* v15 — suggestion bubble state */
-let suggestionsVisible=false;
-let suggestionHideTimer=null;
-const SUGGESTION_AUTOHIDE=8000;  // 8s of no interaction
-
 /* ─── UTILS ─── */
 const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
@@ -3253,35 +2526,23 @@ function toast(msg,type='info'){
   setTimeout(()=>{el.classList.add('hide');setTimeout(()=>el.remove(),300)},2600);
 }
 
-/* ─── THEME (v15: kept for backward-compat; setTheme now derives the 3 axes) ─── */
+/* ─── THEME ─── */
 function setTheme(name){
   curTheme=name;
   document.documentElement.dataset.theme=name;
   localStorage.setItem('es-theme',name);
   $$('.theme-card').forEach(c=>c.classList.toggle('active',c.dataset.theme===name));
-  // v15: derive the 3 independent axes from the legacy theme for backward compat
-  const axes=THEME_TO_AXES[name];
-  if(axes){
-    curLocation=axes.location;
-    curWeather=axes.weather;
-    curTimeOfDay=axes.time;
-    localStorage.setItem('es-location',curLocation);
-    localStorage.setItem('es-weather',curWeather);
-    localStorage.setItem('es-time',curTimeOfDay);
-    updateAxisUI();
-  }
   renderWeatherFx();
   renderScene();
-  // v14: Show lightning flash for storm weather
+  // v14: Show lightning flash for storm themes
   const lf=$('#lightning-flash');
   if(lf){
-    const wdef=WEATHER_DEFS[curWeather]||{};
-    lf.style.display=(wdef.elements&&wdef.elements.includes('lightning'))?'block':'none';
+    const def=SCENE_DEFS[name]||{};
+    lf.style.display=(def.elements&&def.elements.includes('lightning'))?'block':'none';
   }
   resetIdle();
 }
 function cycleTheme(){
-  // v15: kept for backward compat. Topbar button now calls cycleLocation().
   const i=THEMES.indexOf(curTheme);
   const next=THEMES[(i+1)%THEMES.length];
   setTheme(next);
@@ -3304,169 +2565,6 @@ function renderThemeGrid(){
   }).join('');
 }
 
-/* ─── v15: 3 INDEPENDENT BACKGROUND AXES ─── */
-function setLocation(loc){
-  if(!LOCATION_DEFS[loc])return;
-  curLocation=loc;
-  localStorage.setItem('es-location',loc);
-  updateAxisUI();
-  renderScene();
-  resetIdle();
-  toast(t('locationCycled')+t(LOCATION_DEFS[loc].nameKey),'info');
-}
-function setWeather(w){
-  if(!WEATHER_DEFS[w])return;
-  curWeather=w;
-  localStorage.setItem('es-weather',w);
-  // v15: auto-weather feature now toggles off when user picks weather manually
-  if(autoWeatherEnabled){
-    autoWeatherEnabled=false;
-    localStorage.setItem('es-auto-weather','off');
-    $$('.panel-tab[data-aw]').forEach(b=>b.classList.toggle('active',b.dataset.aw==='off'));
-    const hint=$('#aw-hint');
-    if(hint)hint.textContent=curLang==='sl'?'Ročni način':'Manual mode';
-  }
-  updateAxisUI();
-  renderWeatherFx();
-  renderScene();
-  // Lightning flash for storm weather
-  const lf=$('#lightning-flash');
-  if(lf){
-    const wdef=WEATHER_DEFS[w]||{};
-    lf.style.display=(wdef.elements&&wdef.elements.includes('lightning'))?'block':'none';
-  }
-  resetIdle();
-  toast(t('weatherSet')+t(WEATHER_DEFS[w].nameKey),'info');
-}
-function setTimeOfDay(tod){
-  if(!TIME_DEFS[tod])return;
-  curTimeOfDay=tod;
-  localStorage.setItem('es-time',tod);
-  updateAxisUI();
-  renderScene();
-  resetIdle();
-}
-/* Manual slider handler — sets time + pauses auto-advance for 30 min */
-function setTimeOfDayManual(idx){
-  const tod=TIMES_OF_DAY[idx];
-  if(!tod)return;
-  setTimeOfDay(tod);
-  // Pause auto-advance briefly so the manual choice sticks
-  pauseTimeAutoAdvance(1800000);
-  const slider=$('#time-slider');
-  if(slider)slider.value=idx;
-  const lbl=$('#ts-label');
-  if(lbl)lbl.textContent=t(TIME_DEFS[tod].nameKey);
-  toast(t('timeSet')+t(TIME_DEFS[tod].nameKey),'info');
-}
-function cycleLocation(){
-  const i=LOCATIONS.indexOf(curLocation);
-  const next=LOCATIONS[(i+1)%LOCATIONS.length];
-  setLocation(next);
-}
-/* Auto-advance time of day every 10 min (dawn→day→dusk→night→dawn…) */
-function startTimeAutoAdvance(){
-  if(timeAdvanceTimer)clearInterval(timeAdvanceTimer);
-  timeAdvanceTimer=setInterval(()=>{
-    if(!timeAutoAdvance)return;
-    const i=TIMES_OF_DAY.indexOf(curTimeOfDay);
-    const next=TIMES_OF_DAY[(i+1)%TIMES_OF_DAY.length];
-    setTimeOfDay(next);
-    // Update slider position silently
-    const slider=$('#time-slider');
-    if(slider)slider.value=TIMES_OF_DAY.indexOf(next);
-    const lbl=$('#ts-label');
-    if(lbl)lbl.textContent=t(TIME_DEFS[next].nameKey);
-  },TIME_ADVANCE_INTERVAL);
-}
-/* Pause auto-advance for `ms` milliseconds (used when user moves the slider) */
-let timePauseTimer=null;
-function pauseTimeAutoAdvance(ms){
-  timeAutoAdvance=false;
-  if(timePauseTimer)clearTimeout(timePauseTimer);
-  timePauseTimer=setTimeout(()=>{
-    timeAutoAdvance=true;
-  },ms);
-}
-/* Sync the axis UI (settings grid + slider + labels) to current state */
-function updateAxisUI(){
-  // Location grid
-  $$('.axis-card[data-location]').forEach(c=>c.classList.toggle('active',c.dataset.location===curLocation));
-  // Weather grid
-  $$('.axis-card[data-weather]').forEach(c=>c.classList.toggle('active',c.dataset.weather===curWeather));
-  // Time grid
-  $$('.axis-card[data-time]').forEach(c=>c.classList.toggle('active',c.dataset.time===curTimeOfDay));
-  // Slider
-  const slider=$('#time-slider');
-  if(slider)slider.value=TIMES_OF_DAY.indexOf(curTimeOfDay);
-  const tslbl=$('#ts-label');
-  if(tslbl)tslbl.textContent=t(TIME_DEFS[curTimeOfDay].nameKey);
-  // Time hint
-  const hint=$('#time-hint');
-  if(hint){
-    const next=TIMES_OF_DAY[(TIMES_OF_DAY.indexOf(curTimeOfDay)+1)%TIMES_OF_DAY.length];
-    hint.textContent=timeAutoAdvance
-      ?(curLang==='sl'?'Samodejno → '+(t(TIME_DEFS[next].nameKey))+' čez 10 min':'Auto → '+(t(TIME_DEFS[next].nameKey))+' in 10 min')
-      :(curLang==='sl'?'Ročni način':'Manual mode');
-  }
-}
-/* Render the 3 axis grids in the settings modal */
-function renderAxisGrids(){
-  const lc=$('#location-grid');
-  if(lc){
-    lc.innerHTML=LOCATIONS.map(loc=>{
-      const d=LOCATION_DEFS[loc];
-      return `<button class="axis-card ${loc===curLocation?'active':''}" data-location="${loc}" onclick="setLocation('${loc}')">
-        <span class="ac-emoji">${d.emoji}</span>
-        <span class="ac-name">${t(d.nameKey)}</span>
-        <span class="ac-meta">${t(d.descKey)}</span>
-      </button>`;
-    }).join('');
-  }
-  const wc=$('#weather-grid');
-  if(wc){
-    wc.innerHTML=WEATHERS.map(w=>{
-      const d=WEATHER_DEFS[w];
-      return `<button class="axis-card ${w===curWeather?'active':''}" data-weather="${w}" onclick="setWeather('${w}')">
-        <span class="ac-emoji">${d.emoji}</span>
-        <span class="ac-name">${t(d.nameKey)}</span>
-      </button>`;
-    }).join('');
-  }
-  const tc=$('#time-grid');
-  if(tc){
-    tc.innerHTML=TIMES_OF_DAY.map(tod=>{
-      const d=TIME_DEFS[tod];
-      return `<button class="axis-card ${tod===curTimeOfDay?'active':''}" data-time="${tod}" onclick="setTimeOfDay('${tod}')">
-        <span class="ac-emoji">${d.emoji}</span>
-        <span class="ac-name">${t(d.nameKey)}</span>
-      </button>`;
-    }).join('');
-  }
-  updateAxisUI();
-}
-/* Apply the time-of-day CSS variables (sky colors + overlay tint) */
-function applyTimeCSS(){
-  const def=TIME_DEFS[curTimeOfDay];
-  if(!def)return;
-  const root=document.documentElement;
-  root.style.setProperty('--sky-top',def.skyTop);
-  root.style.setProperty('--sky-mid',def.skyMid);
-  root.style.setProperty('--sky-bot',def.skyBot);
-  // Weather overlay tint (combined with time overlay if both apply)
-  const wdef=WEATHER_DEFS[curWeather]||{};
-  const wOverlay=wdef.overlay||'rgba(0,0,0,0)';
-  // For night, use the night overlay; otherwise combine weather overlay
-  let overlay=wOverlay;
-  if(curTimeOfDay==='night'){
-    overlay=def.overlay;  // night overlay wins for darkness
-  }else if(def.overlay&&def.overlay!=='rgba(0,0,0,0)'){
-    // dawn/dusk overlay combined with weather overlay (simple: pick the more opaque)
-    overlay=def.overlay;
-  }
-  root.style.setProperty('--time-overlay',overlay);
-}
-
 /* ─── LANGUAGE ─── */
 function setLang(lang){
   curLang=lang;
@@ -3477,9 +2575,6 @@ function setLang(lang){
   updateUIText();
   renderSuggestions();
   renderQuickAccess();
-  renderFabMenu();        // v15: re-render slide-out menu labels in new language
-  renderAxisGrids();      // v15: re-render axis cards in new language
-  updateAxisUI();         // v15: refresh slider label + hint
   setAvatarStatus(t('ready'));
   // Reset speech to welcome
   showSpeech(t('welcomeSpeech'));
@@ -3506,13 +2601,6 @@ function updateUIText(){
   $('#lbl-model').textContent=t('model');
   $('#lbl-notion-key').textContent=t('notionKey');
   $('#lbl-notion-db').textContent=t('notionDb');
-  // v15: axis labels
-  const setLbl=(id,key,alt)=>{const el=$('#'+id);if(el)el.textContent=t(key)+(alt?' · '+alt:'');};
-  setLbl('lbl-location','locationTitle',curLang==='sl'?'Location':'Lokacija');
-  setLbl('lbl-weather','weatherTitle',curLang==='sl'?'Weather':'Vreme');
-  setLbl('lbl-time','timeTitle',curLang==='sl'?'Time of Day':'Čas dneva');
-  setLbl('lbl-time-slider','timeManual','');
-  // ts-label is updated by updateAxisUI()
   // Re-render open panels
   if($('#panel-news').classList.contains('open'))renderNews();
   if($('#panel-projects').classList.contains('open'))renderProjects();
@@ -4036,8 +3124,6 @@ function avatarClick(){
   if(isGrumpyWaking)return;
   if(isSpeaking||isThinking)return;
   blink();
-  // v15: TAP the avatar = toggle thought-bubble suggestions + brief reaction
-  toggleSuggestions();
   // v12: use personality presets (cozy/formal/playful + user name) instead of hardcoded lines
   // Pick a random emotion family, then use pickPreset('greetings') for the line
   const emotionPool=['happy','content','grateful','smug','mischievous','proud','annoyed','sarcastic','unimpressed','sideeye','dramatic','surprised','sleepy'];
@@ -4047,8 +3133,6 @@ function avatarClick(){
   // Use a greeting preset (with name + tone applied), fall back to a default if empty
   const line=pickPreset('greetings')||(curLang==='sl'?'<strong>Pozdravljena!</strong>':'<strong>Hello!</strong>');
   showSpeech('<strong>'+escapeHtml(line)+'</strong>');
-  // v15: signal "info" on tap (blue antenna pulse — greeting/info)
-  signalAnswer('info');
 }
 function setAvatarState(state){
   const av=$('#avatar');
@@ -4061,7 +3145,12 @@ function setAvatarState(state){
       setEmotion('neutral');
     }
     setAvatarStatus(t('ready'));
-    // v15: suggestions now stay hidden by default after conversation ends (they only reappear on tap)
+    // Restore pop-out pills after conversation ends
+    const sugg=$('#suggestions');
+    if(sugg){
+      sugg.style.opacity='1';
+      sugg.style.pointerEvents='auto';
+    }
     // v13: Remove has-report after speech completes — Printko grows back
     // Delay so the final speech is still readable
     setTimeout(()=>{
@@ -4136,13 +3225,12 @@ function wakeUp(){
   },GRUMPY_DURATION);
 }
 
-/* ─── WEATHER FX (particles) — v15: driven by curWeather, not curTheme ─── */
+/* ─── WEATHER FX (particles) ─── */
 function renderWeatherFx(){
   const fx=$('#weather-fx');
   if(!fx)return;
   fx.innerHTML='';
-  // v15: map curWeather to particle effects
-  if(curWeather==='rain'||curWeather==='storm'){
+  if(curTheme==='dez'){
     // 40 raindrops
     let svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%">';
     for(let i=0;i<40;i++){
@@ -4153,7 +3241,7 @@ function renderWeatherFx(){
     }
     svg+='</svg>';
     fx.innerHTML=svg;
-  }else if(curWeather==='snow'){
+  }else if(curTheme==='sneg'){
     // 30 snowflakes
     let svg='<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%">';
     for(let i=0;i<30;i++){
@@ -4171,9 +3259,6 @@ function renderWeatherFx(){
 function showSpeech(html,animate=true){
   const s=$('#speech');
   const txt=$('#speech-text');
-  // v15: also push the AI message to the structured chat-output panel.
-  // We append a fresh .co-msg element so each reply is preserved in the conversation.
-  const coEl=appendChatAI?appendChatAI(html):null;
   if(!animate){
     txt.innerHTML=html;
     s.classList.add('show');
@@ -4182,28 +3267,23 @@ function showSpeech(html,animate=true){
     return;
   }
   s.classList.add('show');
-  // Word-by-word reveal — both in the speech bubble AND in the chat-output panel
+  // Word-by-word reveal
   const words=html.split(' ');
   txt.innerHTML='';
-  if(coEl)coEl.innerHTML='';
   let i=0;
   isSpeaking=true;
   setAvatarState('speaking');
   const cursor='<span class="typing-cursor"></span>';
-  const coCursor='<span class="co-typing"></span>';
   function reveal(){
     if(i>=words.length){
       txt.innerHTML=html;
-      if(coEl)coEl.innerHTML=html;
       isSpeaking=false;
       setAvatarState('idle');
       // v14: TTS — speak after text reveal completes
       speakTTS(html);
       return;
     }
-    const partial=words.slice(0,i+1).join(' ');
-    txt.innerHTML=partial+cursor;
-    if(coEl)coEl.innerHTML=partial+coCursor;
+    txt.innerHTML=words.slice(0,i+1).join(' ')+cursor;
     i++;
     setTimeout(reveal,55+Math.random()*40);
   }
@@ -4253,43 +3333,12 @@ function speakTTS(html){
   }catch(e){console.warn('TTS error:',e)}
 }
 
-/* ─── v15: SUGGESTIONS — thought-bubble icon circles around Printko's head ───
-   Hidden by default. Toggle on avatar tap. Auto-hide after 8s of no interaction. */
-const SUGGESTION_ICONS=[
-  {emoji:'📊',qKey:'suggestion1',label:'ink'},        // ink usage
-  {emoji:'💰',qKey:'suggestion2',label:'projects'},   // project status
-  {emoji:'📋',qKey:'suggestion3',label:'prints'},     // recent prints
-  {emoji:'🔮',qKey:'suggestion4',label:'forecast'},   // forecast
-  {emoji:'📈',qKey:'suggestion5',label:'compare'},    // comparison
-  {emoji:'📦',qKey:'suggestion6',label:'stock'}       // stock levels
-];
+/* ─── SUGGESTIONS ─── */
 function renderSuggestions(){
   const c=$('#suggestions');
   if(!c)return;
-  c.innerHTML=SUGGESTION_ICONS.map((s,i)=>`<button class="sugg-bubble" data-i="${i}" onclick="askSuggestion(${i},this)" ontouchstart="event.preventDefault();askSuggestion(${i},this)" title="${escapeHtml(t(s.qKey))}" aria-label="${escapeHtml(t(s.qKey))}">${s.emoji}</button>`).join('');
-}
-function showSuggestions(){
-  const c=$('#suggestions');
-  if(!c)return;
-  suggestionsVisible=true;
-  c.classList.add('show');
-  resetSuggestionHideTimer();
-}
-function hideSuggestions(){
-  const c=$('#suggestions');
-  if(!c)return;
-  suggestionsVisible=false;
-  c.classList.remove('show');
-  if(suggestionHideTimer){clearTimeout(suggestionHideTimer);suggestionHideTimer=null}
-}
-function toggleSuggestions(){
-  if(suggestionsVisible)hideSuggestions();
-  else showSuggestions();
-}
-function resetSuggestionHideTimer(){
-  if(suggestionHideTimer)clearTimeout(suggestionHideTimer);
-  if(!suggestionsVisible)return;
-  suggestionHideTimer=setTimeout(hideSuggestions,SUGGESTION_AUTOHIDE);
+  const suggestions=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
+  c.innerHTML=suggestions.map((k,i)=>`<button class="sugg" data-i="${i}" onclick="askSuggestion(${i},this)" ontouchstart="event.preventDefault();askSuggestion(${i},this)">${t(k)}</button>`).join('');
 }
 function askSuggestion(i,el){
   const map=['suggestion1','suggestion2','suggestion3','suggestion4','suggestion5','suggestion6'];
@@ -4310,32 +3359,11 @@ function askSuggestion(i,el){
     // v12: use a quip preset instead of hardcoded lines
     const quip=pickPreset('quips')||(curLang==='sl'?'Hm.':'Hm.');
     showSpeech('<strong>'+escapeHtml(quip)+'</strong>',false);
-    signalAnswer('info');  // v15: blue antenna signals "thinking about it"
   }
-  // Hide suggestions as soon as a tap fires (chat starts)
-  hideSuggestions();
   $('#chat-in').value=text;
   // Process the actual answer after the brief reaction
   setTimeout(()=>sendMsg(),650);
 }
-
-/* ─── v15: signalAnswer(type) — pulse the corresponding antenna bright for 3s ───
-   type = 'success' (green) | 'error' (red) | 'info' (blue) */
-let signalTimer=null;
-function signalAnswer(type){
-  const av=$('#avatar');
-  if(!av)return;
-  // Clear any existing signal classes
-  av.classList.remove('signal-success','signal-error','signal-info');
-  if(signalTimer){clearTimeout(signalTimer);signalTimer=null}
-  // Add the new signal class
-  av.classList.add('signal-'+type);
-  // Remove after 3s
-  signalTimer=setTimeout(()=>{
-    av.classList.remove('signal-success','signal-error','signal-info');
-  },3000);
-}
-
 
 /* ─── QUICK ACCESS ─── */
 function renderQuickAccess(){
@@ -4566,83 +3594,37 @@ function sendMsg(){
   inp.value='';autoR(inp);
   // v13: close FAB panel after send
   fabClose();
-  // v15: collapse the FAB menu (slide icons back behind FAB)
-  collapseFabMenu();
   chatHistory.push({role:'user',text});
   resetIdle();
-  // v15: hide suggestions during conversation (chat starts)
-  hideSuggestions();
+  // Hide pop-out pills during conversation (fade out, no blue highlight)
+  $('#suggestions').style.opacity='0.25';
+  $('#suggestions').style.pointerEvents='none';
   // v13: trigger has-report — Printko shrinks and moves up to make room
   document.querySelector('.stage').classList.add('has-report');
-  // v15: show the structured chat-output panel and add the user's question
-  openChatOutput();
-  appendChatUser(text);
   // Show user message in speech bubble briefly
   $('#speech').classList.add('show');
   $('#speech-text').innerHTML='<strong style="color:var(--tlo)">'+escapeHtml(text)+'</strong>';
   // Thinking state
   setAvatarState('thinking');
-  // v15: signal "info" (blue antenna) while thinking
-  signalAnswer('info');
   // v14: Try live OpenRouter agent if key + model set, fall back to offline
   const orKey=localStorage.getItem('es-or-key');
   const useLive=curModel!=='offline'&&orKey;
   if(useLive){
     callLiveAgent(text,curModel).then(reply=>{
       showSpeech(reply);
-      signalAnswer('success');  // v15: green antenna — successful AI reply
       // v14: animate paper print on successful reply
       animatePaperPrint();
     }).catch(err=>{
       console.warn('Live agent failed, falling back to offline:',err);
       const reply=generateReply(text);
       showSpeech(reply);
-      signalAnswer('error');  // v15: red antenna — fallback / error
     });
   }else{
     setTimeout(()=>{
       const reply=generateReply(text);
       showSpeech(reply);
-      // v15: signal "success" for offline-generated data replies (they are still valid data)
-      signalAnswer('success');
     },700+Math.random()*500);
   }
-}
-
-/* ─── v15: structured chat-output panel ─── */
-function openChatOutput(){
-  const c=$('#chat-output');
-  if(c)c.classList.add('open');
-}
-function closeChatOutput(){
-  const c=$('#chat-output');
-  if(c)c.classList.remove('open');
-}
-function appendChatUser(text){
-  const c=$('#chat-output');
-  if(!c)return;
-  const el=document.createElement('div');
-  el.className='co-user';
-  el.textContent=text;
-  c.appendChild(el);
-  // Auto-scroll to bottom
-  c.scrollTop=c.scrollHeight;
-}
-function appendChatAI(html){
-  const c=$('#chat-output');
-  if(!c)return;
-  const el=document.createElement('div');
-  el.className='co-msg';
-  el.innerHTML=html;
-  c.appendChild(el);
-  // Auto-scroll to bottom
-  c.scrollTop=c.scrollHeight;
-  return el;
-}
-/* Clear chat output (for /clear or new conversation) */
-function clearChatOutput(){
-  const c=$('#chat-output');
-  if(c)c.innerHTML='';
 }
 
 /* ─── v13: FAB BUTTON + SPEECH RECOGNITION ─── */
@@ -4684,83 +3666,21 @@ try{
 function fabClick(e){
   // If holding (speech), don't toggle panel
   if(fabIsHolding)return;
-  // v15: Press behavior — toggle the slide-out menu icons + small chat input
-  const wrap=$('#fab-wrap');
+  // Toggle expanded input panel
   const fab=$('#fab');
   const panel=$('#fab-panel');
-  const isPressed=wrap.classList.contains('pressed');
-  if(isPressed){
-    // Already pressed — toggle the input panel open/closed
-    if(panel.classList.contains('open')){
-      fabClose();
-    }else{
-      fab.classList.add('expanded');
-      panel.classList.add('open');
-      setTimeout(()=>{const inp=$('#chat-in');if(inp)inp.focus()},300);
-      const hint=$('#fab-hint');
-      if(hint)hint.textContent=speechSupported?t('listeningHint'):t('listeningHintNoSR');
-    }
+  if(panel.classList.contains('open')){
+    fabClose();
   }else{
-    // First press — slide menu icons out from behind FAB + open input
-    wrap.classList.add('pressed');
     fab.classList.add('expanded');
     panel.classList.add('open');
     setTimeout(()=>{const inp=$('#chat-in');if(inp)inp.focus()},300);
+    // Update hint
     const hint=$('#fab-hint');
-    if(hint)hint.textContent=speechSupported?t('listeningHint'):t('listeningHintNoSR');
+    if(hint)hint.textContent=speechSupported
+      ?(curLang==='sl'?'Prideri za govor · Enter za pošiljanje':'Hold to speak · Enter to send')
+      :(curLang==='sl'?'Enter za pošiljanje':'Enter to send');
   }
-}
-
-/* v15: collapse the slide-out menu (icons return behind FAB) */
-function collapseFabMenu(){
-  const wrap=$('#fab-wrap');
-  if(wrap)wrap.classList.remove('pressed');
-}
-
-/* v15: render the 6 slide-out menu icons inside #fab-menu.
-   These are the same report icons as before, but positioned to fan out from the FAB. */
-function renderFabMenu(){
-  const c=$('#fab-menu');
-  if(!c)return;
-  // v15: same 6 report icons that renderQuickAccess uses, but laid out as slide-out menu
-  const reports=[
-    {
-      id:'ink',
-      label:curLang==='sl'?'Črnilo':'Ink',
-      icon:'<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/><circle cx="12" cy="16" r="2" fill="currentColor" stroke="none"/>',
-      badge:DB.inkLevels.w+'%'
-    },
-    {
-      id:'finances',
-      label:curLang==='sl'?'Finance':'Finance',
-      icon:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
-      badge:'€191'
-    },
-    {
-      id:'projects',
-      label:curLang==='sl'?'Projekti':'Projects',
-      icon:'<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="6" y1="13" x2="18" y2="13"/><line x1="6" y1="17" x2="14" y2="17"/>',
-      badge:'5'
-    },
-    {
-      id:'prints',
-      label:curLang==='sl'?'Tiski':'Prints',
-      icon:'<polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
-      badge:'7'
-    },
-    {
-      id:'history',
-      label:curLang==='sl'?'Zgod.':'History',
-      icon:'<path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>'
-    },
-    {
-      id:'news',
-      label:curLang==='sl'?'Novice':'News',
-      icon:'<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/>',
-      badge:DB.news.filter(n=>n.unread).length||''
-    }
-  ];
-  c.innerHTML=reports.map(r=>`<button class="report-icon" onclick="openPanel('${r.id}')" aria-label="${r.label}"><svg viewBox="0 0 24 24">${r.icon}</svg><span class="ri-label">${r.label}</span>${r.badge?`<span class="ri-badge">${r.badge}</span>`:''}</button>`).join('');
 }
 
 function fabClose(){
@@ -4885,26 +3805,17 @@ const SCENE_DEFS={
 };
 
 function renderScene(){
-  // v15: combine all 3 axes — location (ground + ambient) × weather (particles) × time (sky colors)
-  const locDef=LOCATION_DEFS[curLocation]||LOCATION_DEFS.forest;
-  const wDef=WEATHER_DEFS[curWeather]||WEATHER_DEFS.clear;
-  const tDef=TIME_DEFS[curTimeOfDay]||TIME_DEFS.day;
-  // Apply time-of-day CSS variables (sky colors + overlay tint)
-  applyTimeCSS();
-  // Legacy compat: keep SCENE_DEFS intact for any external references.
   const def=SCENE_DEFS[curTheme]||SCENE_DEFS.trta;
-  // Sky layer — large SVG that circles. Colors now come from TIME_DEFS (via CSS vars),
-  // but we still render the sun/moon/stars/clouds/fog inside this SVG.
+  // Sky layer — large SVG that circles
   const sky=$('#scene-sky');
   if(sky){
     let svg=`<svg viewBox="0 0 2000 2000" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%">`;
-    // Sky gradient uses TIME_DEFS colors directly (so transitions animate cleanly)
-    svg+=`<defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${tDef.skyTop}"/><stop offset="60%" stop-color="${tDef.skyMid}"/><stop offset="100%" stop-color="${tDef.skyBot}"/></linearGradient></defs>`;
+    // Sky gradient
+    svg+=`<defs><linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${def.sky[0]}"/><stop offset="60%" stop-color="${def.sky[1]}"/><stop offset="100%" stop-color="${def.sky[2]}"/></linearGradient></defs>`;
     svg+=`<rect width="2000" height="2000" fill="url(#skyGrad)" opacity="0.6"/>`;
-    // Sun (clear/cloudy weather, day/dawn/dusk time)
-    const showSun=tDef.showSun&&(wDef.elements.includes('sun-rays')||wDef.elements.includes('clouds')||curWeather==='clear'||curWeather==='cloudy');
-    if(showSun){
-      svg+=`<g class="sun-rays" stroke="${curTimeOfDay==='dusk'?'#d8482a':curTimeOfDay==='dawn'?'#e88820':'#d8a820'}" stroke-width="3" fill="none" opacity="0.18" stroke-linecap="round" transform="translate(1000,300)">`;
+    // Sun or moon
+    if(def.elements.includes('sun')){
+      svg+=`<g class="sun-rays" stroke="#d8482a" stroke-width="3" fill="none" opacity="0.18" stroke-linecap="round" transform="translate(1000,300)">`;
       for(let a=0;a<360;a+=30){
         const r1=120,r2=160;
         const x1=Math.cos(a*Math.PI/180)*r1,y1=Math.sin(a*Math.PI/180)*r1;
@@ -4912,18 +3823,16 @@ function renderScene(){
         svg+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
       }
       svg+=`</g>`;
-      svg+=`<circle class="sun-core" cx="1000" cy="300" r="80" fill="${curTimeOfDay==='dusk'?'#f88848':curTimeOfDay==='dawn'?'#fcb888':'#f8b894'}" opacity="0.35"/>`;
+      svg+=`<circle class="sun-core" cx="1000" cy="300" r="80" fill="#f8b894" opacity="0.35"/>`;
       svg+=`<circle class="sun-core" cx="1000" cy="300" r="55" fill="#fcd8a8" opacity="0.5"/>`;
     }
-    // Moon (night time)
-    if(tDef.showMoon){
+    if(def.elements.includes('moon')){
       svg+=`<g class="moon" transform="translate(1000,250)">`;
       svg+=`<circle r="70" fill="#f0ead8" opacity="0.9"/>`;
-      svg+=`<circle cx="25" cy="-10" r="65" fill="${tDef.skyBot}" opacity="0.95"/>`;
+      svg+=`<circle cx="25" cy="-10" r="65" fill="${def.sky[2]}" opacity="0.95"/>`;
       svg+=`</g>`;
     }
-    // Stars (night)
-    if(tDef.showStars){
+    if(def.elements.includes('stars')){
       svg+=`<g fill="#e8e4f4">`;
       for(let i=0;i<40;i++){
         const x=Math.random()*2000,y=Math.random()*1200,r=1+Math.random()*2;
@@ -4933,15 +3842,14 @@ function renderScene(){
       // Comet
       svg+=`<g class="comet" transform="translate(300,200)"><circle r="4" fill="#c8a8ff"/><path d="M0,0 L-80,-30 L-100,-35" stroke="#c8a8ff" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/></g>`;
     }
-    // Clouds (cloudy/rain/snow/storm weather)
-    if(wDef.elements.includes('clouds')){
-      svg+=`<g opacity="${curTimeOfDay==='night'?0.3:0.4}">`;
+    // Clouds
+    if(def.elements.includes('clouds')){
+      svg+=`<g opacity="0.4">`;
       for(let i=0;i<5;i++){
         const cx=200+i*400+Math.random()*100;
         const cy=200+Math.random()*300;
         const sc=0.6+Math.random()*0.6;
-        const cloudFill=curTimeOfDay==='night'?'#5a5078':(curWeather==='storm'?'#6a6a78':'white');
-        svg+=`<g class="cloud" transform="translate(${cx},${cy}) scale(${sc})" fill="${cloudFill}" opacity="0.6">`;
+        svg+=`<g class="cloud" transform="translate(${cx},${cy}) scale(${sc})" fill="white" opacity="0.6">`;
         svg+=`<ellipse cx="0" cy="0" rx="60" ry="22"/>`;
         svg+=`<ellipse cx="-35" cy="5" rx="40" ry="18"/>`;
         svg+=`<ellipse cx="35" cy="5" rx="45" ry="20"/>`;
@@ -4949,8 +3857,8 @@ function renderScene(){
       }
       svg+=`</g>`;
     }
-    // Fog (fog weather)
-    if(wDef.elements.includes('fog')){
+    // Fog
+    if(def.elements.includes('fog')){
       svg+=`<g opacity="0.3">`;
       for(let i=0;i<6;i++){
         const cx=100+i*350+Math.random()*100;
@@ -4962,121 +3870,89 @@ function renderScene(){
     svg+=`</svg>`;
     sky.innerHTML=svg;
   }
-  // Ground/sea layer — driven by LOCATION_DEFS (ground color + groundType + ambient elements)
+  // Ground/sea layer
   const ground=$('#scene-ground');
   if(ground){
     let svg=`<svg viewBox="0 0 1000 300" preserveAspectRatio="xMidYMax slice" style="width:100%;height:100%">`;
-    const gColor=locDef.ground;
-    svg+=`<defs><linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${tDef.skyBot}" stop-opacity="0.5"/><stop offset="40%" stop-color="${gColor}" stop-opacity="0.7"/><stop offset="100%" stop-color="${gColor}"/></linearGradient></defs>`;
-    if(locDef.groundType==='sea'){
-      // Ocean: sea waves + fish + sailboat + dolphins
+    svg+=`<defs><linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${def.sky[2]}" stop-opacity="0.5"/><stop offset="40%" stop-color="${def.ground}" stop-opacity="0.7"/><stop offset="100%" stop-color="${def.ground}"/></linearGradient></defs>`;
+    if(def.groundType==='sea'){
+      // Sea waves
       svg+=`<rect width="1000" height="300" fill="url(#groundGrad)"/>`;
-      svg+=`<g stroke="${tDef.skyBot}" stroke-width="2" fill="none" opacity="0.4">`;
+      svg+=`<g stroke="${def.sky[2]}" stroke-width="2" fill="none" opacity="0.4">`;
       svg+=`<path class="wave" d="M-200,80 Q-50,60 100,80 T400,80 T700,80 T1000,80 T1300,80"/>`;
       svg+=`<path class="wave wave-2" d="M-200,140 Q-50,120 100,140 T400,140 T700,140 T1000,140 T1300,140"/>`;
       svg+=`<path class="wave wave-3" d="M-200,200 Q-50,180 100,200 T400,200 T700,200 T1000,200 T1300,200"/>`;
       svg+=`</g>`;
       // Fish
-      svg+=`<g class="fish fish-1" fill="${gColor}" opacity="0.5"><ellipse cx="300" cy="120" rx="12" ry="6"/><path d="M288,120 L280,114 L280,126 Z"/><circle cx="306" cy="118" r="1.5" fill="white"/></g>`;
-      svg+=`<g class="fish fish-2" fill="${tDef.skyBot}" opacity="0.4"><ellipse cx="600" cy="180" rx="9" ry="5"/><path d="M591,180 L584,176 L584,184 Z"/></g>`;
+      svg+=`<g class="fish fish-1" fill="${def.ground}" opacity="0.5"><ellipse cx="300" cy="120" rx="12" ry="6"/><path d="M288,120 L280,114 L280,126 Z"/><circle cx="306" cy="118" r="1.5" fill="white"/></g>`;
+      svg+=`<g class="fish fish-2" fill="${def.sky[2]}" opacity="0.4"><ellipse cx="600" cy="180" rx="9" ry="5"/><path d="M591,180 L584,176 L584,184 Z"/></g>`;
       // Sailboat
-      svg+=`<g class="sailboat" opacity="0.5" transform="translate(700,50)"><path d="M-25,35 L25,35 L15,45 L-15,45 Z" fill="${gColor}"/><line x1="0" y1="35" x2="0" y2="-20" stroke="${gColor}" stroke-width="2"/><path d="M0,-20 L0,25 L22,25 Z" fill="white" opacity="0.7"/></g>`;
-      // Dolphins (v15: location-specific element)
-      svg+=`<g class="fish fish-1" fill="${tDef.skyBot}" opacity="0.4" transform="translate(120,180)"><path d="M0,0 Q15,-12 30,0 Q40,5 30,10 Q15,15 0,5 Z"/></g>`;
-    }else if(locDef.groundType==='peaks'){
-      // Mountains: peaks + snow caps
+      svg+=`<g class="sailboat" opacity="0.5" transform="translate(700,50)"><path d="M-25,35 L25,35 L15,45 L-15,45 Z" fill="${def.ground}"/><line x1="0" y1="35" x2="0" y2="-20" stroke="${def.ground}" stroke-width="2"/><path d="M0,-20 L0,25 L22,25 Z" fill="white" opacity="0.7"/></g>`;
+    }else if(def.groundType==='snow'){
       svg+=`<rect width="1000" height="300" fill="url(#groundGrad)"/>`;
-      svg+=`<g fill="${gColor}" opacity="0.6">`;
-      svg+=`<path d="M0,300 L200,80 L350,300 Z"/>`;
-      svg+=`<path d="M280,300 L500,40 L680,300 Z"/>`;
-      svg+=`<path d="M600,300 L780,120 L920,300 Z"/>`;
-      svg+=`</g>`;
-      // Snow caps on peaks
-      svg+=`<g fill="white" opacity="0.85">`;
-      svg+=`<path d="M180,110 L200,80 L220,110 L210,115 L200,105 L190,115 Z"/>`;
-      svg+=`<path d="M475,70 L500,40 L525,70 L515,78 L500,62 L485,78 Z"/>`;
-      svg+=`<path d="M760,150 L780,120 L800,150 L790,158 L780,142 L770,158 Z"/>`;
-      svg+=`</g>`;
-      // Avalanche (subtle drifting snow) — only when weather is snow
-      if(curWeather==='snow'){
-        svg+=`<g opacity="0.5" fill="white">`;
-        svg+=`<ellipse cx="500" cy="120" rx="40" ry="8"/>`;
-        svg+=`<ellipse cx="500" cy="140" rx="55" ry="6"/>`;
-        svg+=`</g>`;
-      }
-    }else if(locDef.groundType==='forest'){
-      // Forest: pine trees on ground
+      // Snowman
+      svg+=`<g class="snowman" opacity="0.8" transform="translate(820,120)"><circle cx="0" cy="80" r="35" fill="white" stroke="${def.ground}" stroke-width="1.5"/><circle cx="0" cy="25" r="27" fill="white" stroke="${def.ground}" stroke-width="1.5"/><circle cx="0" cy="-18" r="20" fill="white" stroke="${def.ground}" stroke-width="1.5"/><circle cx="-6" cy="-22" r="2" fill="#1a2638"/><circle cx="6" cy="-22" r="2" fill="#1a2638"/><path d="M0,-13 L10,-10 L0,-7 Z" fill="#d8482a"/><line x1="-27" y1="22" x2="-50" y2="5" stroke="#5a4838" stroke-width="2"/><line x1="27" y1="22" x2="50" y2="5" stroke="#5a4838" stroke-width="2"/></g>`;
+    }else if(def.groundType==='forest'){
       svg+=`<rect width="1000" height="300" fill="url(#groundGrad)"/>`;
-      svg+=`<g fill="${gColor}" opacity="0.5">`;
+      // Pine trees on ground
+      svg+=`<g fill="${def.ground}" opacity="0.5">`;
       svg+=`<path class="pine" d="M100,280 L70,280 L100,180 L80,180 L100,100 L120,180 L100,180 Z"/>`;
       svg+=`<path class="pine" d="M850,290 L820,290 L850,200 L830,200 L850,130 L870,200 L850,200 Z"/>`;
       svg+=`<path class="pine" d="M500,285 L475,285 L500,210 L485,210 L500,150 L515,210 L500,210 Z"/>`;
       svg+=`</g>`;
-    }else if(locDef.groundType==='sand'){
-      // Beach: sand dunes
-      svg+=`<rect width="1000" height="300" fill="url(#groundGrad)"/>`;
-      svg+=`<g fill="${gColor}" opacity="0.6">`;
-      svg+=`<path d="M0,300 Q200,240 400,290 T800,280 T1000,290 L1000,300 Z"/>`;
-      svg+=`</g>`;
-      // Palm tree silhouette
-      svg+=`<g opacity="0.6" transform="translate(180,200)">`;
-      svg+=`<line x1="0" y1="0" x2="-8" y2="-80" stroke="#5a4838" stroke-width="4"/>`;
-      svg+=`<g fill="${gColor}" opacity="0.7"><path d="M-8,-80 Q-30,-90 -50,-78 Q-30,-72 -8,-78 Z"/><path d="M-8,-80 Q14,-92 36,-78 Q14,-72 -8,-78 Z"/><path d="M-8,-80 Q-28,-100 -42,-118 Q-22,-100 -8,-80 Z"/><path d="M-8,-80 Q12,-102 26,-118 Q6,-100 -8,-80 Z"/></g>`;
-      svg+=`</g>`;
-      // Crab (v15: location-specific element) — small dark dot moving
-      svg+=`<g class="fish fish-2" fill="#a04030" opacity="0.6" transform="translate(600,250)"><ellipse cx="0" cy="0" rx="6" ry="3"/><line x1="-6" y1="-2" x2="-12" y2="-5" stroke="#a04030" stroke-width="1.5"/><line x1="6" y1="-2" x2="12" y2="-5" stroke="#a04030" stroke-width="1.5"/></g>`;
     }else{
-      // Fallback: flat ground
       svg+=`<rect width="1000" height="300" fill="url(#groundGrad)"/>`;
-      svg+=`<g stroke="${gColor}" stroke-width="1.5" fill="none" opacity="0.3">`;
-      for(let i=0;i<20;i++){
-        const x=i*50+Math.random()*30;
-        svg+=`<path d="M${x},280 Q${x+3},270 ${x+5},275 M${x},280 Q${x-3},270 ${x-5},275"/>`;
+      // Grass tufts for grass/desert
+      if(def.groundType==='grass'||def.groundType==='desert'){
+        svg+=`<g stroke="${def.ground}" stroke-width="1.5" fill="none" opacity="0.3">`;
+        for(let i=0;i<20;i++){
+          const x=i*50+Math.random()*30;
+          svg+=`<path d="M${x},280 Q${x+3},270 ${x+5},275 M${x},280 Q${x-3},270 ${x-5},275"/>`;
+        }
+        svg+=`</g>`;
       }
-      svg+=`</g>`;
     }
     svg+=`</svg>`;
     ground.innerHTML=svg;
   }
-  // Ambient decorations — combines location + weather elements
+  // Ambient decorations (birds, butterflies, leaves)
   const deco=$('#scene-deco');
   if(deco){
     let svg=`<svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" style="position:absolute;width:100%;height:100%">`;
-    const allElements=[...locDef.elements,...wDef.elements];
-    // Birds (forest, beach) — drawn for "birds" or "gulls"
-    if(allElements.includes('birds')||allElements.includes('gulls')){
+    // Birds
+    if(def.elements.includes('birds')){
       for(let i=0;i<5;i++){
         const cx=100+i*200+Math.random()*100;
         const cy=100+Math.random()*200;
         const sc=0.6+Math.random()*0.5;
-        const strokeColor=tDef.showStars?'#a8a8c8':tDef.skyBot;
-        svg+=`<g class="bird bird-${i+1}" stroke="${strokeColor}" stroke-width="${1.5}" fill="none" stroke-linecap="round" opacity="0.45" transform="translate(${cx},${cy}) scale(${sc})">`;
+        svg+=`<g class="bird bird-${i+1}" stroke="${def.sky[2]}" stroke-width="${1.5}" fill="none" stroke-linecap="round" opacity="0.45" transform="translate(${cx},${cy}) scale(${sc})">`;
         svg+=`<path d="M-12,0 Q-6,-5 0,0 Q6,-5 12,0"/>`;
         svg+=`</g>`;
       }
     }
-    // Eagles (mountains)
-    if(allElements.includes('eagles')){
+    // Butterflies
+    if(def.elements.includes('butterflies')){
       for(let i=0;i<3;i++){
-        const cx=200+i*350+Math.random()*100;
-        const cy=150+Math.random()*150;
-        svg+=`<g class="bird bird-${i+1}" stroke="${tDef.skyBot}" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5" transform="translate(${cx},${cy}) scale(1.1)">`;
-        svg+=`<path d="M-16,0 Q-8,-7 0,0 Q8,-7 16,0"/>`;
+        const cx=200+i*300+Math.random()*100;
+        const cy=300+Math.random()*200;
+        svg+=`<g class="butterfly" fill="${def.sky[2]}" opacity="0.5" transform="translate(${cx},${cy})">`;
+        svg+=`<g class="butterfly-wings"><ellipse cx="0" cy="0" rx="8" ry="6"/><ellipse cx="-10" cy="-2" rx="6" ry="4" opacity="0.8"/><ellipse cx="10" cy="-2" rx="6" ry="4" opacity="0.8"/></g>`;
+        svg+=`<ellipse cx="0" cy="0" rx="1" ry="5" fill="${def.ground}"/>`;
         svg+=`</g>`;
       }
     }
-    // Falling leaves (forest)
-    if(allElements.includes('leaves')){
+    // Falling leaves
+    if(def.elements.includes('leaves')){
       for(let i=0;i<8;i++){
         const cx=100+i*120+Math.random()*80;
         const cy=Math.random()*300;
-        svg+=`<g class="leaf" fill="${locDef.ground}" opacity="0.4" transform="translate(${cx},${cy})">`;
+        svg+=`<g class="leaf" fill="${def.ground}" opacity="0.4" transform="translate(${cx},${cy})">`;
         svg+=`<path d="M-6,0 Q0,-8 6,0 Q0,8 -6,0 Z"/>`;
         svg+=`</g>`;
       }
     }
-    // Fireflies (night)
-    if(tDef.showStars){
+    // v14: Fireflies (night themes)
+    if(def.elements.includes('fireflies')){
       for(let i=0;i<15;i++){
         const cx=100+Math.random()*800;
         const cy=400+Math.random()*400;
@@ -5086,8 +3962,8 @@ function renderScene(){
         svg+=`</g>`;
       }
     }
-    // Rainbow (clear after rain — clear weather with previous rain history)
-    if(curWeather==='clear'&&(curLocation==='forest'||curLocation==='mountains')){
+    // v14: Rainbow (after rain / sunny with clouds)
+    if(def.elements.includes('rainbow')){
       svg+=`<g class="rainbow" opacity="0.35" transform="translate(300,500)">`;
       svg+=`<path d="M0,0 A 200 200 0 0 1 400 0" stroke="#e84a4a" stroke-width="8" fill="none"/>`;
       svg+=`<path d="M0,0 A 210 210 0 0 1 420 0" stroke="#e8a04a" stroke-width="8" fill="none"/>`;
@@ -5174,12 +4050,11 @@ function detectWeather(){
       .then(data=>{
         const code=data.current.weather_code;
         const temp=Math.round(data.current.temperature_2m);
-        // v15: set curWeather axis instead of curTheme
-        const w=weatherCodeToWeather(code);
-        setWeather(w);
+        const theme=weatherCodeToTheme(code);
+        setTheme(theme);
         const codeDesc=weatherCodeDesc(code,curLang);
-        if(hint)hint.textContent=`${codeDesc} · ${temp}°C · ${w}`;
-        toast((curLang==='sl'?'Vreme: ':'Weather: ')+codeDesc+' · '+temp+'°C → '+w,'success');
+        if(hint)hint.textContent=`${codeDesc} · ${temp}°C · ${theme}`;
+        toast(curLang==='sl'?'Vreme: ':'Weather: '+codeDesc+' · '+temp+'°C → '+theme,'success');
       })
       .catch(err=>{
         if(hint)hint.textContent=curLang==='sl'?'Napaka':'Error';
@@ -5190,33 +4065,19 @@ function detectWeather(){
     toast(curLang==='sl'?'Lokacija zavrnjena':'Location denied','warn');
   },{timeout:10000});
 }
-// v14: WMO weather codes → theme mapping (kept for backward compat)
+// WMO weather codes → theme mapping
 function weatherCodeToTheme(code){
-  if(code===0)return 'solnce';
-  if(code<=2)return 'trta';
-  if(code===3)return 'meglja';
-  if(code<=48)return 'meglja';
-  if(code<=57)return 'dez';
-  if(code<=67)return 'dez';
-  if(code<=77)return 'sneg';
-  if(code<=82)return 'dez';
-  if(code<=86)return 'sneg';
-  if(code>=95)return 'noc';
-  return 'trta';
-}
-// v15: WMO weather codes → curWeather axis (clear/cloudy/rain/snow/fog/storm)
-function weatherCodeToWeather(code){
-  if(code===0)return 'clear';          // Clear sky
-  if(code<=2)return 'cloudy';          // Partly cloudy
-  if(code===3)return 'cloudy';         // Overcast
-  if(code<=48)return 'fog';            // Fog
-  if(code<=57)return 'rain';           // Drizzle
-  if(code<=67)return 'rain';           // Rain
-  if(code<=77)return 'snow';           // Snow
-  if(code<=82)return 'rain';           // Rain showers
-  if(code<=86)return 'snow';           // Snow showers
-  if(code>=95)return 'storm';          // Thunderstorm
-  return 'clear';                       // Default
+  if(code===0)return 'solnce';          // Clear sky → sunny
+  if(code<=2)return 'trta';             // Partly cloudy → vine (pleasant)
+  if(code===3)return 'meglja';          // Overcast → fog
+  if(code<=48)return 'meglja';          // Fog → fog
+  if(code<=57)return 'dez';             // Drizzle → rain
+  if(code<=67)return 'dez';             // Rain → rain
+  if(code<=77)return 'sneg';            // Snow → snow
+  if(code<=82)return 'dez';             // Rain showers → rain
+  if(code<=86)return 'sneg';            // Snow showers → snow
+  if(code>=95)return 'noc';             // Thunderstorm → dark/dramatic
+  return 'trta';                         // Default
 }
 function weatherCodeDesc(code,lang){
   const sl={0:'Jasno',1:'Pretežno jasno',2:'Delno oblačno',3:'Oblačno',45:'Megla',48:'Megla',51:'Rosnenje',53:'Rosnenje',55:'Rosnenje',61:'Dež',63:'Dež',65:'Dež',71:'Sneg',73:'Sneg',75:'Sneg',77:'Sneg',80:'Plohe',81:'Plohe',82:'Plohe',85:'Sneg',86:'Sneg',95:'Nevihta',96:'Nevihta',99:'Nevihta'};
@@ -5287,8 +4148,6 @@ function generateReply(text){
 function openSettings(){
   $('#modal-settings').classList.add('open');
   renderThemeGrid();
-  // v15: render axis grids (location / weather / time-of-day)
-  renderAxisGrids();
   // v12: load personality UI + initial presets view
   loadPersonality();
   showPresets('greetings',document.querySelector('.panel-tab[data-preset="greetings"]'));
@@ -5362,20 +4221,6 @@ function boot(){
     // Load saved prefs
     curTheme=localStorage.getItem('es-theme')||'trta';
     curLang=localStorage.getItem('es-lang')||'sl';
-    // v15: load the 3 independent background axes
-    curLocation=localStorage.getItem('es-location')||'forest';
-    curWeather=localStorage.getItem('es-weather')||'clear';
-    curTimeOfDay=localStorage.getItem('es-time')||'day';
-    // If we have an old theme but no axes, derive axes from the theme (backward compat)
-    if(!localStorage.getItem('es-location')&&!localStorage.getItem('es-weather')&&!localStorage.getItem('es-time')){
-      const axes=THEME_TO_AXES[curTheme]||THEME_TO_AXES.trta;
-      curLocation=axes.location;
-      curWeather=axes.weather;
-      curTimeOfDay=axes.time;
-      localStorage.setItem('es-location',curLocation);
-      localStorage.setItem('es-weather',curWeather);
-      localStorage.setItem('es-time',curTimeOfDay);
-    }
     document.documentElement.dataset.theme=curTheme;
     document.documentElement.lang=curLang;
     $('#lang-label').textContent=curLang.toUpperCase();
@@ -5383,16 +4228,12 @@ function boot(){
     loadKeysUI();
     loadPersonality();           // v12: load user name, tone, shape, presets
     loadTTS();                   // v14: load TTS preference
-    loadAutoWeather();           // v14: load auto-weather preference (now sets curWeather)
+    loadAutoWeather();           // v14: load auto-weather preference
     renderThemeGrid();
     renderSuggestions();
     renderQuickAccess();
-    renderFabMenu();             // v15: render the slide-out menu icons
     renderWeatherFx();
     renderScene();
-    applyTimeCSS();              // v15: apply time-of-day CSS vars
-    updateAxisUI();              // v15: sync slider + axis UI to current state
-    startTimeAutoAdvance();      // v15: auto-advance time every 10 min
     // Show welcome speech after a beat (v12: uses personality name if set)
     setTimeout(()=>{
       $('#speech').classList.add('show');
@@ -5425,10 +4266,8 @@ function boot(){
       // or buttons/inputs/links
       const target=e.target;
       const isAvatar=target.closest('#avatar');
-      const isControl=target.closest('button,input,select,textarea,a,.sugg-bubble,.qa-pill,.panel-tab,.theme-card,.axis-card,.shape-card,.pi-del,.preset-add button,.panel-close,.tb-btn,.send-btn,.report-icon');
+      const isControl=target.closest('button,input,select,textarea,a,.sugg,.qa-pill,.panel-tab,.theme-card,.shape-card,.pi-del,.preset-add button,.panel-close,.tb-btn,.send-btn');
       if(isAvatar||isControl){
-        // v15: reset suggestion auto-hide timer when user interacts
-        if(suggestionsVisible)resetSuggestionHideTimer();
         resetIdle();
         return;
       }
